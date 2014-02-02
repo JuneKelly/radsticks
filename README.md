@@ -1,6 +1,6 @@
 # rauth
 
-Clojure and AngularJS in perfect harmony.
+A toy app for exploring token based auth with Clojure and AngularJS
 
 
 # Dependencies
