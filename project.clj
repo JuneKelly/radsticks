@@ -38,7 +38,8 @@
    {:dependencies [[ring-mock "0.1.5"]
                     [ring/ring-devel "1.2.1"]]
     :env {:selmer-dev true
-          :db-uri "mongodb://localhost/rauth"}}
+          :db-uri "mongodb://localhost/rauth"
+          :secret "areallybadsecretwhichshouldnotbeusedinproduction"}}
 
    :testing
    {:dependencies [[ring-mock "0.1.5"]
