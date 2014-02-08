@@ -1,5 +1,5 @@
-(ns rauth.auth
-  (require [rauth.db :as db]
+(ns radsticks.auth
+  (require [radsticks.db :as db]
            [environ.core  :refer [env]]
            [noir.util.crypt :as crypt]
            [clj-jwt.core  :refer :all]

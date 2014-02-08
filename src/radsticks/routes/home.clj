@@ -1,7 +1,7 @@
-(ns rauth.routes.home
+(ns radsticks.routes.home
   (:use compojure.core)
-  (:require [rauth.views.layout :as layout]
-            [rauth.util :as util]))
+  (:require [radsticks.views.layout :as layout]
+            [radsticks.util :as util]))
 
 
 (defn home-page []

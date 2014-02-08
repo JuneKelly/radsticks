@@ -1,4 +1,4 @@
-(defproject rauth "0.1.0"
+(defproject radsticks "0.1.0"
   :description "A toy app to demonstrate token based auth with clojure and angularjs"
   :url "http://example.com/FIXME"
 
@@ -18,14 +18,14 @@
                  [environ "0.4.0"]]
 
   :aot :all
-  :repl-options {:init-ns rauth.repl}
+  :repl-options {:init-ns radsticks.repl}
 
   :plugins [[lein-ring "0.8.7"]
             [lein-environ "0.4.0"]]
 
-  :ring {:handler rauth.handler/app
-         :init    rauth.handler/init
-         :destroy rauth.handler/destroy}
+  :ring {:handler radsticks.handler/app
+         :init    radsticks.handler/init
+         :destroy radsticks.handler/destroy}
 
   :profiles
   {:production
@@ -38,13 +38,14 @@
    {:dependencies [[ring-mock "0.1.5"]
                     [ring/ring-devel "1.2.1"]]
     :env {:selmer-dev true
-          :db-uri "mongodb://localhost/rauth"
+          :db-uri "mongodb://localhost/radsticks"
           :secret "areallybadsecretwhichshouldnotbeusedinproduction"}}
 
    :testing
    {:dependencies [[ring-mock "0.1.5"]
                    [ring/ring-devel "1.2.1"]]
     :env {:selmer-dev true
-          :db-uri "mongodb://localhost/rauth_test"}}}
+          :db-uri "mongodb://localhost/radsticks_test"
+          :secret "anevenworsesecret"}}}
 
   :min-lein-version "2.0.0")

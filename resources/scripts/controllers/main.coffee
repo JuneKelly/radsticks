@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('rauthApp')
+angular.module('radsticksApp')
   .controller 'MainCtrl', ($scope, $http) ->
     $scope.niceThings = []
 

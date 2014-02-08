@@ -1,7 +1,7 @@
-(ns rauth.handler
+(ns radsticks.handler
   (:require [compojure.core :refer [defroutes]]
-            [rauth.routes.home :refer [home-routes]]
-            [rauth.routes.api  :refer [api-routes]]
+            [radsticks.routes.home :refer [home-routes]]
+            [radsticks.routes.api  :refer [api-routes]]
             [noir.util.middleware :as middleware]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
@@ -31,17 +31,17 @@
 
   (timbre/set-config!
     [:shared-appender-config :rotor]
-    {:path "rauth.log" :max-size (* 512 1024) :backlog 10})
+    {:path "radsticks.log" :max-size (* 512 1024) :backlog 10})
 
   (if (env :selmer-dev) (parser/cache-off!))
-  (timbre/info "rauth started successfully"))
+  (timbre/info "radsticks started successfully"))
 
 
 (defn destroy
   "destroy will be called when your application
    shuts down, put any clean up code here"
   []
-  (timbre/info "rauth is shutting down..."))
+  (timbre/info "radsticks is shutting down..."))
 
 
 (defn template-error-page [handler]

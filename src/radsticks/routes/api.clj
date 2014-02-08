@@ -1,4 +1,4 @@
-(ns rauth.routes.api
+(ns radsticks.routes.api
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]))
 

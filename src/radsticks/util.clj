@@ -1,4 +1,4 @@
-(ns rauth.util
+(ns radsticks.util
   (:require [noir.io :as io]
             [clj-time.core :as time]
             [markdown.core :as md]))

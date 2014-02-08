@@ -1,4 +1,4 @@
-(ns rauth.test.handler
+(ns radsticks.test.handler
   (:use clojure.test
         ring.mock.request
         cljang.handler))

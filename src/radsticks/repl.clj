@@ -1,5 +1,5 @@
-(ns rauth.repl
-  (:use rauth.handler
+(ns radsticks.repl
+  (:use radsticks.handler
         ring.server.standalone
         [ring.middleware file-info file]))
 

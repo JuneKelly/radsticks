@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('rauthApp', [
+angular.module('radsticksApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

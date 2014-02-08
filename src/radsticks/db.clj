@@ -1,7 +1,7 @@
-(ns rauth.db
+(ns radsticks.db
   (:require [environ.core :refer [env]]
             [noir.util.crypt :as crypt]
-            [rauth.util :as util]
+            [radsticks.util :as util]
             [monger.core :as mg]
             monger.joda-time
             [monger.collection :as mc]

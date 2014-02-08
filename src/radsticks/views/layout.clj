@@ -1,10 +1,10 @@
-(ns rauth.views.layout
+(ns radsticks.views.layout
   (:require [selmer.parser :as parser]
             [clojure.string :as s]
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]))
 
-(def template-path "rauth/views/templates/")
+(def template-path "radsticks/views/templates/")
 
 (deftype RenderableTemplate [template params]
   Renderable
