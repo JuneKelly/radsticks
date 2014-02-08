@@ -1,19 +1,46 @@
 (ns radsticks.test.handler
   (:use clojure.test
-        ring.mock.request
-        cljang.handler))
+        peridot.core
+        radsticks.handler)
+  (:require [radsticks.test.test-util :as util]
+            [cheshire.core :refer [generate-string
+                                   parse-string]]))
 
-(deftest test-app
+(deftest test-routes
   (testing "main route"
-    (let [response (app (request :get "/"))]
-      (is (= (:status response) 200))))
+    (let [response (:response
+                     (-> (session app)
+                         (request "/")))]
+      (is (= (response :status) 200))))
 
   (testing "not-found route"
-    (let [response (app (request :get "/invalid"))]
-      (is (= (:status response) 404))))
+    (let [response (:response
+                     (-> (session app)
+                         (request "/invalid/route")))]
+      (is (= (:status response) 404)))))
 
-  (testing "nice things api"
-    (let [response (app (request :get "/api/nicethings"))]
-      (is (= "application/json;charset=UTF-8"
-             (get (:headers response) "Content-Type")))
-      (is (= (:status response) 200)))))
+(deftest test-api
+  (testing "auth api"
+    (do
+      (util/drop-database!)
+      (util/populate-users!)
+
+      ;; successful authentication
+      (let [request-body
+            "{\"username\":\"userone@example.com\",
+              \"password\":\"password1\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/auth"
+                                 :request-method :post
+                                 :body request-body))
+            response (:response request)
+            response-json (parse-string (response :body) true)]
+        (is (= "application/json;charset=UTF-8"
+               (get (:headers response) "Content-Type")))
+        (is (= (:status response) 201))
+        (is (contains? response-json :token)))
+
+      ))
+  )
+

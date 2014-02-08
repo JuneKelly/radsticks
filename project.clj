@@ -1,5 +1,6 @@
 (defproject radsticks "0.1.0"
-  :description "A toy app to demonstrate token based auth with clojure and angularjs"
+  :description
+  "A toy app to demonstrate token based auth with clojure and angularjs"
   :url "http://example.com/FIXME"
 
   :dependencies [[org.clojure/clojure "1.5.1"]
@@ -36,13 +37,15 @@
 
    :dev
    {:dependencies [[ring-mock "0.1.5"]
-                    [ring/ring-devel "1.2.1"]]
+                   [peridot "0.2.2"]
+                   [ring/ring-devel "1.2.1"]]
     :env {:selmer-dev true
           :db-uri "mongodb://localhost/radsticks"
           :secret "areallybadsecretwhichshouldnotbeusedinproduction"}}
 
    :testing
    {:dependencies [[ring-mock "0.1.5"]
+                   [peridot "0.2.2"]
                    [ring/ring-devel "1.2.1"]]
     :env {:selmer-dev true
           :db-uri "mongodb://localhost/radsticks_test"
