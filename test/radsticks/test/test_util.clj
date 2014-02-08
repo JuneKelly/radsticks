@@ -18,8 +18,8 @@
 (defn populate-users! []
   (do
     (db/create-user :email "userone@example.com"
-                    :password "password1"
+                    :pass "password1"
                     :name "User One")
     (db/create-user :email "usertwo@example.com"
-                    :password "password2"
+                    :pass "password2"
                     :name "User Two")))

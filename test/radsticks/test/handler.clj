@@ -39,8 +39,8 @@
         (is (= "application/json;charset=UTF-8"
                (get (:headers response) "Content-Type")))
         (is (= (:status response) 201))
-        (is (contains? response-json :token)))
-
-      ))
-  )
+        (is (contains? response-json :token))
+        (is (= (class (response-json :token)) java.lang.String))
+        (is (< 0 (count (response-json :token))))
+        (is (= "userone@example.com" (response-json :username)))))))
 
