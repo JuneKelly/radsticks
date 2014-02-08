@@ -1,4 +1,4 @@
-# rauth
+# radsticks
 
 A toy app for exploring token based auth with Clojure and AngularJS
 
