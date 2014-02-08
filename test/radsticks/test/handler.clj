@@ -6,6 +6,7 @@
             [cheshire.core :refer [generate-string
                                    parse-string]]))
 
+
 (deftest test-routes
   (testing "main route"
     (let [response (:response
@@ -18,6 +19,7 @@
                      (-> (session app)
                          (request "/invalid/route")))]
       (is (= (:status response) 404)))))
+
 
 (deftest test-api
   (testing "auth api"
@@ -119,3 +121,4 @@
         (is (not (contains? response-json :token)))
         (is (contains? response-json :error))
         (is (= (class (response-json :error)) java.lang.String))))))
+
