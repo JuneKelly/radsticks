@@ -5,30 +5,39 @@ angular.module('radsticksApp')
       token: ''
       errorMessage: ''
 
-    return {
-      data: data
-      login: (username, password) ->
-        $http(
-          method: 'POST'
-          url: '/api/auth'
-          data: {username: username, password: password}
-          headers: { 'Accept': 'application/json' }
-        )
-          .success (payload, status, headers, config) ->
-            console.log payload
-            console.log status
+    reset = () ->
+      data.username = ''
+      data.token = ''
+      data.errorMessage = ''
 
-            if payload.token == null
-              data.errorMessage = 'Error, authentication failed'
-            else
-              if status == 201
-                data.username = payload.username
-                data.token = payload.token
-              else
-                data.errorMessage = 'Error, authentication failed'
+    login = (username, password) ->
+      reset()
 
-          .error (payload, status, headers, config) ->
-            console.log 'ERROR'
-            console.log status
+      $http(
+        method: 'POST'
+        url: '/api/auth'
+        data: {username: username, password: password}
+        headers: { 'Accept': 'application/json' }
+      )
+        .success (payload, status, headers, config) ->
+          console.log payload
+          console.log status
+
+          if payload.token == null
             data.errorMessage = 'Error, authentication failed'
-    }
+          else
+            if status == 201
+              data.username = payload.username
+              data.token = payload.token
+            else
+              data.errorMessage = 'Error, authentication failed'
+
+        .error (payload, status, headers, config) ->
+          console.log 'ERROR'
+          console.log status
+          data.errorMessage = 'Error, authentication failed'
+
+    return
+      data: data
+      login: login
+
