@@ -1,4 +1,12 @@
 <div class="row">
+  <div class="alert alert-success" ng-show="Auth.data.token">
+    Logged in as: {{Auth.data.username}}
+  </div>
+  <div class="alert alert-danger" ng-show="Auth.data.errorMessage">
+    {{Auth.data.errorMessage}}
+  </div>
+</div>
+<div class="row">
   <h1>Login</h1>
   <div class="col-md-6">
     <form class="form-horizontal"
@@ -28,13 +36,4 @@
       </div>
     </form>
   </div>
-</div>
-
-<div class="row">
-  <p>
-    Token: {{Auth.data.token}}
-  </p>
-  <p>
-    Error: {{Auth.data.errorMessage}}
-  </p>
 </div>
