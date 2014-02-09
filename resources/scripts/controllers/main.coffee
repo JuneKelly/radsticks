@@ -6,4 +6,7 @@ angular.module('radsticksApp')
 
     $scope.sendLogin = (user) ->
       Auth.login(user.username, user.password)
+      user.username = ''
+      user.password = ''
+      $scope.loginForm.setPristine
 
