@@ -1,5 +1,5 @@
 angular.module('radsticksApp')
-  .service 'AuthService', ($http) ->
+  .service 'Auth', ($http) ->
     data =
       username: ''
       token: ''
@@ -37,7 +37,8 @@ angular.module('radsticksApp')
           console.log status
           data.errorMessage = 'Error, authentication failed'
 
-    return
+    return {
       data: data
       login: login
+    }
 

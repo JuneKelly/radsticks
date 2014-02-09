@@ -1,9 +1,9 @@
 'use strict'
 
 angular.module('radsticksApp')
-  .controller 'MainCtrl', ($scope, $http, AuthService) ->
-    $scope.AuthService = AuthService
+  .controller 'MainCtrl', ($scope, $http, Auth) ->
+    $scope.Auth = Auth
 
     $scope.sendLogin = (user) ->
-      AuthService.login(user.username, user.password)
+      Auth.login(user.username, user.password)
 
