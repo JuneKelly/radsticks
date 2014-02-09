@@ -28,5 +28,7 @@ angular.module('radsticksApp')
                 data.errorMessage = 'Error, authentication failed'
 
           .error (payload, status, headers, config) ->
-            errorMessage = 'Error, authentication failed'
+            console.log 'ERROR'
+            console.log status
+            data.errorMessage = 'Error, authentication failed'
     }

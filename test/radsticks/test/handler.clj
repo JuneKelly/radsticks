@@ -46,6 +46,22 @@
         (is (< 0 (count (response-json :token))))
         (is (= "userone@example.com" (response-json :username))))
 
+      ;; failed authentication, bad password
+      (let [request-body
+            "{\"username\":\"userone@example.com\",
+              \"password\":\"lol\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/auth"
+                                 :request-method :post
+                                 :body request-body))
+            response (:response request)]
+        (is (= "text/plain"
+               (get (:headers response) "Content-Type")))
+        (is (not (= (:status response) 201)))
+        (is (= (:status response) 403))
+        (is (= "Forbidden." (response :body))))
+
       ;; malformed request, missing username
       (let [request-body
             "{\"derp\":\"userone@example.com\",

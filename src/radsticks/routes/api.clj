@@ -24,14 +24,19 @@
   (fn [context]
     {:error "post malformed"})
 
-  :post!
+  :allowed?
   (fn [context]
     (let [params (get-in context [:request :params])
           username (params :username)
           password (params :password)
           token (auth/authenticate-user username password)]
-      {:payload
-       {:username username, :token token}}))
+      (if (not (nil? token))
+        [true, {:payload
+                {:username username, :token token}}]
+        false)))
+
+  :post!
+  (fn [context] (comment "pass"))
 
   :handle-created
   (fn [context] (context :payload)))
