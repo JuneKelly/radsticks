@@ -1,11 +1,12 @@
 angular.module('radsticksApp')
   .service 'AuthService', ($http) ->
-    user =
+    data =
       username: ''
       token: ''
+      errorMessage: ''
 
     return {
-      user: user
+      data: data
       login: (username, password) ->
         $http(
           method: 'POST'
@@ -13,12 +14,19 @@ angular.module('radsticksApp')
           data: {username: username, password: password}
           headers: { 'Accept': 'application/json' }
         )
-          .success (data) ->
-            console.log data
-            user.username = data.username
-            user.token = data.token
-            console.log user.username
-            console.log user.token
-          .error (data) ->
-            console.log 'Error'
+          .success (payload, status, headers, config) ->
+            console.log payload
+            console.log status
+
+            if payload.token == null
+              data.errorMessage = 'Error, authentication failed'
+            else
+              if status == 201
+                data.username = payload.username
+                data.token = payload.token
+              else
+                data.errorMessage = 'Error, authentication failed'
+
+          .error (payload, status, headers, config) ->
+            errorMessage = 'Error, authentication failed'
     }

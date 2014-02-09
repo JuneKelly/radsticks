@@ -28,10 +28,13 @@
       </div>
     </form>
   </div>
-  <div class="col-md-6">
-    <p>
-      Token: {{AuthService.user.token}}
-    </p>
-  </div>
 </div>
 
+<div class="row">
+  <p>
+    Token: {{AuthService.data.token}}
+  </p>
+  <p>
+    Error: {{AuthService.data.errorMessage}}
+  </p>
+</div>
