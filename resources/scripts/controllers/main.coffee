@@ -1,16 +1,12 @@
 'use strict'
 
 angular.module('radsticksApp')
-  .controller 'MainCtrl', ($scope, $http) ->
-    $scope.niceThings = []
+  .controller 'MainCtrl', ($scope, $http, AuthService) ->
+    $scope.token = ''
 
-    loadNiceThings = () ->
-      $http(
-        method: 'GET'
-        url: '/api/nicethings'
-        headers: { 'Accept': 'application/json'}
-      )
-        .success (data) ->
-          $scope.niceThings = data.things
+    $scope.sendLogin = (user) ->
+      AuthService.login(user.username, user.password)
 
-    loadNiceThings()
+    $scope.getUserData = () ->
+      console.log AuthService.user
+      $scope.token = AuthService.user.token

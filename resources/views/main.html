@@ -1,16 +1,40 @@
-<div class="jumbotron row">
-  <h1 id="welcome-message">Put something here!</h1>
-  <p class="lead">
-    Otherwise this app is a bit pointless
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Yay!</a></p>
+<div class="row">
+  <h1>Login</h1>
+  <div class="col-md-6">
+    <form class="form-horizontal"
+          id="login"
+          name="login"
+          role="form"
+          novalidate>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control"
+               id="username"
+               ng-model="user.username"
+               type="text">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control"
+               id="password"
+               ng-model="user.password"
+               type="password">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary"
+                ng-click="sendLogin(user)">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <button class="btn btn-info" ng-click="getUserData()">
+      Get User Data
+    </button>
+    <p>
+      Token: {{token}}
+    </p>
+  </div>
 </div>
 
-<div class="row marketing">
-  <p>
-    You now have the following nice things:
-    <ul>
-      <li ng-repeat="item in niceThings">{{item}}</li>
-    </ul>
-  </p>
-</div>
