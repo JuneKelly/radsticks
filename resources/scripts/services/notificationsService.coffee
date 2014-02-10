@@ -4,6 +4,12 @@ angular.module('radsticksApp')
       successMessage: ''
       errorMessage: ''
 
+    success = (message) ->
+      data.successMessage = message
+
+    error = (message) ->
+      data.errorMessage = message
+
     resetSuccessMessage = () ->
       data.successMessage = ''
 
@@ -16,6 +22,8 @@ angular.module('radsticksApp')
 
     return {
       data: data
+      success: success
+      error: error
       resetAll: resetAll
       resetSuccessMessage: resetSuccessMessage
       resetErrorMessage: resetErrorMessage

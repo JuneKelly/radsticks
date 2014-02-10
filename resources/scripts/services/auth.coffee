@@ -23,21 +23,25 @@ angular.module('radsticksApp')
           console.log status
 
           if payload.token == null
-            Notifications.data.errorMessage =
+            Notifications.error(
               'Error, authentication failed'
+            )
           else
             if status == 201
               data.username = payload.username
               data.token = payload.token
+              Notifications.success('Logged in as ' + data.username)
             else
-              Notifications.data.errorMessage =
+              Notifications.error(
                 'Error, authentication failed'
+              )
 
         .error (payload, status, headers, config) ->
           console.log 'ERROR'
           console.log status
-          Notifications.data.errorMessage =
+          Notifications.error(
             'Error, authentication failed'
+          )
 
     return {
       data: data
