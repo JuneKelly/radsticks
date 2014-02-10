@@ -4,15 +4,33 @@ angular.module('radsticksApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ui.router'
 ])
-  .config ($routeProvider) ->
-    $routeProvider
-      .when '/',
-        templateUrl: 'static/views/main.html'
-        controller: 'MainCtrl'
-      .otherwise
-        redirectTo: '/'
+  .config ($stateProvider, $urlRouterProvider) ->
+    $stateProvider
+      .state 'root',
+        url: ''
+        views:
+          navbar:
+            templateUrl: 'static/views/navbar.html'
+            controller: 'NavbarCtrl'
+      .state 'root.main',
+        url: '/'
+        views:
+          'container@': {
+            templateUrl: 'static/views/main.html'
+            controller: 'MainCtrl'
+          }
+
+    $urlRouterProvider
+      .otherwise('/')
+
+    #$routeProvider
+    #  .when '/',
+    #    templateUrl: 'static/views/main.html'
+    #    controller: 'MainCtrl'
+    #  .otherwise
+    #    redirectTo: '/'
 
 
 # collapse the menu on click
