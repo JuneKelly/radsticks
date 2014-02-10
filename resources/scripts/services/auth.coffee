@@ -1,14 +1,13 @@
 angular.module('radsticksApp')
-  .service 'Auth', ($http) ->
+  .service 'Auth', ($http, Notifications) ->
     data =
       username: ''
       token: ''
-      errorMessage: ''
 
     reset = () ->
       data.username = ''
       data.token = ''
-      data.errorMessage = ''
+      Notifications.resetAll()
 
     login = (username, password) ->
       reset()
@@ -24,18 +23,21 @@ angular.module('radsticksApp')
           console.log status
 
           if payload.token == null
-            data.errorMessage = 'Error, authentication failed'
+            Notifications.data.errorMessage =
+              'Error, authentication failed'
           else
             if status == 201
               data.username = payload.username
               data.token = payload.token
             else
-              data.errorMessage = 'Error, authentication failed'
+              Notifications.data.errorMessage =
+                'Error, authentication failed'
 
         .error (payload, status, headers, config) ->
           console.log 'ERROR'
           console.log status
-          data.errorMessage = 'Error, authentication failed'
+          Notifications.data.errorMessage =
+            'Error, authentication failed'
 
     return {
       data: data

@@ -14,6 +14,9 @@ angular.module('radsticksApp', [
           navbar:
             templateUrl: 'static/views/navbar.html'
             controller: 'NavbarCtrl'
+          notifications:
+            templateUrl: 'static/views/notifications.html'
+            controller: 'NotificationsCtrl'
       .state 'root.main',
         url: '/'
         views:
