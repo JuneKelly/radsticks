@@ -9,6 +9,7 @@ angular.module('radsticksApp', [
   .config ($stateProvider, $urlRouterProvider) ->
     $stateProvider
       .state 'root',
+        abstract: true
         url: ''
         views:
           navbar:
@@ -23,6 +24,12 @@ angular.module('radsticksApp', [
           'container@': {
             templateUrl: 'static/views/main.html'
             controller: 'MainCtrl'
+          }
+      .state 'root.about',
+        url: '/about'
+        views:
+          'container@': {
+            templateUrl: 'static/views/about.html'
           }
 
     $urlRouterProvider
