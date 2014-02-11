@@ -46,5 +46,6 @@ angular.module('radsticksApp')
     return {
       data: data
       login: login
+      reset: reset
     }
 
