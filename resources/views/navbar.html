@@ -36,7 +36,7 @@
       <!-- logged out -->
       <div class="btn-group pull-right"
            ng-if="!Auth.data.token">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav col-sm-12">
           <li><a ng-href="/#/about">About</a></li>
           <li class="divider"></li>
           <li class="dropdown">
@@ -46,14 +46,14 @@
                   role="form"
                   novalidate>
               <div class="form-group">
-                <input class="form-control"
+                <input class="form-control span2"
                        id="username"
                        placeholder="user id"
                        ng-model="user.username"
                        type="text">
               </div>
               <div class="form-group">
-                <input class="form-control"
+                <input class="form-control span2"
                        id="password"
                        placeholder="password"
                        ng-model="user.password"

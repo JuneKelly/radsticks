@@ -8,7 +8,7 @@ angular.module('radsticksApp', [
 ])
   .config ($stateProvider, $urlRouterProvider) ->
     $stateProvider
-      .state 'root',
+      .state 'app',
         abstract: true
         url: ''
         views:
@@ -18,19 +18,25 @@ angular.module('radsticksApp', [
           notifications:
             templateUrl: 'static/views/notifications.html'
             controller: 'NotificationsCtrl'
-      .state 'root.main',
+      .state 'app.main',
         url: '/'
         views:
           'container@': {
             templateUrl: 'static/views/main.html'
             controller: 'MainCtrl'
           }
-      .state 'root.about',
+      .state 'app.about',
         url: '/about'
         views:
           'container@': {
             templateUrl: 'static/views/about.html'
           }
+      .state 'app.register',
+        url: '/register'
+        views:
+          'container@':
+            templateUrl: 'static/views/register.html'
+            controller: 'RegistrationCtrl'
 
     $urlRouterProvider
       .otherwise('/')

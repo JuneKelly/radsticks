@@ -16,10 +16,11 @@
       <!--<div id="main-content" class="container"
       ng-view=""></div>-->
       <div ui-view="navbar"></div>
-      <div id="main-content">
-        <div class="container">
-          <div ui-view="notifications"></div>
-          <div ui-view="container"></div>
+      <div id="main-content" class="container">
+        <div ui-view="notifications"></div>
+        <div ui-view="container"></div>
+        <div class="footer">
+          <p>♥ from <a href="http://00null.net">00null</a></p>
         </div>
       </div>
       {% script "/static/vendor/angular/angular.min.js" %}
@@ -36,11 +37,6 @@
       <script type="text/javascript">
           var context = "";
       </script>
-      <div class="container">
-        <div class="footer">
-          <p>♥ from <a href="http://00null.net">00null</a></p>
-        </div>
-      </div>
     </body>
     </body>
 </html>
