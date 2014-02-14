@@ -27,8 +27,11 @@
              :pass hash
              :name name
              :created (util/datetime)}]
-    (do
-      (mc/insert "user" doc))))
+    (try
+      (do
+        (mc/insert "user" doc)
+        true)
+      (catch Exception e false))))
 
 
 (defn user-exists? [user-email]

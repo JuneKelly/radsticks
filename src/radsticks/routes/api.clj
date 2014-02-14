@@ -4,6 +4,46 @@
             [radsticks.auth :as auth]
             [radsticks.db :as db]))
 
+(defresource user-write
+  :available-media-types ["application/json"]
+  :allowed-methods [:post]
+
+  :malformed?
+  (fn [context]
+    (let [params (get-in context [:request :params])
+          method (get-in context [:request :request-method])]
+      (if (= method :POST)
+        (let [email (params :email)
+              name (params :name)
+              password (params :password)]
+          [(or (empty? email)
+               (empty? password)
+               (not (= (class email) java.lang.String))
+               (not (= (class password) java.lang.String)))
+           {:representation {:media-type "application/json"}}])
+        false)))
+
+  :handle-malformed
+  (fn [context]
+    {:error "post malformed"})
+
+  :post!
+  (fn [context]
+    (let [params (get-in context  [:request :params])
+          email (params :email)
+          name (params :name)
+          password (params :password)
+          success (db/create-user :email email
+                                  :pass password
+                                  :name name)]
+      (if success
+        {:user-profile (db/get-user-profile email)}
+        {:error "Could not register user, email already exists"})))
+
+  :handle-created
+  (fn [context]
+    {:user-profile (context :user-profile)
+     :error (context :error)}))
 
 (defresource authentication
   :available-media-types ["application/json"]
@@ -43,4 +83,5 @@
 
 
 (defroutes api-routes
-  (POST "/api/auth" [] authentication))
+  (POST "/api/auth" [] authentication)
+  (POST "/api/user" [] user-write))

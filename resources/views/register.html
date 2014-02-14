@@ -2,39 +2,44 @@
   <h1>Register</h1>
 </div>
 <div class="row">
-  <div class="col-md-6 well well-md">
+  <div class="col-md-6">
     <form role="form"
           name="registrationForm"
           class="form-horizontal"
           novalidate>
       <div class="form-group">
-        <label for="username">Username</label>
+        <label for="email">Email</label>
         <input class="form-control"
-               id="username"
-               ng-model="username"
+               id="email"
+               ng-model="user.email"
                type="text">
       </div>
       <div class="form-group">
-        <label for="username">Display Name</label>
+        <label for="displayName">Display Name</label>
         <input class="form-control"
-               id="display-name"
-               ng-model="displayName"
+               id="displayName"
+               ng-model="user.displayName"
                type="text">
       </div>
       <div class="form-group">
         <label for="passwordOne">Password</label>
         <input class="form-control"
                id="passwordOne"
-               ng-model="passwordOne"
-               type="text">
+               ng-model="user.passwordOne"
+               type="password">
       </div>
       <div class="form-group">
         <label for="passwordTwo">Password Confirm</label>
         <input class="form-control"
                id="passwordTwo"
-               ng-model="passwordTwo"
-               type="text">
+               ng-model="user.passwordTwo"
+               type="password">
+      </div>
+      <div class="form-group">
+        <button class="pull-right btn btn-success"
+                ng-click="register(user)">Submit</button>
       </div>
     </form>
+    <br>
   </div>
 </div>

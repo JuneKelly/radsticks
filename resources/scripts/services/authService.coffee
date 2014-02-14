@@ -9,9 +9,28 @@ angular.module('radsticksApp')
       data.token = ''
       Notifications.resetAll()
 
+    register = (credentials) ->
+      reset()
+      $http(
+        method: 'POST'
+        url: '/api/user'
+        data: credentials
+        headers: { 'Accept': 'application/json' }
+      )
+        .success (payload, status, headers, config) ->
+          console.log payload
+          console.log status
+          console.log 'User Created'
+
+        .error (payload, status, headers, config) ->
+          console.log 'ERROR'
+          console.log status
+          Notifications.error(
+            'Error, User registration failed'
+          )
+
     login = (username, password) ->
       reset()
-
       $http(
         method: 'POST'
         url: '/api/auth'
@@ -47,5 +66,6 @@ angular.module('radsticksApp')
       data: data
       login: login
       reset: reset
+      register: register
     }
 
