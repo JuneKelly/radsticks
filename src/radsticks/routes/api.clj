@@ -4,6 +4,12 @@
             [radsticks.auth :as auth]
             [radsticks.db :as db]))
 
+
+(defn user-resource-exists? [context]
+  (let [params (get-in context [:request :params])]
+    (db/user-exists? (params :email))))
+
+
 (defresource user-write
   :available-media-types ["application/json"]
   :allowed-methods [:post]
@@ -12,7 +18,7 @@
   (fn [context]
     (let [params (get-in context [:request :params])
           method (get-in context [:request :request-method])]
-      (if (= method :POST)
+      (if (= method :post)
         (let [email (params :email)
               name (params :name)
               password (params :password)]
@@ -26,6 +32,12 @@
   :handle-malformed
   (fn [context]
     {:error "post malformed"})
+
+  :exists?
+  user-resource-exists?
+
+  :allowed?
+  (fn [context] (not (user-resource-exists? context)))
 
   :post!
   (fn [context]
