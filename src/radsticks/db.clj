@@ -41,9 +41,14 @@
 
 
 (defn get-user-profile [user-email]
-  (mc/find-one-as-map "user"
-                      {:_id user-email}
-                      {:pass 0}))
+  (let [user (mc/find-one-as-map "user"
+                                 {:_id user-email}
+                                 {:pass 0})]
+    (if (not (nil? user))
+      {:email   (user :_id)
+       :name    (user :name)
+       :created (user :created)}
+      nil)))
 
 
 (defn get-user-credentials! [user-email]

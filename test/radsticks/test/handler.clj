@@ -22,6 +22,39 @@
 
 
 (deftest test-api
+
+  (testing "user creation"
+    (do
+      (util/drop-database!)
+      (util/populate-users!)
+
+      ;; successful user creation
+      (let [request-body
+            "{\"email\":\"qwer@example.com\",
+              \"password\":\"password3\",
+              \"name\": \"Qwer\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user"
+                                 :request-method :post
+                                 :body request-body))
+            response (:response request)
+            response-json (parse-string (response :body) true)]
+        (is (= "application/json;charset=UTF-8"
+               (get (:headers response) "Content-Type")))
+        (is (= (:status response) 201))
+        (is (contains? response-json :userProfile))
+        (is (map? (response-json :userProfile)))
+        (let [profile (response-json :userProfile)]
+          (is (= "qwer@example.com" (profile :email)))
+          (is (= "Qwer" (profile :name)))
+          (is (contains? profile :created))
+          (is (string? (profile :created)))))
+
+
+
+      ))
+
   (testing "auth api"
     (do
       (util/drop-database!)
@@ -110,7 +143,6 @@
                                  :request-method :post
                                  :body request-body))
             response (:response request)
-            n (println response :body)
             response-json (parse-string (response :body) true)]
         (is (= "application/json;charset=UTF-8"
                (get (:headers response) "Content-Type")))

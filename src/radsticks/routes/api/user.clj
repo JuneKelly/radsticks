@@ -70,4 +70,4 @@
 
   :handle-created
   (fn [context]
-    {:user-profile (context :user-profile)}))
+    {:userProfile (context :user-profile)}))

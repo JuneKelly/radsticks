@@ -35,7 +35,6 @@
 
   :handle-malformed
   (fn [context]
-    (println "HANDLE MALFORMED")
     {:errors (context :errors)})
 
   :allowed?

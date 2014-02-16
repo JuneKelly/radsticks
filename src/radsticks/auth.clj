@@ -19,7 +19,7 @@
 
 (defn user-claim [email]
   (let [user-doc (db/get-user-profile email)]
-    {:email (user-doc :_id)
+    {:email (user-doc :email)
      :name  (user-doc :name)}))
 
 
