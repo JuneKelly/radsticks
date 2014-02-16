@@ -87,6 +87,25 @@ module.exports = (grunt) ->
           configFile: "./spec/config/protractor.conf.js"
           keepAlive: false
 
+    concat:
+      vendor_js:
+        src: [
+          "resources/bower_components/angular/angular.min.js",
+          "resources/bower_components/angular-resource/angular-resource.min.js",
+          "resources/bower_components/angular-cookies/angular-cookies.min.js",
+          "resources/bower_components/angular-sanitize/angular-sanitize.min.js",
+          "resources/bower_components/angular-ui-router/release/angular-ui-router.min.js",
+          "resources/bower_components/jquery/jquery.min.js",
+          "resources/bower_components/lodash/dist/lodash.min.js",
+          "resources/bower_components/sass-bootstrap/dist/js/bootstrap.min.js"
+        ]
+        dest: "resources/public/static/js/vendor.js"
+      vendor_css:
+        src: [
+          "resources/bower_components/sass-bootstrap/dist/css/bootstrap.min.css"
+        ]
+        dest: "resources/public/static/css/vendor.css"
+
 
   grunt.loadNpmTasks "grunt-exec"
   grunt.loadNpmTasks "grunt-contrib-coffee"
@@ -96,11 +115,13 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-parallel"
   grunt.loadNpmTasks "grunt-contrib-compass"
   grunt.loadNpmTasks "grunt-protractor-runner"
+  grunt.loadNpmTasks "grunt-contrib-concat"
 
   grunt.registerTask "server", [
     "compass"
     "copy:views"
-    "copy:bower"
+    "concat:vendor_js"
+    "concat:vendor_css"
     "copy:fonts"
     "copy:images"
     "coffee"
@@ -110,7 +131,8 @@ module.exports = (grunt) ->
   grunt.registerTask "build", [
     "compass"
     "copy:views"
-    "copy:bower"
+    "concat:vendor_js"
+    "concat:vendor_css"
     "copy:fonts"
     "copy:images"
     "coffee"
