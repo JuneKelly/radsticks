@@ -58,6 +58,7 @@ angular.module('radsticksApp')
         .error (payload, status, headers, config) ->
           console.log 'ERROR'
           console.log status
+          console.log payload
           Notifications.error(
             'Error, authentication failed'
           )

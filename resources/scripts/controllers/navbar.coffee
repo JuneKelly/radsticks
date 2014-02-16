@@ -7,7 +7,6 @@ angular.module('radsticksApp')
       Auth.login(user.username, user.password)
       user.username = ''
       user.password = ''
-      $scope.loginForm.setPristine()
 
     $scope.logout = () ->
       console.log 'LOGOUT'
