@@ -14,9 +14,9 @@
             [:email "email is required"])
     (v/rule (v/has-value? password)
             [:password "password is required"])
-    (v/rule #(= (class email) java.lang.String)
+    (v/rule (string? email)
             [:email "email must be a string"])
-    (v/rule #(= (class password) java.lang.String)
+    (v/rule (string? password)
             [:password "password must be a string"])
     (v/get-errors)))
 
@@ -35,6 +35,7 @@
 
   :handle-malformed
   (fn [context]
+    (println "HANDLE MALFORMED")
     {:errors (context :errors)})
 
   :allowed?

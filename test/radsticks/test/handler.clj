@@ -29,7 +29,7 @@
 
       ;; successful authentication
       (let [request-body
-            "{\"username\":\"userone@example.com\",
+            "{\"email\":\"userone@example.com\",
               \"password\":\"password1\"}"
             request (-> (session app)
                         (content-type "application/json")
@@ -42,13 +42,13 @@
                (get (:headers response) "Content-Type")))
         (is (= (:status response) 201))
         (is (contains? response-json :token))
-        (is (= (class (response-json :token)) java.lang.String))
+        (is (string? (response-json :token)))
         (is (< 0 (count (response-json :token))))
-        (is (= "userone@example.com" (response-json :username))))
+        (is (= "userone@example.com" (response-json :email))))
 
       ;; failed authentication, bad password
       (let [request-body
-            "{\"username\":\"userone@example.com\",
+            "{\"email\":\"userone@example.com\",
               \"password\":\"lol\"}"
             request (-> (session app)
                         (content-type "application/json")
@@ -62,7 +62,7 @@
         (is (= (:status response) 403))
         (is (= "Forbidden." (response :body))))
 
-      ;; malformed request, missing username
+      ;; malformed request, missing email
       (let [request-body
             "{\"derp\":\"userone@example.com\",
               \"password\":\"password1\"}"
@@ -78,12 +78,12 @@
         (is (not (= (:status response) 201)))
         (is (= (:status response) 400))
         (is (not (contains? response-json :token)))
-        (is (contains? response-json :error))
-        (is (= (class (response-json :error)) java.lang.String)))
+        (is (contains? response-json :errors))
+        (is (vector? (response-json :errors))))
 
       ;; malformed request, missing password
       (let [request-body
-            "{\"username\":\"userone@example.com\",
+            "{\"email\":\"userone@example.com\",
               \"derp\":\"password1\"}"
             request (-> (session app)
                         (content-type "application/json")
@@ -97,12 +97,12 @@
         (is (not (= (:status response) 201)))
         (is (= (:status response) 400))
         (is (not (contains? response-json :token)))
-        (is (contains? response-json :error))
-        (is (= (class (response-json :error)) java.lang.String)))
+        (is (contains? response-json :errors))
+        (is (vector? (response-json :errors))))
 
-      ;; malformed request, username is not string
+      ;; malformed request, email is not string
       (let [request-body
-            "{\"username\":[1,2,3],
+            "{\"email\":[1,2,3],
               \"password\":\"password1\"}"
             request (-> (session app)
                         (content-type "application/json")
@@ -110,18 +110,19 @@
                                  :request-method :post
                                  :body request-body))
             response (:response request)
+            n (println response :body)
             response-json (parse-string (response :body) true)]
         (is (= "application/json;charset=UTF-8"
                (get (:headers response) "Content-Type")))
         (is (not (= (:status response) 201)))
         (is (= (:status response) 400))
         (is (not (contains? response-json :token)))
-        (is (contains? response-json :error))
-        (is (= (class (response-json :error)) java.lang.String)))
+        (is (contains? response-json :errors))
+        (is (vector? (response-json :errors))))
 
       ;; malformed request, password is not string
       (let [request-body
-            "{\"username\":\"userone@example.com\",
+            "{\"email\":\"userone@example.com\",
               \"password\":true}"
             request (-> (session app)
                         (content-type "application/json")
@@ -135,6 +136,6 @@
         (is (not (= (:status response) 201)))
         (is (= (:status response) 400))
         (is (not (contains? response-json :token)))
-        (is (contains? response-json :error))
-        (is (= (class (response-json :error)) java.lang.String))))))
+        (is (contains? response-json :errors))
+        (is (vector? (response-json :errors)))))))
 
