@@ -47,11 +47,6 @@ module.exports = (grunt) ->
         cwd: "resources/views"
         dest: "resources/public/static/views/"
         src: "*.html"
-      bower:
-        expand: true
-        cwd: "resources/bower_components"
-        dest: "resources/public/static/vendor/"
-        src: "**/*"
       fonts:
         expand: true
         cwd: "resources/fonts"
