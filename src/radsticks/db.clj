@@ -15,7 +15,7 @@
 ;; Schema = {
 ;;   _id: 'email@address',
 ;;   pass: 'hashed password',
-;;   name: 'users full name',
+;;   name: 'users display name',
 ;;   created: Date(),
 ;;   last_login: Date(),
 ;;
@@ -35,12 +35,18 @@
 
 
 (defn user-exists? [user-email]
-  (not (nil? (mc/find-one-as-map "user" {:_id user-email}, {:_id 1}))))
+  (not (nil? (mc/find-one-as-map "user"
+                                 {:_id user-email}
+                                 {:_id 1}))))
 
 
 (defn get-user-profile [user-email]
-  (mc/find-one-as-map "user" {:_id user-email}, {:pass 0}))
+  (mc/find-one-as-map "user"
+                      {:_id user-email}
+                      {:pass 0}))
 
 
 (defn get-user-credentials! [user-email]
-  (mc/find-one-as-map "user" {:_id user-email}, {:_id 1, :pass 1}))
+  (mc/find-one-as-map "user"
+                      {:_id user-email},
+                      {:_id 1, :pass 1}))

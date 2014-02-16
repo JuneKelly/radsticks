@@ -1,9 +1,24 @@
 (ns radsticks.routes.api.auth
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
+            [noir.validation :as v]
             [radsticks.auth :as auth]
             [radsticks.db :as db]
             [radsticks.util :refer [ensure-json rep-map]]))
+
+
+(defn get-auth-errors [params]
+  (let [username (params :username)
+        password (params :password)]
+    (v/rule (v/has-value? username)
+            [:username "username is required"])
+    (v/rule (v/has-value? password)
+            [:password "password is required"])
+    (v/rule #(= (class username) java.lang.String)
+            [:username "username must be a string"])
+    (v/rule #(= (class password) java.lang.String)
+            [:password "password must be a string"])
+    (v/get-errors)))
 
 
 (defresource authentication
@@ -13,17 +28,14 @@
   :malformed?
   (fn [context]
     (let [params (get-in context  [:request :params])
-          username (params :username)
-          password (params :password)]
-      [(or (nil? username)
-           (nil? password)
-           (not (= (class username) java.lang.String))
-           (not (= (class password) java.lang.String)))
-       rep-map]))
+          errors (get-auth-errors params)]
+      (if (empty? errors)
+        false
+        [true (ensure-json {:errors errors})])))
 
   :handle-malformed
   (fn [context]
-    {:error "post malformed"})
+    {:errors (context :errors)})
 
   :allowed?
   (fn [context]
