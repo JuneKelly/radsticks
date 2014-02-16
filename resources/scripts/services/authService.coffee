@@ -18,10 +18,7 @@ angular.module('radsticksApp')
         headers: { 'Accept': 'application/json' }
       )
         .success (payload, status, headers, config) ->
-          console.log payload
-          console.log status
-          Notifications.success('User Created')
-          console.log 'User Created'
+          login(credentials.email, credentials.password)
 
         .error (payload, status, headers, config) ->
           console.log 'ERROR'

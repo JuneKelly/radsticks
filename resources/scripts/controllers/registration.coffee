@@ -1,5 +1,6 @@
 angular.module('radsticksApp')
   .controller 'RegistrationCtrl', ($scope, Auth, Notifications) ->
+    $scope.Auth = Auth
 
     $scope.register = (user) ->
       if user.passwordOne != user.passwordTwo
