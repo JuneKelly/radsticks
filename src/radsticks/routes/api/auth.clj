@@ -8,14 +8,14 @@
 
 
 (defn get-auth-errors [params]
-  (let [username (params :username)
+  (let [email (params :email)
         password (params :password)]
-    (v/rule (v/has-value? username)
-            [:username "username is required"])
+    (v/rule (v/has-value? email)
+            [:email "email is required"])
     (v/rule (v/has-value? password)
             [:password "password is required"])
-    (v/rule #(= (class username) java.lang.String)
-            [:username "username must be a string"])
+    (v/rule #(= (class email) java.lang.String)
+            [:email "email must be a string"])
     (v/rule #(= (class password) java.lang.String)
             [:password "password must be a string"])
     (v/get-errors)))
@@ -40,12 +40,12 @@
   :allowed?
   (fn [context]
     (let [params (get-in context [:request :params])
-          username (params :username)
+          email (params :email)
           password (params :password)
-          token (auth/authenticate-user username password)]
+          token (auth/authenticate-user email password)]
       (if (not (nil? token))
         [true, {:payload
-                {:username username, :token token}}]
+                {:email email, :token token}}]
         false)))
 
   :post!

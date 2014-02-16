@@ -1,11 +1,11 @@
 angular.module('radsticksApp')
   .service 'Auth', ($http, Notifications) ->
     data =
-      username: ''
+      email: ''
       token: ''
 
     reset = () ->
-      data.username = ''
+      data.email = ''
       data.token = ''
       Notifications.resetAll()
 
@@ -20,6 +20,7 @@ angular.module('radsticksApp')
         .success (payload, status, headers, config) ->
           console.log payload
           console.log status
+          Notifications.success('User Created')
           console.log 'User Created'
 
         .error (payload, status, headers, config) ->
@@ -29,12 +30,12 @@ angular.module('radsticksApp')
             'Error, User registration failed'
           )
 
-    login = (username, password) ->
+    login = (email, password) ->
       reset()
       $http(
         method: 'POST'
         url: '/api/auth'
-        data: {username: username, password: password}
+        data: {email: email, password: password}
         headers: { 'Accept': 'application/json' }
       )
         .success (payload, status, headers, config) ->
@@ -47,9 +48,9 @@ angular.module('radsticksApp')
             )
           else
             if status == 201
-              data.username = payload.username
+              data.email = payload.email
               data.token = payload.token
-              Notifications.success('Logged in as ' + data.username)
+              Notifications.success('Logged in as ' + data.email)
             else
               Notifications.error(
                 'Error, authentication failed'

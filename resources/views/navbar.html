@@ -20,7 +20,7 @@
           <li>
             <a class="btn dropdown-toggle"
                data-toggle="dropdown">
-              {{Auth.data.username}}
+              {{Auth.data.email}}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -48,9 +48,9 @@
                   novalidate>
               <div class="form-group">
                 <input class="form-control span2"
-                       id="username"
-                       placeholder="user id"
-                       ng-model="user.username"
+                       id="email"
+                       placeholder="email"
+                       ng-model="user.email"
                        type="text">
               </div>
               <div class="form-group">

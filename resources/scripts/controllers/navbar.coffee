@@ -4,7 +4,7 @@ angular.module('radsticksApp')
     $scope.aboutText = 'About'
 
     $scope.login = (user) ->
-      Auth.login(user.username, user.password)
+      Auth.login(user.email, user.password)
       user.username = ''
       user.password = ''
 
