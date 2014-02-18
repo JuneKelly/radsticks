@@ -4,7 +4,8 @@
            [noir.util.crypt :as crypt]
            [clj-jwt.core  :refer :all]
            [clj-jwt.key   :refer [private-key]]
-           [clj-time.core :refer [now plus days]]))
+           [clj-time.core :refer [now plus days months before? after?]]
+           [clj-time.coerce :refer [from-long]]))
 
 
 (defn- secret [] (env :secret))
@@ -18,9 +19,12 @@
 
 
 (defn user-claim [email]
-  (let [user-doc (db/get-user-profile email)]
+  (let [user-doc (db/get-user-profile email)
+        expiration (plus (now) (months 3))]
     {:email (user-doc :email)
-     :name  (user-doc :name)}))
+     :name  (user-doc :name)
+     :exp expiration
+     :nbf (now)}))
 
 
 (defn user-credentials-valid? [email password]
@@ -50,6 +54,17 @@
 
 (defn get-user-email [decoded-token]
   (get-in decoded-token [:claims :email]))
+
+
+(defn token-valid? [decoded-token]
+  (let [exp-int (get-in decoded-token [:claims :exp])
+        exp (from-long (* 1000 exp-int))
+        nbf-int (get-in decoded-token [:claims :nbf])
+        nbf (from-long (* 1000 nbf-int))
+        current-time (now)]
+    (and (not (before? exp current-time))
+         (not (after? nbf current-time))
+         (db/user-exists? (get-user-email decoded-token)))))
 
 
 (defn validate-user [token-string]

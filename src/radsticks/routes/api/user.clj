@@ -34,6 +34,15 @@
     (get-user-details-errors email password name)))
 
 
+(defresource user-read
+  :available-media-types ["application/json"]
+  :allowed-methods [:get]
+
+  :allowed?
+  (fn [context]
+    (comment "check for presence of auth_token header")))
+
+
 (defresource user-write
   :available-media-types ["application/json"]
   :allowed-methods [:post]
