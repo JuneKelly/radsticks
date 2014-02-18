@@ -51,6 +51,22 @@
           (is (contains? profile :created))
           (is (string? (profile :created)))))
 
+      ;; failing user creation, existing email
+      (let [request-body
+            "{\"email\":\"qwer@example.com\",
+              \"password\":\"password3\",
+              \"name\": \"Qwer\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user"
+                                 :request-method :post
+                                 :body request-body))
+            response (:response request)]
+        (is (= "text/plain"
+               (get (:headers response) "Content-Type")))
+        (is (= (:status response) 403))
+        (is (= "Forbidden." (response :body))))
+
 
 
       ))
