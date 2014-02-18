@@ -21,10 +21,12 @@
 (defn user-claim [email]
   (let [user-doc (db/get-user-profile email)
         expiration (plus (now) (months 3))]
-    {:email (user-doc :email)
-     :name  (user-doc :name)
-     :exp expiration
-     :nbf (now)}))
+    (if user-doc
+      {:email (user-doc :email)
+       :name  (user-doc :name)
+       :exp expiration
+       :nbf (now)}
+      nil)))
 
 
 (defn user-credentials-valid? [email password]

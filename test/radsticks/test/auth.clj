@@ -21,24 +21,21 @@
 
       ;; known user, successful
       (let [user-email "userone@example.com"
-            password "password1"
             current-time (ti/now)
             claim (auth/user-claim user-email)]
         (is (map? claim))
-
         (is (contains? claim :email))
         (is (string? (claim :email)))
-
         (is (contains? claim :name))
         (is (string? (claim :name)))
-
         (is (contains? claim :exp))
         (is (= (class (claim :exp)) org.joda.time.DateTime))
-
         (is (contains? claim :nbf))
         (is (= (class (claim :nbf)) org.joda.time.DateTime))
+        (is (ti/after? (claim :exp) current-time)))
 
-        (is (ti/after? (claim :exp) current-time))
-
-
-        ))))
+      ;; unknown user, not successful
+      (let [user-email "goose@example.com"
+            current-time (ti/now)
+            claim (auth/user-claim user-email)]
+        (is (nil? claim))))))
