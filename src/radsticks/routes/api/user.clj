@@ -12,15 +12,20 @@
 
 
 (defn get-user-details-errors [email password name]
-  (v/rule (v/has-value? email)
-          [:email "email is required"])
-  (v/rule (v/is-email? email)
-          [:email "email should be a valid email address"])
-  (v/rule (v/has-value? password)
-          [:password "password is required"])
-  (v/rule (v/has-value? name)
-          [:name "name is required"])
-  (v/get-errors))
+  (if (or (nil? email)
+          (nil? password)
+          (nil? name))
+    ["email, password and name are required"]
+    (do
+      (v/rule (v/has-value? email)
+              [:email "email is required"])
+      (v/rule (v/is-email? email)
+              [:email "email should be a valid email address"])
+      (v/rule (v/has-value? password)
+              [:password "password is required"])
+      (v/rule (v/has-value? name)
+              [:name "name is required"])
+      (v/get-errors))))
 
 
 (defn post-params-errors [params]

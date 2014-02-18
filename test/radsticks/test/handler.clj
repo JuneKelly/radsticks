@@ -67,9 +67,74 @@
         (is (= (:status response) 403))
         (is (= "Forbidden." (response :body))))
 
+      ;; failing user creation, email is not valid
+      (let [request-body
+            "{\"email\":\"dippitydoo\",
+              \"password\":\"password3\",
+              \"name\": \"Qwer\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user"
+                                 :request-method :post
+                                 :body request-body))
+            response (:response request)
+            response-json (parse-string (response :body) true)]
+        (is (= "application/json;charset=UTF-8"
+               (get (:headers response) "Content-Type")))
+        (is (= (:status response) 400))
+        (is (contains? response-json :errors))
+        (is (vector? (response-json :errors))))
 
+      ;; failed user creation, missing email
+      (let [request-body
+            "{\"password\":\"password3\",
+              \"name\": \"Qwer\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user"
+                                 :request-method :post
+                                 :body request-body))
+            response (:response request)
+            response-json (parse-string (response :body) true)]
+        (is (= "application/json;charset=UTF-8"
+               (get (:headers response) "Content-Type")))
+        (is (= (:status response) 400))
+        (is (contains? response-json :errors))
+        (is (vector? (response-json :errors))))
 
-      ))
+      ;; failed user creation, missing password
+      (let [request-body
+            "{\"email\":\"qwer2@example.com\",
+              \"name\": \"Qwer2\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user"
+                                 :request-method :post
+                                 :body request-body))
+            response (:response request)
+            response-json (parse-string (response :body) true)]
+        (is (= "application/json;charset=UTF-8"
+               (get (:headers response) "Content-Type")))
+        (is (= (:status response) 400))
+        (is (contains? response-json :errors))
+        (is (vector? (response-json :errors))))
+
+      ;; failed user creation, missing name
+      (let [request-body
+            "{\"email\":\"qwer2@example.com\",
+              \"password\": \"password2\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user"
+                                 :request-method :post
+                                 :body request-body))
+            response (:response request)
+            response-json (parse-string (response :body) true)]
+        (is (= "application/json;charset=UTF-8"
+               (get (:headers response) "Content-Type")))
+        (is (= (:status response) 400))
+        (is (contains? response-json :errors))
+        (is (vector? (response-json :errors))))))
 
   (testing "auth api"
     (do
