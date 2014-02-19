@@ -4,6 +4,7 @@ angular.module('radsticksApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
+  'ngAnimate',
   'ui.router'
 ])
   .config ($stateProvider, $urlRouterProvider) ->

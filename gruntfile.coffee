@@ -90,6 +90,7 @@ module.exports = (grunt) ->
           "resources/bower_components/angular-cookies/angular-cookies.min.js",
           "resources/bower_components/angular-sanitize/angular-sanitize.min.js",
           "resources/bower_components/angular-ui-router/release/angular-ui-router.min.js",
+          "resources/bower_components/angular-animate/angular-animate.min.js",
           "resources/bower_components/jquery/jquery.min.js",
           "resources/bower_components/lodash/dist/lodash.min.js",
           "resources/bower_components/sass-bootstrap/dist/js/bootstrap.min.js"
