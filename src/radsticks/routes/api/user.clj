@@ -34,13 +34,22 @@
     (get-user-details-errors email password name)))
 
 
-(defresource user-read
+(defn has-valid-token [context]
+  (let [auth-token (get-in context [:request :headers "auth_token"])]
+    (not (nil? auth-token))))
+
+
+(defresource user-read [id]
   :available-media-types ["application/json"]
   :allowed-methods [:get]
 
   :allowed?
   (fn [context]
-    (comment "check for presence of auth_token header")))
+    (has-valid-token context))
+  :handle-ok
+  (fn [context]
+    (println context)
+    "hi"))
 
 
 (defresource user-write
