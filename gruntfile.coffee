@@ -1,5 +1,7 @@
 # Grunt tasks
 
+BOWER = 'resources/bower_components'
+
 module.exports = (grunt) ->
   grunt.initConfig
 
@@ -85,15 +87,15 @@ module.exports = (grunt) ->
     concat:
       vendor_js:
         src: [
-          "resources/bower_components/angular/angular.min.js",
-          "resources/bower_components/angular-resource/angular-resource.min.js",
-          "resources/bower_components/angular-cookies/angular-cookies.min.js",
-          "resources/bower_components/angular-sanitize/angular-sanitize.min.js",
-          "resources/bower_components/angular-ui-router/release/angular-ui-router.min.js",
-          "resources/bower_components/angular-animate/angular-animate.min.js",
-          "resources/bower_components/jquery/jquery.min.js",
-          "resources/bower_components/lodash/dist/lodash.min.js",
-          "resources/bower_components/sass-bootstrap/dist/js/bootstrap.min.js"
+          BOWER+"/angular/angular.min.js",
+          BOWER+"/angular-resource/angular-resource.min.js",
+          BOWER+"/angular-cookies/angular-cookies.min.js",
+          BOWER+"/angular-sanitize/angular-sanitize.min.js",
+          BOWER+"/angular-ui-router/release/angular-ui-router.min.js",
+          BOWER+"/angular-animate/angular-animate.min.js",
+          BOWER+"/jquery/jquery.min.js",
+          BOWER+"/lodash/dist/lodash.min.js",
+          BOWER+"/sass-bootstrap/dist/js/bootstrap.min.js"
         ]
         dest: "resources/public/static/js/vendor.js"
       vendor_css:
