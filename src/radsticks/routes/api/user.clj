@@ -3,6 +3,7 @@
   (:require [liberator.core :refer [defresource]]
             [radsticks.db :as db]
             [noir.validation :as v]
+            [radsticks.routes.api.common :refer [has-valid-token?]]
             [radsticks.util :refer [ensure-json]]))
 
 
@@ -34,21 +35,16 @@
     (get-user-details-errors email password name)))
 
 
-(defn has-valid-token [context]
-  (let [auth-token (get-in context [:request :headers "auth_token"])]
-    (not (nil? auth-token))))
-
-
 (defresource user-read [id]
   :available-media-types ["application/json"]
   :allowed-methods [:get]
 
   :allowed?
   (fn [context]
-    (has-valid-token context))
+    (has-valid-token? context))
   :handle-ok
   (fn [context]
-    (println context)
+    (println (context :current-user) )
     "hi"))
 
 
