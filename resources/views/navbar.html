@@ -14,18 +14,18 @@
     <div class="navbar-collapse collapse" id="main-menu">
       <!-- logged in -->
       <div class="btn-group pull-right animation"
-           ng-if="Auth.data.token">
+           ng-if="Auth.loggedIn()">
         <ul class="nav navbar-nav">
           <li class="divider"></li>
           <li>
             <a class="btn dropdown-toggle"
                data-toggle="dropdown">
-              {{Auth.data.email}}
+              {{Auth.currentUser}}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a ng-href="/#/profile/{{Auth.data.email}}">
+                <a ng-href="/#/profile/{{Auth.currentUser}}">
                   Profile
                 </a>
               </li>
@@ -39,7 +39,7 @@
 
       <!-- logged out -->
       <div class="btn-group pull-right"
-           ng-if="!Auth.data.token">
+           ng-if="!Auth.loggedIn()">
         <ul class="nav navbar-nav col-sm-12">
           <li><a ng-href="/#/about">About</a></li>
           <li><a ng-href="/#/register">Register</a></li>

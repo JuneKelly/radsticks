@@ -1,4 +1,4 @@
-<div ng-if="Auth.data.token">
+<div ng-if="Auth.loggedIn()">
   <div class="row">
     <div class="col-md-12">
       <h1>You are registered and logged in :)</h1>
@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<div ng-if="!Auth.data.token">
+<div ng-if="!Auth.loggedIn()">
   <div class="row well well-lg">
     <div class="col-md-6">
       <h1>Register</h1>

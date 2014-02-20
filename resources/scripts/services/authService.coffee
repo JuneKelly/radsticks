@@ -1,13 +1,11 @@
 angular.module('radsticksApp')
-  .service 'Auth', ($http, Notifications, $state) ->
+  .service 'Auth', ($http, Notifications, $state, Storage) ->
 
-    data =
-      email: ''
-      token: ''
+    currentUser = ''
 
     reset = () ->
-      data.email = ''
-      data.token = ''
+      Storage.setUserEmail('')
+      Storage.setToken('')
       Notifications.resetAll()
 
     register = (credentials) ->
@@ -37,18 +35,16 @@ angular.module('radsticksApp')
         headers: { 'Accept': 'application/json' }
       )
         .success (payload, status, headers, config) ->
-          console.log payload
-          console.log status
-
           if payload.token == null
             Notifications.error(
               'Error, authentication failed'
             )
           else
             if status == 201
-              data.email = payload.email
-              data.token = payload.token
-              Notifications.success('Logged in as ' + data.email)
+              Storage.setToken(payload.token)
+              Storage.setUserEmail(payload.email)
+              Notifications.success(
+                'Logged in as ' + Storage.getUserEmail())
             else
               Notifications.error(
                 'Error, authentication failed'
@@ -68,13 +64,18 @@ angular.module('radsticksApp')
         $state.go('app.main')
 
     loggedIn = () ->
-      if data.token == ''
+      token = Storage.getToken()
+      if token == '' or token == null or token == "null"
         false
       else
         true
 
+    init = () ->
+      currentUser = Storage.getUserEmail()
+    init()
+
     return {
-      data: data
+      currentUser: currentUser
       login: login
       reset: reset
       register: register

@@ -10,7 +10,6 @@ angular.module('radsticksApp')
         headers: {'auth_token': Auth.data.token }
       )
         .success (payload, status, headers, config) ->
-          console.log payload
           deferred.resolve(payload)
 
         .error (payload, status, headers, config) ->

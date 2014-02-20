@@ -1,5 +1,5 @@
 angular.module('radsticksApp')
-  .controller 'NavbarCtrl', ($scope, Auth) ->
+  .controller 'NavbarCtrl', ($scope, Auth, User) ->
     $scope.Auth = Auth
     $scope.aboutText = 'About'
 
