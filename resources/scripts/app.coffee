@@ -38,6 +38,12 @@ angular.module('radsticksApp', [
           'container@':
             templateUrl: 'static/views/register.html'
             controller: 'RegistrationCtrl'
+      .state 'app.profile',
+        url: '/profile/:id'
+        views:
+          'container@':
+            templateUrl: 'static/views/profile.html'
+            controller: 'ProfileCtrl'
 
     $urlRouterProvider
       .otherwise('/')
