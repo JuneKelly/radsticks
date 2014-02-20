@@ -1,5 +1,5 @@
 angular.module('radsticksApp')
-  .service 'User', ($http, Notifications, Auth, $q) ->
+  .service 'User', ($http, Notifications, Auth, Storage, $q) ->
 
     getUserProfile = (email) ->
       deferred = $q.defer()
@@ -7,7 +7,7 @@ angular.module('radsticksApp')
       $http(
         method: 'GET'
         url: 'api/user/' + email
-        headers: {'auth_token': Auth.data.token }
+        headers: {'auth_token': Storage.getToken() }
       )
         .success (payload, status, headers, config) ->
           deferred.resolve(payload)
