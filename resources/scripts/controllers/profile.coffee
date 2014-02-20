@@ -2,9 +2,10 @@ angular.module('radsticksApp')
   .controller 'ProfileCtrl',
     ($scope, Auth, Notifications, User, $stateParams) ->
 
+      Auth.mustBeLoggedIn()
+
       $scope.Auth = Auth
       $scope.Notifications = Notifications
-
       $scope.userEmail = $stateParams.id
       $scope.profile = null
 
@@ -13,5 +14,6 @@ angular.module('radsticksApp')
           .then (profileData) ->
             $scope.profile = profileData
 
-      $scope.loadProfile()
+      if Auth.loggedIn()
+        $scope.loadProfile()
 

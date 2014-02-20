@@ -1,5 +1,6 @@
 angular.module('radsticksApp')
-  .service 'Auth', ($http, Notifications) ->
+  .service 'Auth', ($http, Notifications, $state) ->
+
     data =
       email: ''
       token: ''
@@ -61,10 +62,23 @@ angular.module('radsticksApp')
             'Error, authentication failed'
           )
 
+    mustBeLoggedIn = () ->
+      if !loggedIn()
+        Notifications.error('You must be logged in to do that')
+        $state.go('app.main')
+
+    loggedIn = () ->
+      if data.token == ''
+        false
+      else
+        true
+
     return {
       data: data
       login: login
       reset: reset
       register: register
+      loggedIn: loggedIn
+      mustBeLoggedIn: mustBeLoggedIn
     }
 
