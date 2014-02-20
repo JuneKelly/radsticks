@@ -35,17 +35,28 @@
     (get-user-details-errors email password name)))
 
 
+(defn can-access-user? [context]
+  (let [[token-valid,
+         {:keys [current-user] :as data}] (has-valid-token? context)
+        requested-user-id (get-in context [:request :route-params :id])
+        can-access (and token-valid
+                        (= requested-user-id current-user))]
+    [can-access, data]))
+
+
 (defresource user-read [id]
   :available-media-types ["application/json"]
   :allowed-methods [:get]
 
-  :allowed?
+  :authorized?
   (fn [context]
-    (has-valid-token? context))
+    (can-access-user? context))
+
   :handle-ok
   (fn [context]
-    (println (context :current-user) )
-    "hi"))
+    (let [user-email (get-in context [:request :route-params :id])
+          user-profile (db/get-user-profile user-email)]
+      user-profile)))
 
 
 (defresource user-write
