@@ -40,7 +40,8 @@
             claim (auth/user-claim user-email)]
         (is (nil? claim))))))
 
-(deftest validate-user
+
+(deftest token-validation
   (testing "validation of known user tokens"
 
     (do
@@ -65,6 +66,4 @@
             result (auth/validate-user token)]
         (is (nil? result))
         (is (not (string? result)))
-        (is (not (= "notauser@example.com" result))))
-      )
-    ))
+        (is (not (= "notauser@example.com" result)))))))
