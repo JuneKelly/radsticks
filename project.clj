@@ -41,7 +41,7 @@
                    [ring/ring-devel "1.2.1"]]
     :env {:selmer-dev true
           :db-uri "mongodb://localhost/radsticks"
-          :secret "areallybadsecretwhichshouldnotbeusedinproduction"}}
+          :secret "aterriblesecret"}}
 
    :testing
    {:dependencies [[ring-mock "0.1.5"]
@@ -49,6 +49,6 @@
                    [ring/ring-devel "1.2.1"]]
     :env {:selmer-dev true
           :db-uri "mongodb://localhost/radsticks_test"
-          :secret "anevenworsesecret"}}}
+          :secret "aterriblesecret"}}}
 
   :min-lein-version "2.0.0")

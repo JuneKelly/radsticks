@@ -39,3 +39,32 @@
             current-time (ti/now)
             claim (auth/user-claim user-email)]
         (is (nil? claim))))))
+
+(deftest validate-user
+  (testing "validation of known user tokens"
+
+    (do
+      (reset-db)
+
+      ;; known user, should succeed
+      (let [token util/good-token
+            result (auth/validate-user token)]
+        (is (not (nil? result)))
+        (is (string? result))
+        (is (= "userone@example.com" result)))
+
+      ;; known user with expired token, should fail
+      (let [token util/expired-token
+            result (auth/validate-user token)]
+        (is (nil? result))
+        (is (not (string? result)))
+        (is (not (= "userone@example.com" result))))
+
+      ;; unknown user, should fail
+      (let [token util/invalid-user-token
+            result (auth/validate-user token)]
+        (is (nil? result))
+        (is (not (string? result)))
+        (is (not (= "notauser@example.com" result))))
+      )
+    ))
