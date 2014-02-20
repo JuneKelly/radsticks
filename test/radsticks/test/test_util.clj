@@ -24,6 +24,7 @@
                     :pass "password2"
                     :name "User Two")))
 
+
 (def good-token
   (str
    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
@@ -32,6 +33,7 @@
    "iOjE0MDA1ODUwNzMsIm5iZiI6MTM5Mjg5NTQ"
    "3M30.RONk8H71lldwvWF5Yq844-YEs-9KF1lXZo2XUGK0QLI"))
 
+
 (def expired-token
   (str
    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
@@ -39,6 +41,7 @@
    "jb20iLCJuYW1lIjoiVXNlciBPbmUiLCJleHA"
    "iOjEzODQ5NDY4MzcsIm5iZiI6MTM5Mjg5NTY"
    "zN30.hcUu-CZXy_GD9lTkzetonBuWEAcdhy5ydSVxaCbnqnE"))
+
 
 (def invalid-user-token
   (str
