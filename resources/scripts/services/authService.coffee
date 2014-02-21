@@ -1,8 +1,6 @@
 angular.module('radsticksApp')
   .service 'Auth', ($http, Notifications, $state, Storage) ->
 
-    currentUser = ''
-
     reset = () ->
       Storage.setUserEmail('')
       Storage.setToken('')
@@ -70,9 +68,8 @@ angular.module('radsticksApp')
       else
         true
 
-    init = () ->
-      currentUser = Storage.getUserEmail()
-    init()
+    currentUser = () ->
+      Storage.getUserEmail()
 
     return {
       currentUser: currentUser

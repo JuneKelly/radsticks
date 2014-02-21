@@ -20,12 +20,12 @@
           <li>
             <a class="btn dropdown-toggle"
                data-toggle="dropdown">
-              {{Auth.currentUser}}
+              <span ng-bind="Auth.currentUser()"></span>
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a ng-href="/#/profile/{{Auth.currentUser}}">
+                <a ng-href="/#/profile/{{Auth.currentUser()}}">
                   Profile
                 </a>
               </li>
