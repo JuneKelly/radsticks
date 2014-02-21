@@ -1,11 +1,16 @@
 angular.module('radsticksApp')
-  .service 'Notifications', () ->
+  .service 'Notifications', ($timeout) ->
     data =
       successMessage: ''
       errorMessage: ''
 
-    success = (message) ->
+    # default to fading out success messages
+    # after three seconds
+    success = (message, timeout=3) ->
       data.successMessage = message
+      $timeout () ->
+        data.successMessage = ''
+      , timeout * 1000
 
     error = (message) ->
       data.errorMessage = message
