@@ -1,13 +1,42 @@
 <div ng-if="profile">
-  <h1>{{profile.name}}</h1>
-  <br>
-  <p>
-    <strong>Email: </strong> {{profile.email}}
-  </p>
-  <p>
-    Member since {{profile.created | date:'yyyy-MM-dd'}}
-  </p>
-  <br>
+  <div class="row">
+    <h1>{{profile.name}}</h1>
+    <br>
+    <p>
+      <strong>Email: </strong> {{profile.email}}
+    </p>
+    <p>
+      Member since {{profile.created | date:'yyyy-MM-dd'}}
+    </p>
+    <br>
+    <p ng-if="isCurrentUser()">
+      <a ng-click="editToggle()">Edit</a>
+    </p>
+  </div>
+  <div ng-if="editMode"
+       id="profile-edit-panel"
+       class="row animate">
+    <div class="col-md-6">
+      <form role="form"
+            class="form-horizontal"
+            name="profileEditForm"
+            novalidate>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input class="form-control"
+                 id="name"
+                 ng-model="profile.name"
+                 type="text">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary"
+                  ng-click="updateProfile()">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
   <br>
   <br>
 </div>
