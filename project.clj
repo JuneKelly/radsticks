@@ -1,7 +1,8 @@
 (defproject radsticks "0.1.0"
   :description
   "A toy app to demonstrate token based auth with clojure and angularjs"
-  :url "http://example.com/FIXME"
+
+  :url "http://github.com/ShaneKilkelly/radsticks"
 
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [lib-noir "0.8.1"]
