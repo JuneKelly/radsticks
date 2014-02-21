@@ -1,7 +1,7 @@
 angular.module('radsticksApp')
   .service 'User', ($http, Notifications, Auth, Storage, $q) ->
 
-    getUserProfile = (email) ->
+    get = (email) ->
       deferred = $q.defer()
 
       $http(
@@ -19,5 +19,5 @@ angular.module('radsticksApp')
       return deferred.promise
 
     return {
-      getUserProfile: getUserProfile
+      get: get
     }

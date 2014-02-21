@@ -17,7 +17,7 @@ angular.module('radsticksApp')
         $scope.userEmail == Auth.currentUser()
 
       $scope.loadProfile = () ->
-        User.getUserProfile($scope.userEmail)
+        User.get($scope.userEmail)
           .then (profileData) ->
             $scope.profile = profileData
 
