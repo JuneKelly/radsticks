@@ -11,5 +11,5 @@
 (defroutes api-routes
   (POST "/api/auth" [] authentication)
   (POST "/api/user" [] user-create)
-  (PUT "/api/user/:id" [id] (user-update id))
+  (POST "/api/user/:id" [id] (user-update id))
   (GET "/api/user/:id" [id] (user-read id)))

@@ -73,16 +73,19 @@
 
 (defresource user-update [id]
   :available-media-types ["application/json"]
-  :allowed-methods [:put]
+  :allowed-methods [:post]
 
   :authorized?
   can-access-user?
+
+  :allowed?
+  user-resource-exists?
 
   :malformed?
   (fn [context]
     (let [params (get-in context [:request :params])
           method (get-in context [:request :request-method])]
-      (if (= method :put)
+      (if (= method :post)
         (let [errors (user-update-errors params)]
           (if (empty? errors)
             false
@@ -93,13 +96,7 @@
   (fn [context]
     {:errors (context :errors)})
 
-  :exists?
-  user-resource-exists?
-
-  :can-put-to-missing?
-  false
-
-  :put!
+  :post!
   (fn [context]
     (let [params (get-in context  [:request :params])
           email (params :email)
@@ -108,15 +105,16 @@
           new-profile (db/update-user email params)]
       {:user-profile new-profile}))
 
-  :new?
+  :new? ;; updates are never new resources
   false
 
-  :respond-with-entity?
-  false
+  :respond-with-entity? true
+
+  :multiple-representations? false
 
   :handle-ok
   (fn [context]
-    {:userProfile (context :user-profile)}))
+    (context :user-profile)))
 
 
 (defresource user-create

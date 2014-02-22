@@ -26,12 +26,14 @@ angular.module('radsticksApp')
         name: newData.name
 
       $http(
-        method: 'PUT'
+        method: 'POST'
         url: 'api/user/' + email
         headers: {'auth_token': Storage.getToken() }
         data: data
       )
         .success (payload, status, headers, config) ->
+          console.log payload
+          console.log status
           Notifications.success('Updated Profile of ' + email)
 
         .error (payload, status, headers, config) ->
