@@ -108,6 +108,12 @@
           new-profile (db/update-user email params)]
       {:user-profile new-profile}))
 
+  :new?
+  false
+
+  :respond-with-entity?
+  false
+
   :handle-ok
   (fn [context]
     {:userProfile (context :user-profile)}))

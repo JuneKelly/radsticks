@@ -1,6 +1,7 @@
 angular.module('radsticksApp')
   .service 'User', ($http, Notifications, Auth, Storage, $q) ->
 
+
     get = (email) ->
       deferred = $q.defer()
 
@@ -18,6 +19,7 @@ angular.module('radsticksApp')
 
       return deferred.promise
 
+
     update = (email, newData) ->
       data =
         email: email
@@ -34,6 +36,7 @@ angular.module('radsticksApp')
 
         .error (payload, status, headers, config) ->
           Notifications.error(status + ', something went wrong')
+
 
     return {
       get: get

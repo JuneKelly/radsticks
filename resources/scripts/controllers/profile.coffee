@@ -22,8 +22,6 @@ angular.module('radsticksApp')
             $scope.profile = profileData
 
       $scope.updateProfile = () ->
-        console.log 'Updating'
-        console.log $scope.profile
         User.update($scope.userEmail, $scope.profile)
 
       if Auth.loggedIn()
