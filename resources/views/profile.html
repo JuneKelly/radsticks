@@ -1,17 +1,22 @@
 <div ng-if="profile">
   <div class="row">
-    <h1>{{profile.name}}</h1>
-    <br>
-    <p>
-      <strong>Email: </strong> {{profile.email}}
-    </p>
-    <p>
-      Member since {{profile.created | date:'yyyy-MM-dd'}}
-    </p>
-    <br>
-    <p ng-if="isCurrentUser()">
-      <a ng-click="editToggle()">Edit</a>
-    </p>
+    <div class="well well-lg">
+      <h1>{{profile.name}}</h1>
+      <br>
+      <p>
+        <strong>Email: </strong> {{profile.email}}
+      </p>
+      <p>
+        Member since {{profile.created | date:'yyyy-MM-dd'}}
+      </p>
+      <br>
+      <p ng-if="isCurrentUser()">
+        <button class="btn btn-xs"
+                ng-click="editToggle()">
+          Edit
+        </button>
+      </p>
+    </div>
   </div>
   <div ng-if="editMode"
        id="profile-edit-panel"
