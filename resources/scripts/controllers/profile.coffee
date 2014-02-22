@@ -1,6 +1,8 @@
 angular.module('radsticksApp')
   .controller 'ProfileCtrl',
     ($scope, Auth, Notifications, User, $stateParams) ->
+      $scope.Auth = Auth
+      $scope.Notifications = Notifications
 
       Auth.mustBeLoggedIn()
 
@@ -8,8 +10,6 @@ angular.module('radsticksApp')
       $scope.editToggle = () ->
         $scope.editMode = !$scope.editMode
 
-      $scope.Auth = Auth
-      $scope.Notifications = Notifications
       $scope.userEmail = $stateParams.id
       $scope.profile = null
 
@@ -24,6 +24,7 @@ angular.module('radsticksApp')
       $scope.updateProfile = () ->
         console.log 'Updating'
         console.log $scope.profile
+        User.update($scope.userEmail, $scope.profile)
 
       if Auth.loggedIn()
         $scope.loadProfile()

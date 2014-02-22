@@ -12,7 +12,7 @@
     (db/user-exists? (params :email))))
 
 
-(defn get-user-details-errors [email password name]
+(defn get-user-create-errors [email password name]
   (v/rule (v/has-value? email)
           [:email "email is required"])
 
@@ -28,11 +28,23 @@
   (v/get-errors))
 
 
-(defn post-params-errors [params]
+(defn user-create-errors [params]
   (let [email (params :email)
         password (params :password)
         name (params :name)]
-    (get-user-details-errors email password name)))
+    (get-user-create-errors email password name)))
+
+
+(defn get-user-update-errors [name]
+  (v/rule (v/has-value? name)
+          [:name "name is required"])
+
+  (v/get-errors))
+
+
+(defn user-update-errors [params]
+  (let [name (params :name)]
+    (get-user-update-errors name)))
 
 
 (defn can-access-user? [context]
@@ -59,7 +71,49 @@
       user-profile)))
 
 
-(defresource user-write
+(defresource user-update [id]
+  :available-media-types ["application/json"]
+  :allowed-methods [:put]
+
+  :authorized?
+  can-access-user?
+
+  :malformed?
+  (fn [context]
+    (let [params (get-in context [:request :params])
+          method (get-in context [:request :request-method])]
+      (if (= method :put)
+        (let [errors (user-update-errors params)]
+          (if (empty? errors)
+            false
+            [true (ensure-json {:errors errors})]))
+        false)))
+
+  :handle-malformed
+  (fn [context]
+    {:errors (context :errors)})
+
+  :exists?
+  user-resource-exists?
+
+  :can-put-to-missing?
+  false
+
+  :put!
+  (fn [context]
+    (let [params (get-in context  [:request :params])
+          email (params :email)
+          name (params :name)
+          password (params :password)
+          new-profile (db/update-user email params)]
+      {:user-profile new-profile}))
+
+  :handle-ok
+  (fn [context]
+    {:userProfile (context :user-profile)}))
+
+
+(defresource user-create
   :available-media-types ["application/json"]
   :allowed-methods [:post]
 
@@ -68,7 +122,7 @@
     (let [params (get-in context [:request :params])
           method (get-in context [:request :request-method])]
       (if (= method :post)
-        (let [errors (post-params-errors params)]
+        (let [errors (user-create-errors params)]
           (if (empty? errors)
             false
             [true (ensure-json {:errors errors})]))

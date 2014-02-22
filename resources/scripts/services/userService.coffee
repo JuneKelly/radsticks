@@ -18,6 +18,24 @@ angular.module('radsticksApp')
 
       return deferred.promise
 
+    update = (email, newData) ->
+      data =
+        email: email
+        name: newData.name
+
+      $http(
+        method: 'PUT'
+        url: 'api/user/' + email
+        headers: {'auth_token': Storage.getToken() }
+        data: data
+      )
+        .success (payload, status, headers, config) ->
+          Notifications.success('Updated Profile of ' + email)
+
+        .error (payload, status, headers, config) ->
+          Notifications.error(status + ', something went wrong')
+
     return {
       get: get
+      update: update
     }
