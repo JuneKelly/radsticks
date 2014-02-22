@@ -57,6 +57,10 @@ angular.module('radsticksApp')
             'Error, authentication failed'
           )
 
+    logout = () ->
+      reset()
+      Notifications.success('Logging out...')
+
     mustBeLoggedIn = () ->
       if !loggedIn()
         Notifications.error('You must be logged in to do that')
@@ -75,7 +79,7 @@ angular.module('radsticksApp')
     return {
       currentUser: currentUser
       login: login
-      reset: reset
+      logout: logout
       register: register
       loggedIn: loggedIn
       mustBeLoggedIn: mustBeLoggedIn

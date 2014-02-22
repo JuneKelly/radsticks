@@ -9,5 +9,4 @@ angular.module('radsticksApp')
       user.password = ''
 
     $scope.logout = () ->
-      console.log 'LOGOUT'
-      Auth.reset()
+      Auth.logout()
