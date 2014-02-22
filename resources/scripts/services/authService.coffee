@@ -1,10 +1,11 @@
 angular.module('radsticksApp')
-  .service 'Auth', ($http, Notifications, $state, Storage) ->
+  .service 'Auth', ($http, Notifications, Util, $state, Storage) ->
 
     reset = () ->
       Storage.setUserEmail('')
       Storage.setToken('')
       Notifications.resetAll()
+      Util.kickToRoot()
 
     register = (credentials) ->
       reset()
@@ -59,7 +60,7 @@ angular.module('radsticksApp')
     mustBeLoggedIn = () ->
       if !loggedIn()
         Notifications.error('You must be logged in to do that')
-        $state.go('app.main')
+        Util.kickToRoot()
 
     loggedIn = () ->
       token = Storage.getToken()
