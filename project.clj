@@ -24,7 +24,7 @@
 
   :plugins [[lein-ring "0.8.7"]
             [lein-environ "0.4.0"]
-            [speclj "2.9.1"]]
+            [speclj "2.8.0"]]
 
   :ring {:handler radsticks.handler/app
          :init    radsticks.handler/init
@@ -48,8 +48,9 @@
    :testing
    {:dependencies [[ring-mock "0.1.5"]
                    [peridot "0.2.2"]
-                   [speclj "2.9.1"]
+                   [speclj "2.8.0"]
                    [ring/ring-devel "1.2.1"]]
+    :ring {:port 3001}
     :env {:selmer-dev true
           :db-uri "mongodb://localhost/radsticks_test"
           :secret "aterriblesecret"}}}

@@ -1,5 +1,4 @@
 (ns radsticks.auth-spec
-  (:use clojure.test)
   (:require [radsticks.db :as db]
             [radsticks.auth :as auth]
             [radsticks.test-utils :as util]
