@@ -21,6 +21,6 @@ To install the dependences required for angular protractor tests, run: ```./node
 
 Run the full test suite with : ```grunt test:all```
 
-Run only the frontend tests with: ```grunt test:e2e```
+Run only the frontend tests with: ```grunt test:frontend```
 
-And only the backend api tests with: ```grunt test:ring```
+And only the backend api tests with: ```grunt test:backend```

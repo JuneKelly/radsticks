@@ -29,8 +29,6 @@ module.exports = (grunt) ->
     exec:
       server:
         cmd: "lein with-profile dev ring server-headless"
-      leintest:
-        cmd: "lein with-profile testing test"
       leinspec:
         cmd: "lein with-profile testing spec"
       build:
@@ -140,18 +138,14 @@ module.exports = (grunt) ->
   ]
 
   grunt.registerTask "test:all", [
-    "test:e2e",
-    "test:ring"
+    "test:frontend",
+    "test:backend"
   ]
 
-  grunt.registerTask "test:spec", [
+  grunt.registerTask "test:backend", [
     "exec:leinspec"
   ]
 
-  grunt.registerTask "test:e2e", [
+  grunt.registerTask "test:frontend", [
     "protractor:manual"
-  ]
-
-  grunt.registerTask "test:ring", [
-    "exec:leintest"
   ]
