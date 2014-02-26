@@ -46,7 +46,6 @@
   (try
     (-> token-string str->jwt)
     (catch Exception e
-      (println "Bad JWT Token")
       nil)))
 
 
