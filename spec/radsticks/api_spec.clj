@@ -185,6 +185,22 @@
 
 
 (describe
+  "user profile api, writes"
+
+  (it "should forbid an update without auth token"
+      (comment "pass"))
+
+  (it "should forbid an update to another users profile"
+      (comment "pass"))
+
+  (it "should be an error if name is omitted"
+      (comment "pass"))
+
+  (it "should update profile to new values with good auth token"
+      (comment "pass")))
+
+
+(describe
   "auth api"
 
   (before
