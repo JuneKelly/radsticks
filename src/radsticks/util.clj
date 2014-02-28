@@ -1,6 +1,7 @@
 (ns radsticks.util
   (:require [noir.io :as io]
             [clj-time.core :as time]
+            [crypto.random :refer [hex]]
             [markdown.core :as md]))
 
 
@@ -22,6 +23,12 @@
   "Generate a uuid"
   []
   (str (java.util.UUID/randomUUID)))
+
+
+(defn slug
+  "Generate a 32 character string"
+  []
+  (hex 16))
 
 
 (def rep-map

@@ -16,6 +16,7 @@
                  [liberator "0.10.0"]
                  [clj-time "0.6.0"]
                  [clj-jwt "0.0.4"]
+                 [crypto-random "1.2.0"]
                  [com.novemberain/monger "1.7.0"]
                  [environ "0.4.0"]]
 

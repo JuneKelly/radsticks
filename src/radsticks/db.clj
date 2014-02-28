@@ -71,3 +71,22 @@
   (mc/find-one-as-map "user"
                       {:_id user-email},
                       {:_id 1, :pass 1}))
+
+
+;; snippet = {
+;;   text: String,
+;;   tags: [String],
+;;   created: Datetime,
+;;   user: String (-> User)
+;; }
+(defn create-snippet [user, text, tags]
+  (if (user-exists? user)
+    (let [snippet-id (util/slug)
+          doc {:_id snippet-id
+               :user user
+               :text text
+               :tags tags
+               :created (util/datetime)}]
+      (do
+        (mc/insert "snippets" doc)
+        snippet-id))))
