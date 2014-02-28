@@ -3,6 +3,7 @@
             [speclj.core :refer :all]
             [peridot.core :refer :all]
             [radsticks.handler :refer :all]
+            [radsticks.db :as db]
             [cheshire.core :refer [generate-string
                                    parse-string]]))
 
@@ -149,10 +150,7 @@
             response (:response request)]
         (should= 401 (response :status))
         (should-not= "application/json;charset=UTF-8"
-                     (get (:headers response) "Content-Type")))
-
-
-      )
+                     (get (:headers response) "Content-Type"))))
 
   (it "should not allow a profile to be read when not the current user"
       (let [request (-> (session app)
@@ -163,10 +161,7 @@
             response (:response request)]
         (should= 401 (response :status))
         (should-not= "application/json;charset=UTF-8"
-                     (get (:headers response) "Content-Type")))
-
-
-      )
+                     (get (:headers response) "Content-Type"))))
 
   (it "should return profile when auth_token is supplied and is user"
       (let [request (-> (session app)
@@ -202,13 +197,62 @@
         (should= "Not authorized." (response :body))))
 
   (it "should forbid an update to another users profile"
-      (comment "pass"))
+      (let [request-body
+            "{\"email\": \"usertwo@example.com\",
+              \"name\": \"OTHER NAME\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user/usertwo@example.com"
+                                 :request-method :post
+                                 :body request-body
+                                 :headers {:auth_token
+                                           util/good-token}))
+            response (request :response)]
+        (should= 401 (response :status))
+        (should-be string? (response :body))
+        (should= "Not authorized." (response :body))))
 
   (it "should be an error if name is omitted"
-      (comment "pass"))
+      (let [request-body
+            "{\"email\": \"userone@example.com\",
+              \"zzz\": \"OTHER NAME\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user/userone@example.com"
+                                 :request-method :post
+                                 :body request-body
+                                 :headers {:auth_token
+                                           util/good-token}))
+            response (request :response)
+            response-json (parse-string (response :body) true)]
+        (should= 400 (response :status))
+        (should-be map? response-json)
+        (should-contain :errors response-json)
+        (should== ["name is required"] (response-json :errors))))
 
   (it "should update profile to new values with good auth token"
-      (comment "pass")))
+      (let [old-profile (db/get-user-profile "userone@example.com")
+            request-body
+            "{\"email\": \"userone@example.com\",
+              \"name\": \"OTHER NAME\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user/userone@example.com"
+                                 :request-method :post
+                                 :body request-body
+                                 :headers {:auth_token
+                                           util/good-token}))
+            response (request :response)
+            response-json (parse-string (response :body) true)]
+        (should= 200 (response :status))
+        (should-be map? response-json)
+        (should-not-contain :errors response-json)
+        (should-contain :email response-json)
+        (should-contain :name response-json)
+        (should-contain :created response-json)
+        (should= "userone@example.com" (response-json :email))
+        (should= "OTHER NAME" (response-json :name))
+        (should-not= (old-profile :name) (response-json :name)))))
 
 
 (describe
