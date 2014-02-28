@@ -188,7 +188,18 @@
   "user profile api, writes"
 
   (it "should forbid an update without auth token"
-      (comment "pass"))
+      (let [request-body
+            "{\"email\": \"userone@example.com\",
+              \"name\": \"OTHER NAME\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user/userone@example.com"
+                                 :request-method :post
+                                 :body request-body))
+            response (request :response)]
+        (should= 401 (response :status))
+        (should-be string? (response :body))
+        (should= "Not authorized." (response :body))))
 
   (it "should forbid an update to another users profile"
       (comment "pass"))
