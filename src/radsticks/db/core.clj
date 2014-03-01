@@ -12,5 +12,5 @@
 
 
 ;; query definitions
-;;(defqueries "./sql/queries/user.sql")
+(defqueries "sql/queries/user.sql")
 
