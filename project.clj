@@ -18,6 +18,9 @@
                  [clj-jwt "0.0.4"]
                  [crypto-random "1.2.0"]
                  [com.novemberain/monger "1.7.0"]
+                 [yesql "0.4.0"]
+                 [org.clojure/java.jdbc "0.3.3"]
+                 [postgresql/postgresql "8.4-702.jdbc4"]
                  [environ "0.4.0"]]
 
   :aot :all
