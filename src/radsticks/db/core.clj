@@ -6,10 +6,11 @@
 
 (def db-spec {:classname "org.postgresql.Driver"
               :subprotocol "postgresql"
-              :subname (env :db-uri)
+              :subname (env :db-conn)
               :user (env :db-user)
               :password (env :db-password)})
 
 
 ;; query definitions
-(defqueries "src/radsticks/db/sql/queries/user.sql")
+;;(defqueries "./sql/queries/user.sql")
+

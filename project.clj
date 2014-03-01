@@ -47,6 +47,9 @@
                    [ring/ring-devel "1.2.1"]]
     :env {:selmer-dev true
           :db-uri "mongodb://localhost/radsticks"
+          :db-conn "//localhost/radsticks"
+          :db-user "radsticks"
+          :db-password ""
           :secret "aterriblesecret"}}
 
    :testing

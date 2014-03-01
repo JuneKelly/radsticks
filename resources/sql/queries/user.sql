@@ -1,5 +1,3 @@
--- SQL Queries for User Entity
-
 -- name: get-user-profile
 -- Gets profile fields for a single user by email id
 select id, name, created from user
