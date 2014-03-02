@@ -49,12 +49,12 @@
 
 (defn get-user-profile [email]
   (let [result (-get-user-profile db-spec email)]
-    (first result)))
+    (util/sanitize-user (first result))))
 
 
 (defn get-user-credentials! [email]
   (let [result (-get-user-credentials db-spec email)]
-    (first result)))
+    (util/sanitize-user (first result))))
 
 
 (defn log! [data]

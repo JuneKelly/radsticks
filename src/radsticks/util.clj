@@ -42,8 +42,10 @@
 
 
 (defn sanitize-user [user]
-  (-> user
-      (assoc :email (user :_id))
-      (dissoc :_id)
-      (dissoc :pass)))
+  (if user
+    (-> user
+        (assoc :email (user :id))
+        (dissoc :id)
+        (dissoc :pass))
+    nil))
 
