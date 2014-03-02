@@ -39,3 +39,11 @@
   "Merge the rep-map with the supplied map [m],
    ensuring that the response media-type will be json"
   (merge m rep-map))
+
+
+(defn sanitize-user [user]
+  (-> user
+      (assoc :email (user :_id))
+      (dissoc :_id)
+      (dissoc :pass)))
+
