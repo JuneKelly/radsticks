@@ -15,3 +15,4 @@ WHERE id = :email
 UPDATE user_account
 SET name = :name
 WHERE id = :email
+
