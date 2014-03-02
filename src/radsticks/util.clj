@@ -40,12 +40,3 @@
    ensuring that the response media-type will be json"
   (merge m rep-map))
 
-
-(defn sanitize-user [user]
-  (if user
-    (-> user
-        (assoc :email (user :id))
-        (dissoc :id)
-        (dissoc :pass))
-    nil))
-

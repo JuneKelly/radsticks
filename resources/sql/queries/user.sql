@@ -1,9 +1,3 @@
--- name: -get-user-profile
--- Gets profile fields for a single user by email id
-SELECT id, name, created FROM user_account
-WHERE id = :email;
-
-
 -- name: -create-user!
 -- Make a new user
 INSERT INTO user_account (id, password, name, created)
@@ -15,9 +9,15 @@ VALUES (
 );
 
 
+-- name: -get-user-profile
+-- Gets profile fields for a single user by email id
+SELECT id AS email, name, created FROM user_account
+WHERE id = :email;
+
+
 -- name: -get-user-credentials
 -- gets credentials for a single user
-SELECT id, password FROM user_account
+SELECT id AS email, password FROM user_account
 WHERE id = :email
 
 
