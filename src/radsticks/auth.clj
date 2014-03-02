@@ -1,5 +1,5 @@
 (ns radsticks.auth
-  (require [radsticks.db :as db]
+  (require [radsticks.db.core :as db]
            [environ.core  :refer [env]]
            [noir.util.crypt :as crypt]
            [clj-jwt.core  :refer :all]
@@ -32,7 +32,7 @@
 (defn user-credentials-valid? [email password]
   (let [user-creds (db/get-user-credentials! email)]
     (and (not (nil? user-creds))
-         (crypt/compare password (user-creds :pass)))))
+         (crypt/compare password (user-creds :password)))))
 
 
 (defn authenticate-user [email password]

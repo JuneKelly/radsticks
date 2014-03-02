@@ -3,7 +3,6 @@
   (:require [liberator.core :refer [defresource]]
             [noir.validation :as v]
             [radsticks.auth :as auth]
-            [radsticks.db :as db]
             [radsticks.util :refer [ensure-json rep-map]]))
 
 
