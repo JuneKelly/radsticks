@@ -21,7 +21,7 @@ SELECT id AS email, password FROM user_account
 WHERE id = :email
 
 
--- name: update-user!
+-- name: -update-user!
 -- save changes to user record
 UPDATE user_account
 SET name = :name

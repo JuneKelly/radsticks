@@ -1,8 +1,9 @@
 (ns radsticks.routes.api.user
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [radsticks.db :as db]
+            [radsticks.db.core :as db]
             [noir.validation :as v]
+            [cheshire.core :as json]
             [radsticks.routes.api.common :refer [has-valid-token?]]
             [radsticks.util :refer [ensure-json]]))
 
@@ -68,7 +69,7 @@
   (fn [context]
     (let [user-email (get-in context [:request :route-params :id])
           user-profile (db/get-user-profile user-email)]
-      user-profile)))
+      (json/generate-string user-profile))))
 
 
 (defresource user-update [id]
@@ -102,7 +103,7 @@
           email (params :email)
           name (params :name)
           password (params :password)
-          new-profile (db/update-user email params)]
+          new-profile (db/update-user! email params)]
       {:user-profile new-profile}))
 
   :new? ;; updates are never new resources
@@ -114,7 +115,7 @@
 
   :handle-ok
   (fn [context]
-    (context :user-profile)))
+    (json/generate-string (context :user-profile))))
 
 
 (defresource user-create
@@ -148,9 +149,9 @@
           email (params :email)
           name (params :name)
           password (params :password)
-          success (db/create-user :email email
-                                  :pass password
-                                  :name name)]
+          success (db/create-user! email
+                                   password
+                                   name)]
       (if success
         {:user-profile (db/get-user-profile email)}
         {:error "Could not register user"})))

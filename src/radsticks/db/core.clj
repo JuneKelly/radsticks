@@ -57,6 +57,14 @@
     (first result)))
 
 
+(defn update-user! [email new-values]
+  (let [name (new-values :name)]
+    (do (-update-user! db-spec
+                       name
+                       email)
+        (get-user-profile email))))
+
+
 (defn log! [data]
   (let [data-string (generate-string data)]
     (do
