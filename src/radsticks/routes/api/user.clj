@@ -158,4 +158,4 @@
 
   :handle-created
   (fn [context]
-    {:userProfile (context :user-profile)}))
+    (json/generate-string {:userProfile (context :user-profile)})))
