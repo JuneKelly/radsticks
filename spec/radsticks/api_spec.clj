@@ -3,7 +3,7 @@
             [speclj.core :refer :all]
             [peridot.core :refer :all]
             [radsticks.handler :refer :all]
-            [radsticks.db :as db]
+            [radsticks.db.core :as db]
             [cheshire.core :refer [generate-string
                                    parse-string]]))
 
@@ -28,7 +28,7 @@
   "user creation"
 
   (before
-   (do (util/drop-database!)
+   (do (util/reset-db!)
        (util/populate-users!)))
 
   (it "should allow a user to be created when params are correct"
@@ -259,7 +259,7 @@
   "auth api"
 
   (before
-   (do (util/drop-database!)
+   (do (util/reset-db!)
        (util/populate-users!)))
 
   (it "should issue a token when credentials are correct"

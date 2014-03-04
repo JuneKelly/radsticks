@@ -9,7 +9,7 @@
 
 (def db-spec {:classname "org.postgresql.Driver"
               :subprotocol "postgresql"
-              :subname (env :db-conn)
+              :subname (env :db-uri)
               :user (env :db-user)
               :password (env :db-password)})
 

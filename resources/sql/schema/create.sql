@@ -1,8 +1,5 @@
--- Create fresh copy of radsticks schema
-
--- User
+-- name: -reset-user!
 DROP TABLE IF EXISTS user_account;
-
 CREATE TABLE user_account (
   id varchar(128) primary key,
   password text not NULL,
@@ -11,11 +8,9 @@ CREATE TABLE user_account (
   last_login timestamp
 );
 
-
--- Log
+-- name: -reset-log!
 DROP TABLE IF EXISTS log;
-
 CREATE TABLE log (
   id serial primary key,
   data json not NULL
-)
+);

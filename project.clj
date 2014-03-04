@@ -46,9 +46,8 @@
                    [peridot "0.2.2"]
                    [ring/ring-devel "1.2.1"]]
     :env {:selmer-dev true
-          :db-uri "mongodb://localhost/radsticks"
-          :db-conn "//localhost/radsticks"
-          :db-user "radsticks"
+          :db-uri "//localhost/radsticks"
+          :db-user ""
           :db-password ""
           :secret "aterriblesecret"}}
 
@@ -59,7 +58,9 @@
                    [ring/ring-devel "1.2.1"]]
     :ring {:port 3001}
     :env {:selmer-dev true
-          :db-uri "mongodb://localhost/radsticks_test"
+          :db-uri "//localhost/radsticks_test"
+          :db-user ""
+          :db-password ""
           :secret "aterriblesecret"}}}
 
   :test-paths ["spec"]

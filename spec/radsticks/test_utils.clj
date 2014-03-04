@@ -1,28 +1,29 @@
 (ns radsticks.test-utils
-  (:require [radsticks.db :as db]
+  (:require [radsticks.db.core :as db]
             [environ.core :refer [env]]
-            [monger.core :as mg]
-            [monger.db :as md]
-            [monger.collection :as mc]
-            [monger.query :as mq]
-            monger.joda-time))
-
-;; database operations
-(mg/connect-via-uri! (env :db-uri))
+            [yesql.core :refer [defqueries]]))
 
 
-(defn drop-database! []
-  (md/drop-db (mg/get-db "radsticks_test")))
+(defn load-queries []
+  (do
+    (defqueries "sql/schema/create.sql")))
+(load-queries)
+
+
+(defn reset-db! []
+  (do
+    (-reset-user! db/db-spec)
+    (-reset-log!  db/db-spec)))
 
 
 (defn populate-users! []
   (do
-    (db/create-user :email "userone@example.com"
-                    :pass "password1"
-                    :name "User One")
-    (db/create-user :email "usertwo@example.com"
-                    :pass "password2"
-                    :name "User Two")))
+    (db/create-user! "userone@example.com"
+                     "password1"
+                     "User One")
+    (db/create-user! "usertwo@example.com"
+                     "password2"
+                     "User Two")))
 
 
 (def good-token

@@ -1,6 +1,5 @@
 (ns radsticks.auth-spec
-  (:require [radsticks.db :as db]
-            [radsticks.auth :as auth]
+  (:require [radsticks.auth :as auth]
             [radsticks.test-utils :as util]
             [speclj.core :refer :all]
             [clj-time.core :as ti]
@@ -9,7 +8,7 @@
 
 (defn reset-db []
   (do
-    (util/drop-database!)
+    (util/reset-db!)
     (util/populate-users!)))
 
 
