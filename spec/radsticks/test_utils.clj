@@ -1,19 +1,17 @@
 (ns radsticks.test-utils
   (:require [radsticks.db.core :as db]
             [environ.core :refer [env]]
-            [yesql.core :refer [defqueries]]))
+            [yesql.core :refer [defquery]]))
 
 
 (defn load-queries []
   (do
-    (defqueries "sql/schema/create.sql")))
+    (defquery -reset-db! "sql/schema/create.sql")))
 (load-queries)
 
 
 (defn reset-db! []
-  (do
-    (-reset-user! db/db-spec)
-    (-reset-log!  db/db-spec)))
+  (do (-reset-db! db/db-spec)))
 
 
 (defn populate-users! []
