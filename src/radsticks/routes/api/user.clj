@@ -158,4 +158,8 @@
 
   :handle-created
   (fn [context]
-    (json/generate-string {:userProfile (context :user-profile)})))
+    (do
+      (db/log! {:level "info"
+                :event "registration"
+                :user (get-in context [:user-profile :email])})
+      (json/generate-string {:userProfile (context :user-profile)}))))
