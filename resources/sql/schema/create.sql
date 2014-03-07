@@ -13,5 +13,6 @@ DROP TABLE IF EXISTS log;
 
 CREATE TABLE log (
   id serial primary key,
-  data json not NULL
+  data json not NULL,
+  created timestamp not NULL
 );

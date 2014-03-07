@@ -1,5 +1,6 @@
 -- name: -create-log-entry!
-INSERT INTO log (data) values (cast(:data as json));
+INSERT INTO log (data, created)
+VALUES (cast(:data as json), :created);
 
 -- name: get-log-entry
 SELECT * FROM log

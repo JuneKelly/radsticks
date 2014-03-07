@@ -66,7 +66,9 @@
 
 
 (defn log! [data]
-  (let [data-string (generate-string data)]
+  (let [data-string (generate-string data)
+        created (-> (util/datetime)
+                    (to-sql-time))]
     (do
-      (-create-log-entry! db-spec data-string)
+      (-create-log-entry! db-spec data-string created)
       nil)))
