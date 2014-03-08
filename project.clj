@@ -57,8 +57,8 @@
                :db {:classname "org.postgresql.Driver"
                     :subprotocol "postgresql"
                     :subname "//localhost/radsticks"
-                    :user ""
-                    :password ""}}
+                    :user ~(System/getenv "DB_USER")
+                    :password ~(System/getenv "DB_PASSWORD")}}
     }
 
    :testing
@@ -77,8 +77,8 @@
                :db {:classname "org.postgresql.Driver"
                     :subprotocol "postgresql"
                     :subname "//localhost/radsticks_test"
-                    :user ""
-                    :password ""}}}}
+                    :user ~(System/getenv "DB_USER")
+                    :password ~(System/getenv "DB_PASSWORD")}}}}
 
   :test-paths ["spec"]
 
