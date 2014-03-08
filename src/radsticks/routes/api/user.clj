@@ -1,7 +1,8 @@
 (ns radsticks.routes.api.user
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [radsticks.db.core :as db]
+            [radsticks.db.user :as user]
+            [radsticks.db.log :as log]
             [noir.validation :as v]
             [cheshire.core :as json]
             [radsticks.routes.api.common :refer [has-valid-token?]]
@@ -10,7 +11,7 @@
 
 (defn user-resource-exists? [context]
   (let [params (get-in context [:request :params])]
-    (db/user-exists? (params :email))))
+    (user/user-exists? (params :email))))
 
 
 (defn get-user-create-errors [email password name]
@@ -68,7 +69,7 @@
   :handle-ok
   (fn [context]
     (let [user-email (get-in context [:request :route-params :id])
-          user-profile (db/get-user-profile user-email)]
+          user-profile (user/get-user-profile user-email)]
       (json/generate-string user-profile))))
 
 
@@ -103,7 +104,7 @@
           email (params :email)
           name (params :name)
           password (params :password)
-          new-profile (db/update-user! email params)]
+          new-profile (user/update-user! email params)]
       {:user-profile new-profile}))
 
   :new? ;; updates are never new resources
@@ -149,17 +150,16 @@
           email (params :email)
           name (params :name)
           password (params :password)
-          success (db/create-user! email
+          success (user/create-user! email
                                    password
                                    name)]
       (if success
-        {:user-profile (db/get-user-profile email)}
+        {:user-profile (user/get-user-profile email)}
         {:error "Could not register user"})))
 
   :handle-created
   (fn [context]
     (do
-      (db/log! {:level "info"
-                :event "registration"
-                :user (get-in context [:user-profile :email])})
+      (log/info {:event "registration"
+                 :user (get-in context [:user-profile :email])})
       (json/generate-string {:userProfile (context :user-profile)}))))

@@ -1,5 +1,5 @@
 (ns radsticks.auth
-  (require [radsticks.db.core :as db]
+  (require [radsticks.db.user :as user]
            [environ.core  :refer [env]]
            [noir.util.crypt :as crypt]
            [clj-jwt.core  :refer :all]
@@ -19,7 +19,7 @@
 
 
 (defn user-claim [email]
-  (let [user-doc (db/get-user-profile email)
+  (let [user-doc (user/get-user-profile email)
         expiration (plus (now) (months 3))]
     (if user-doc
       {:email (user-doc :email)
@@ -30,7 +30,7 @@
 
 
 (defn user-credentials-valid? [email password]
-  (let [user-creds (db/get-user-credentials! email)]
+  (let [user-creds (user/get-user-credentials! email)]
     (and (not (nil? user-creds))
          (crypt/compare password (user-creds :password)))))
 
@@ -65,7 +65,7 @@
         current-time (now)]
     (and (not (before? exp current-time))
          (not (after? nbf current-time))
-         (db/user-exists? (get-user-email decoded-token)))))
+         (user/user-exists? (get-user-email decoded-token)))))
 
 
 (defn validate-user [token-string]

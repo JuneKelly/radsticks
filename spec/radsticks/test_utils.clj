@@ -1,5 +1,6 @@
 (ns radsticks.test-utils
-  (:require [radsticks.db.core :as db]
+  (:require [radsticks.db.core :refer [db-spec]]
+            [radsticks.db.user :as user]
             [environ.core :refer [env]]
             [yesql.core :refer [defquery]]))
 
@@ -11,15 +12,15 @@
 
 
 (defn reset-db! []
-  (do (-reset-db! db/db-spec)))
+  (do (-reset-db! db-spec)))
 
 
 (defn populate-users! []
   (do
-    (db/create-user! "userone@example.com"
+    (user/create-user! "userone@example.com"
                      "password1"
                      "User One")
-    (db/create-user! "usertwo@example.com"
+    (user/create-user! "usertwo@example.com"
                      "password2"
                      "User Two")))
 

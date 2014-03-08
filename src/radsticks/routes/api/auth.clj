@@ -3,7 +3,7 @@
   (:require [liberator.core :refer [defresource]]
             [noir.validation :as v]
             [radsticks.auth :as auth]
-            [radsticks.db.core :as db]
+            [radsticks.db.log :as log]
             [radsticks.util :refer [ensure-json rep-map]]))
 
 
@@ -54,7 +54,6 @@
   :handle-created
   (fn [context]
     (do
-      (db/log! {:level "info"
-                :event "authenticated"
-                :user (get-in context [:payload :email])})
+      (log/info {:event "authenticated"
+                 :user (get-in context [:payload :email])})
       (context :payload))))

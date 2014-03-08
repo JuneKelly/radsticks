@@ -3,7 +3,7 @@
             [speclj.core :refer :all]
             [peridot.core :refer :all]
             [radsticks.handler :refer :all]
-            [radsticks.db.core :as db]
+            [radsticks.db.user :as user]
             [cheshire.core :refer [generate-string
                                    parse-string]]))
 
@@ -231,7 +231,7 @@
         (should== ["name is required"] (response-json :errors))))
 
   (it "should update profile to new values with good auth token"
-      (let [old-profile (db/get-user-profile "userone@example.com")
+      (let [old-profile (user/get-user-profile "userone@example.com")
             request-body
             "{\"email\": \"userone@example.com\",
               \"name\": \"OTHER NAME\"}"
