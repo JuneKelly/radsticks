@@ -5,9 +5,7 @@ CREATE TABLE IF NOT EXISTS user_account (
   created timestamp not NULL,
   last_login timestamp
 );
-
-
-
+--;;
 CREATE TABLE IF NOT EXISTS log (
   id serial primary key,
   data json not NULL,
