@@ -21,6 +21,7 @@
                  [yesql "0.4.0"]
                  [org.clojure/java.jdbc "0.3.3"]
                  [postgresql/postgresql "8.4-702.jdbc4"]
+                 [migratus "0.7.0"]
                  [environ "0.4.0"]]
 
   :aot :all
@@ -28,6 +29,7 @@
 
   :plugins [[lein-ring "0.8.7"]
             [lein-environ "0.4.0"]
+            [migratus-lein "0.1.0"]
             [speclj "2.8.0"]]
 
   :ring {:handler radsticks.handler/app
@@ -49,7 +51,15 @@
           :db-uri "//localhost/radsticks"
           :db-user ""
           :db-password ""
-          :secret "aterriblesecret"}}
+          :secret "aterriblesecret"}
+    :migratus {:store :database
+               :migration-dir "sql/migrations"
+               :db {:classname "org.postgresql.Driver"
+                    :subprotocol "postgresql"
+                    :subname "//localhost/radsticks"
+                    :user ""
+                    :password ""}}
+    }
 
    :testing
    {:dependencies [[ring-mock "0.1.5"]
@@ -61,7 +71,14 @@
           :db-uri "//localhost/radsticks_test"
           :db-user ""
           :db-password ""
-          :secret "aterriblesecret"}}}
+          :secret "aterriblesecret"}
+    :migratus {:store :database
+               :migration-dir "sql/migrations"
+               :db {:classname "org.postgresql.Driver"
+                    :subprotocol "postgresql"
+                    :subname "//localhost/radsticks_test"
+                    :user ""
+                    :password ""}}}}
 
   :test-paths ["spec"]
 
