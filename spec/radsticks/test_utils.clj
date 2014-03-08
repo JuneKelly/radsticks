@@ -17,10 +17,10 @@
 
 (defn populate-users! []
   (do
-    (user/create-user! "userone@example.com"
+    (user/create! "userone@example.com"
                      "password1"
                      "User One")
-    (user/create-user! "usertwo@example.com"
+    (user/create! "usertwo@example.com"
                      "password2"
                      "User Two")))
 

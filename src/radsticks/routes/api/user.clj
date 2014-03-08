@@ -11,7 +11,7 @@
 
 (defn user-resource-exists? [context]
   (let [params (get-in context [:request :params])]
-    (user/user-exists? (params :email))))
+    (user/exists? (params :email))))
 
 
 (defn get-user-create-errors [email password name]
@@ -69,7 +69,7 @@
   :handle-ok
   (fn [context]
     (let [user-email (get-in context [:request :route-params :id])
-          user-profile (user/get-user-profile user-email)]
+          user-profile (user/get-profile user-email)]
       (json/generate-string user-profile))))
 
 
@@ -104,7 +104,7 @@
           email (params :email)
           name (params :name)
           password (params :password)
-          new-profile (user/update-user! email params)]
+          new-profile (user/update! email params)]
       {:user-profile new-profile}))
 
   :new? ;; updates are never new resources
@@ -150,11 +150,11 @@
           email (params :email)
           name (params :name)
           password (params :password)
-          success (user/create-user! email
+          success (user/create! email
                                    password
                                    name)]
       (if success
-        {:user-profile (user/get-user-profile email)}
+        {:user-profile (user/get-profile email)}
         {:error "Could not register user"})))
 
   :handle-created

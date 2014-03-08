@@ -231,7 +231,7 @@
         (should== ["name is required"] (response-json :errors))))
 
   (it "should update profile to new values with good auth token"
-      (let [old-profile (user/get-user-profile "userone@example.com")
+      (let [old-profile (user/get-profile "userone@example.com")
             request-body
             "{\"email\": \"userone@example.com\",
               \"name\": \"OTHER NAME\"}"

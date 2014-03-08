@@ -11,7 +11,7 @@
 (load-queries!)
 
 
-(defn create-user! [email pass name]
+(defn create! [email pass name]
   (let [hash (crypt/encrypt pass)
         created (util/datetime)
         doc {:_id email
@@ -32,24 +32,24 @@
           false)))))
 
 
-(defn user-exists? [email]
+(defn exists? [email]
   (let [result (first (-user-exists? db-spec email))]
     (result :exists)))
 
 
-(defn get-user-profile [email]
+(defn get-profile [email]
   (let [result (-get-user-profile db-spec email)]
     (first result)))
 
 
-(defn get-user-credentials! [email]
+(defn get-credentials! [email]
   (let [result (-get-user-credentials db-spec email)]
     (first result)))
 
 
-(defn update-user! [email new-values]
+(defn update! [email new-values]
   (let [name (new-values :name)]
     (do (-update-user! db-spec
                        name
                        email)
-        (get-user-profile email))))
+        (get-profile email))))
