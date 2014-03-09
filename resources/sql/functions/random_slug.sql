@@ -9,4 +9,4 @@ $$ SELECT CAST(
          '[/=+]',
          '-', 'g'
    ) AS text);$$
-LANGUAGE SQL
+LANGUAGE SQL;

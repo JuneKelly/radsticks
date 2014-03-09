@@ -23,6 +23,7 @@ angular.module('radsticksApp')
 
       $scope.updateProfile = () ->
         User.update($scope.userEmail, $scope.profile)
+        $scope.editMode = false
 
       if Auth.loggedIn()
         $scope.loadProfile()
