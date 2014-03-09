@@ -4,7 +4,6 @@
             [yesql.core :refer [defqueries]]
             [clj-time.coerce :refer [to-sql-time]]))
 
-(comment "")
 
 (defn load-queries! []
   (defqueries "sql/queries/snippet.sql"))
@@ -13,14 +12,16 @@
 
 (defn create! [user-email, content, tags]
   (let [created (to-sql-time (util/datetime))
-        updated (to-sql-time (util/datetime))]
-    (do
-      (-create-snippet<! db-spec
-                        user-email
-                        content
-                        tags
-                        created
-                        updated))))
+        updated (to-sql-time (util/datetime))
+        result (-create-snippet<! db-spec
+                                  user-email
+                                  content
+                                  tags
+                                  created
+                                  updated)]
+    (if (not (nil? result))
+      (result :id)
+      nil)))
 
 
 (defn exists? [snippet-id]
