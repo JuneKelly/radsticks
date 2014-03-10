@@ -32,3 +32,10 @@
 (defn get-snippet [snippet-id]
   (let [result (-get-snippet db-spec snippet-id)]
     (first result)))
+
+
+(defn get-snippet-owner [id]
+  (if (exists? id)
+    (let [snippet (get-snippet id)]
+      (:user_id snippet))
+    nil))

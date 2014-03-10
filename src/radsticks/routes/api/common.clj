@@ -8,3 +8,10 @@
     [(and (not (nil? auth-token))
           (not (nil? current-user)))
      {:current-user current-user}]))
+
+
+(defn get-current-user [context]
+  (let [[token-valid, {:keys [current-user]}] has-valid-token?]
+    (if token-valid
+      current-user
+      nil)))
