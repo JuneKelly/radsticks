@@ -6,7 +6,8 @@
             [radsticks.db.snippet :as snippet]
             [noir.validation :as v]
             [cheshire.core :as json]
-            [radsticks.routes.api.common :refer [has-valid-token?]]
+            [radsticks.routes.api.common :refer [has-valid-token?
+                                                 get-current-user]]
             [radsticks.util :refer [ensure-json]]))
 
 
