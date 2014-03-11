@@ -32,8 +32,8 @@
 
 (defn user-create-errors [params]
   (let [email (params :email)
-        password (params :password)
-        name (params :name)]
+        password (:password params)
+        name (:name params)]
     (get-user-create-errors email password name)))
 
 
@@ -45,7 +45,7 @@
 
 
 (defn user-update-errors [params]
-  (let [name (params :name)]
+  (let [name (:name params )]
     (get-user-update-errors name)))
 
 
@@ -94,14 +94,14 @@
 
   :handle-malformed
   (fn [context]
-    {:errors (context :errors)})
+    {:errors (:errors context)})
 
   :post!
   (fn [context]
     (let [params (get-in context  [:request :params])
-          email (params :email)
-          name (params :name)
-          password (params :password)
+          email (:email params)
+          name (:name params)
+          password (:password params)
           new-profile (user/update! email params)]
       {:user-profile new-profile}))
 
@@ -114,7 +114,7 @@
 
   :handle-ok
   (fn [context]
-    (json/generate-string (context :user-profile))))
+    (json/generate-string (:user-profile context))))
 
 
 (defresource user-create
@@ -145,12 +145,12 @@
   :post!
   (fn [context]
     (let [params (get-in context  [:request :params])
-          email (params :email)
-          name (params :name)
-          password (params :password)
+          email (:email params)
+          name (:name params)
+          password (:password params)
           success (user/create! email
-                                   password
-                                   name)]
+                                password
+                                name)]
       (if success
         {:user-profile (user/get-profile email)}
         {:error "Could not register user"})))
@@ -160,4 +160,4 @@
     (do
       (log/info {:event "registration"
                  :user (get-in context [:user-profile :email])})
-      (json/generate-string {:userProfile (context :user-profile)}))))
+      (json/generate-string {:userProfile (:user-profile context)}))))
