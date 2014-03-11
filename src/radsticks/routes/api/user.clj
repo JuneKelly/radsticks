@@ -5,7 +5,7 @@
             [radsticks.db.log :as log]
             [noir.validation :as v]
             [cheshire.core :as json]
-            [radsticks.routes.api.common :refer [has-valid-token?]]
+            [radsticks.routes.api.common :refer [get-current-user]]
             [radsticks.util :refer [ensure-json]]))
 
 
@@ -50,12 +50,10 @@
 
 
 (defn can-access-user? [context]
-  (let [[token-valid,
-         {:keys [current-user] :as data}] (has-valid-token? context)
+  (let [current-user (get-current-user context)
         requested-user-id (get-in context [:request :route-params :id])
-        can-access (and token-valid
-                        (= requested-user-id current-user))]
-    [can-access, data]))
+        can-access (= requested-user-id current-user)]
+    can-access))
 
 
 (defresource user-read [id]
