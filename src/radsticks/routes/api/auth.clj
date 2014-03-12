@@ -7,7 +7,9 @@
             [radsticks.util :refer [ensure-json rep-map]]))
 
 
-(defn get-auth-errors [params]
+(defn get-auth-errors
+  "Validate that data submitted to auth endpoint is correct."
+  [params]
   (let [email (params :email)
         password (params :password)]
     (v/rule (v/has-value? email)

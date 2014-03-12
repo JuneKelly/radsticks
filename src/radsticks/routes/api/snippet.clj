@@ -28,12 +28,11 @@
   (not (nil? (get-current-user context))))
 
 
-(defn can-access-snippet?
-  (fn [context]
-    (let [method (get-in context [:request :request-method])]
-      (if (contains? #{:get :put :delete} method)
-        (is-snippet-owner-authenticated? context)
-        (is-authenticated? context)))))
+(defn can-access-snippet? [context]
+  (let [method (get-in context [:request :request-method])]
+    (if (contains? #{:get :put :delete} method)
+      (is-snippet-owner-authenticated? context)
+      (is-authenticated? context))))
 
 
 (defresource snippet [id]
