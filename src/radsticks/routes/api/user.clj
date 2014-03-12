@@ -9,12 +9,18 @@
             [radsticks.util :refer [ensure-json]]))
 
 
-(defn user-resource-exists? [context]
+(defn user-resource-exists?
+  "Check if there is a user resource matching the email parameter"
+  [context]
   (let [params (get-in context [:request :params])]
     (user/exists? (params :email))))
 
 
-(defn get-user-create-errors [email password name]
+(defn get-user-create-errors
+  "Validate parameters for user creation.
+   Fails if wither email, name or password are missing,
+   or if the email is not a valid format."
+  [email password name]
   (v/rule (v/has-value? email)
           [:email "email is required"])
 
@@ -49,7 +55,10 @@
     (get-user-update-errors name)))
 
 
-(defn can-access-user? [context]
+(defn can-access-user?
+  "Check context to see if the requested user resource can
+   be accessed. Returns boolean"
+  [context]
   (let [current-user (get-current-user context)
         requested-user-id (get-in context [:request :route-params :id])
         can-access (= requested-user-id current-user)]
