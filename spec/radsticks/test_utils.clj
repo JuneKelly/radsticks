@@ -1,6 +1,7 @@
 (ns radsticks.test-utils
   (:require [radsticks.db.core :refer [db-spec]]
             [radsticks.db.user :as user]
+            [radsticks.auth :as auth]
             [radsticks.db.snippet :as snippet]
             [yesql.core :refer [defquery]]))
 
@@ -30,6 +31,16 @@
     (snippet/create! "userone@example.com"
                      "content one"
                      ["one" "two"])))
+
+
+(def user-one-token
+  (auth/authenticate-user "userone@example.com"
+                          "password1"))
+
+
+(def user-two-token
+  (auth/authenticate-user "usertwo@example.com"
+                          "password2"))
 
 
 (def good-token

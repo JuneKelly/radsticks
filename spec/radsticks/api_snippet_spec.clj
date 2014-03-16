@@ -24,7 +24,7 @@
                         (request (str "/api/snippet/" snippet-id)
                                  :request-method :get
                                  :headers {:auth_token
-                                           util/good-token}))
+                                           util/user-one-token}))
             response (:response request)]
         (should= 200 (:status response))
         (let [snippet-data (parse-string (:body response) true)]
@@ -54,14 +54,14 @@
 
    (it "should not allow another user to access a users snippet"
       (let [user-email "userone@example.com"
-            token (auth/authenticate-user "usertwo@example.com" "password2")
             snippet-id (snippet/create! user-email
                                         "content is good"
                                         ["one" "two"])
             request (-> (session app)
                         (request (str "/api/snippet/" snippet-id)
                                  :request-method :get
-                                 :headers {:auth_token token}))
+                                 :headers {:auth_token
+                                           util/user-two-token}))
             response (:response request)]
         (should= 401 (:status response))
         (should= "Not authorized." (:body response)))))
