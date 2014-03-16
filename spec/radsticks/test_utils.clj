@@ -1,22 +1,17 @@
 (ns radsticks.test-utils
   (:require [radsticks.db.core :refer [db-spec]]
             [radsticks.db.user :as user]
-            [environ.core :refer [env]]
-            [migratus.core :as migratus]
             [yesql.core :refer [defquery]]))
 
 
 (defn load-queries []
   (do
-    (defquery -teardown-db! "sql/schema/destroy.sql")))
+    (defquery -teardown-db! "radsticks/reset_data.sql")))
 (load-queries)
 
 
 (defn reset-db! []
-  (do (-teardown-db! db-spec)
-      (migratus/migrate {:store :database
-                         :migration-dir "sql/migrations"
-                         :db db-spec})))
+  (do (-teardown-db! db-spec)))
 
 
 (defn populate-users! []
