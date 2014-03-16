@@ -2,6 +2,7 @@
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
             [radsticks.auth :as auth]
+            [radsticks.routes.api.snippet :refer [snippet]]
             [radsticks.routes.api.auth :refer [authentication]]
             [radsticks.routes.api.user :refer [user-create
                                                user-read
@@ -11,4 +12,5 @@
   (POST "/api/auth" [] authentication)
   (POST "/api/user" [] user-create)
   (POST "/api/user/:id" [id] (user-update id))
-  (GET "/api/user/:id" [id] (user-read id)))
+  (GET "/api/user/:id" [id] (user-read id))
+  (ANY "/api/snippet/:id" [id] (snippet id)))

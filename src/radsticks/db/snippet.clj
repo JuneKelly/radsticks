@@ -2,7 +2,8 @@
   (:require [radsticks.util :as util]
             [radsticks.db.core :refer [db-spec]]
             [yesql.core :refer [defqueries]]
-            [clj-time.coerce :refer [to-sql-time]]))
+            [clj-time.coerce :refer [to-sql-time]]
+            [clojure.java.jdbc :as jdbc]))
 
 
 (defn load-queries! []
@@ -29,9 +30,12 @@
     (result :exists)))
 
 
+;; We need to use a transaction so we can convert :tags to a vec
+;; before the connection is closed
 (defn get-snippet [snippet-id]
-  (let [result (-get-snippet db-spec snippet-id)]
-    (first result)))
+  (jdbc/with-db-transaction [conn db-spec]
+    (let [row (first (-get-snippet conn snippet-id))]
+      (update-in row [:tags] (fn [ts] (vec (.getArray ts)))))))
 
 
 (defn get-snippet-owner [id]
