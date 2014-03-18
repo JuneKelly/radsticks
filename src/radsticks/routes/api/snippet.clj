@@ -6,7 +6,8 @@
             [radsticks.db.snippet :as snippet]
             [noir.validation :as v]
             [cheshire.core :as json]
-            [radsticks.routes.api.common :refer [get-current-user]]
+            [radsticks.routes.api.common :refer [get-current-user
+                                                 is-authenticated?]]
             [radsticks.util :refer [ensure-json]]))
 
 
@@ -20,12 +21,6 @@
         owner (snippet/get-snippet-owner snippet-id)]
     (and (not (nil? current-user))
          (= current-user owner))))
-
-
-(defn is-authenticated?
-  "Check if there is a valid auth token in context"
-  [context]
-  (not (nil? (get-current-user context))))
 
 
 (defn can-access-snippet? [context]

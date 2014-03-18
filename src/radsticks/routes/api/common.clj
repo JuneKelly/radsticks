@@ -11,3 +11,9 @@
         current-user (auth/validate-user auth-token)]
     current-user))
 
+
+(defn is-authenticated?
+  "Check if there is a valid auth token in context"
+  [context]
+  (not (nil? (get-current-user context))))
+
