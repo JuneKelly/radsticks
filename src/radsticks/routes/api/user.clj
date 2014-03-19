@@ -5,7 +5,7 @@
             [radsticks.db.log :as log]
             [noir.validation :as v]
             [cheshire.core :as json]
-            [radsticks.routes.api.common :refer [get-current-user]]
+            [radsticks.routes.api.core :refer [get-current-user]]
             [radsticks.util :refer [ensure-json]]))
 
 

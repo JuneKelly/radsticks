@@ -1,7 +1,6 @@
 (ns radsticks.handler
   (:require [compojure.core :refer [defroutes]]
-            [radsticks.routes.home :refer [home-routes]]
-            [radsticks.routes.api.core  :refer [api-routes]]
+            [radsticks.routes.core  :refer [api-routes home-routes]]
             [noir.util.middleware :as middleware]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]

@@ -1,16 +1,20 @@
 (ns radsticks.routes.api.core
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [radsticks.auth :as auth]
-            [radsticks.routes.api.snippet :refer [snippet]]
-            [radsticks.routes.api.auth :refer [authentication]]
-            [radsticks.routes.api.user :refer [user-create
-                                               user-read
-                                               user-update]]))
+            [radsticks.auth :as auth]))
 
-(defroutes api-routes
-  (POST "/api/auth" [] authentication)
-  (POST "/api/user" [] user-create)
-  (POST "/api/user/:id" [id] (user-update id))
-  (GET "/api/user/:id" [id] (user-read id))
-  (ANY "/api/snippet/:id" [id] (snippet id)))
+
+(defn get-current-user
+  "Get the current user from context, validating the auth_token header.
+   Returns string username (email) if valid.
+   Returns nil if the token is either invalid or not present"
+  [context]
+  (let [auth-token (get-in context [:request :headers "auth_token"])
+        current-user (auth/validate-user auth-token)]
+    current-user))
+
+
+(defn is-authenticated?
+  "Check if there is a valid auth token in context"
+  [context]
+  (not (nil? (get-current-user context))))

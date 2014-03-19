@@ -7,7 +7,3 @@
 (defn home-page []
   (layout/render
     "base.html"))
-
-
-(defroutes home-routes
-  (GET "/" [] (home-page)))
