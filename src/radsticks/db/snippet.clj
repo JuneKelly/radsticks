@@ -21,13 +21,13 @@
                                   created
                                   updated)]
     (if (not (nil? result))
-      (result :id)
+      (:id result)
       nil)))
 
 
 (defn exists? [snippet-id]
   (let [result (first (-snippet-exists? db-spec snippet-id))]
-    (result :exists)))
+    (:exists result)))
 
 
 ;; We need to use a transaction so we can convert :tags to a vec
