@@ -30,8 +30,8 @@
       (is-authenticated? context))))
 
 
-(defn snippet-json [snippet-id]
-  (let [snippet-data (snippet/get-snippet snippet-id)]
+(defn snippet-as-json [snippet-id]
+  (let [snippet-data (snippet/get-by-id snippet-id)]
     (json/generate-string snippet-data)))
 
 
@@ -100,9 +100,9 @@
   :handle-ok
   (fn [context]
     (let [snippet-id (get-in context [:request :route-params :id])]
-      (snippet-json snippet-id)))
+      (snippet-as-json snippet-id)))
 
   :handle-created
   (fn [context]
     (let [snippet-id (:snippet-id context)]
-      (snippet-json snippet-id))))
+      (snippet-as-json snippet-id))))
