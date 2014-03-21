@@ -8,19 +8,19 @@
                  [lib-noir "0.8.1"]
                  [compojure "1.1.6"]
                  [ring-server "0.3.1"]
-                 [selmer "0.5.8"]
-                 [com.taoensso/timbre "2.7.1"]
+                 [selmer "0.6.3"]
+                 [com.taoensso/timbre "3.1.6"]
                  [com.postspectacular/rotor "0.1.0"]
-                 [com.taoensso/tower "2.0.1"]
-                 [markdown-clj "0.9.40"]
-                 [liberator "0.10.0"]
+                 [com.taoensso/tower "2.0.2"]
+                 [markdown-clj "0.9.41"]
+                 [liberator "0.11.0"]
                  [clj-time "0.6.0"]
                  [clj-jwt "0.0.4"]
                  [crypto-random "1.2.0"]
                  [com.novemberain/monger "1.7.0"]
                  [yesql "0.4.0"]
                  [org.clojure/java.jdbc "0.3.3"]
-                 [postgresql/postgresql "8.4-702.jdbc4"]
+                 [postgresql/postgresql "9.1-901-1.jdbc4"]
                  [migratus "0.7.0"]
                  [environ "0.4.0"]]
 
@@ -46,7 +46,7 @@
    :dev
    {:dependencies [[ring-mock "0.1.5"]
                    [peridot "0.2.2"]
-                   [ring/ring-devel "1.2.1"]]
+                   [ring/ring-devel "1.2.2"]]
     :env {:selmer-dev true
           :db-uri "//localhost/radsticks"
           :db-user ""
@@ -65,7 +65,7 @@
    {:dependencies [[ring-mock "0.1.5"]
                    [peridot "0.2.2"]
                    [speclj "2.8.0"]
-                   [ring/ring-devel "1.2.1"]]
+                   [ring/ring-devel "1.2.2"]]
     :ring {:port 3001}
     :env {:selmer-dev true
           :db-uri "//localhost/radsticks_test"

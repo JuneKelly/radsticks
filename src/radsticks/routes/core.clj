@@ -15,7 +15,8 @@
   (POST "/api/user" [] user-create)
   (POST "/api/user/:id" [id] (user-update id))
   (GET "/api/user/:id" [id] (user-read id))
-  (ANY "/api/snippet/:id" [id] (snippet id)))
+  (POST "/api/snippet" [] snippet)
+  (GET "/api/snippet/:id" [id] (snippet id)))
 
 
 (defroutes home-routes

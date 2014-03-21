@@ -65,3 +65,39 @@
             response (:response request)]
         (should= 401 (:status response))
         (should= "Not authorized." (:body response)))))
+
+
+(describe "Snippet API, post"
+
+  (before
+   (do (util/reset-db!)
+       (util/populate-users!)))
+
+  (it "should create a snippet when user is authed and params correct"
+      (let [data (generate-string {:user "userone@example.com"
+                                   :content "content one"
+                                   :tags ["tag1" "tag2"]})
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/snippet"
+                                 :request-method :post
+                                 :headers {:auth_token
+                                           util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should= 201 (:status response))
+        (let [snippet-data (parse-string (:body response) true)]
+          (should-contain :id snippet-data)
+          (should-contain :content snippet-data)
+          (should-contain :user_id snippet-data)
+          (should-contain :created snippet-data)
+          (should-contain :updated snippet-data)
+          (should-contain :tags snippet-data)
+          (should (vector? (:tags snippet-data)))
+          (should== ["tag1" "tag2"] (:tags snippet-data))
+          (should= "userone@example.com" (:user_id snippet-data))
+          (should= "content one" (:content snippet-data))
+          (should (string? (:id snippet-data))))))
+
+  (it "should not create a snippet if user is not authenticated"
+      (comment "todo")))
