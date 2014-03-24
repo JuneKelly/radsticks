@@ -100,4 +100,15 @@
           (should (string? (:id snippet-data))))))
 
   (it "should not create a snippet if user is not authenticated"
-      (comment "todo")))
+      (let [data (generate-string {:user "userone@example.com"
+                                   :content "content one"
+                                   :tags ["tag1" "tag2"]})
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/snippet"
+                                 :request-method :post
+                                 :body data))
+            response (:response request)]
+        (should-not= 201 (:status response))
+        (should= 401 (:status response))
+        (should= "Not authorized." (:body response)))))
