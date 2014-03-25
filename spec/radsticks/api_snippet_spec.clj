@@ -111,4 +111,48 @@
             response (:response request)]
         (should-not= 201 (:status response))
         (should= 401 (:status response))
-        (should= "Not authorized." (:body response)))))
+        (should= "Not authorized." (:body response))))
+
+  (it "should not create a snippet if content is missing"
+      (let [data (generate-string {:user "userone@example.com"
+                                   :tags ["tag1" "tag2"]})
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/snippet"
+                                 :request-method :post
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should-not= 201 (:status response))
+        (should= 400 (:status response))))
+
+  (it "should not create a snippet if tags are missing"
+      (let [data (generate-string {:user "userone@example.com"
+                                   :content "c"})
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/snippet"
+                                 :request-method :post
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should-not= 201 (:status response))
+        (should= 400 (:status response))))
+
+  (it "should not create a snippet if user is missing"
+      (let [data (generate-string {:content "c"
+                                   :tags ["tag1" "tag2"]})
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/snippet"
+                                 :request-method :post
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should-not= 201 (:status response))
+        (should= 400 (:status response))))
+
+
+
+
+  )

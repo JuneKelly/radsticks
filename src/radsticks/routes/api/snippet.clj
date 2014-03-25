@@ -36,7 +36,20 @@
 
 
 (defn post-malformed? [context]
-  false)
+  (let [params (get-in context [:request :body-params])
+        user (:user params)
+        content (:content params)
+        tags (:tags params)]
+    (v/rule (v/has-value? user)
+            [:user "user is required"])
+    (v/rule (v/has-value? content)
+            [:content "content is required"])
+    (v/rule (v/has-value? tags)
+            [:tags "tags is required"])
+    (let [errors (v/get-errors)]
+      (if (empty? errors)
+        false
+        [true, (ensure-json {:errors errors})]))))
 
 
 (defn put-malformed? [context]
@@ -76,6 +89,10 @@
        (put-malformed? context)
        :else
        false)))
+
+  :handle-malformed
+  (fn [context]
+    {:errors (:errors context)})
 
   :conflict?
   (fn [context]
