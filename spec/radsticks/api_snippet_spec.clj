@@ -109,7 +109,6 @@
                                  :request-method :post
                                  :body data))
             response (:response request)]
-        (should-not= 201 (:status response))
         (should= 401 (:status response))
         (should= "Not authorized." (:body response))))
 
@@ -123,8 +122,11 @@
                                  :headers {:auth_token util/user-one-token}
                                  :body data))
             response (:response request)]
-        (should-not= 201 (:status response))
-        (should= 400 (:status response))))
+        (should= 400 (:status response))
+        (let [response-json (parse-string (:body response) true)]
+          (should (contains? response-json :errors))
+          (should (vector? (:errors response-json)))
+          (should= ["content is required"] (:errors response-json)))))
 
   (it "should not create a snippet if tags are missing"
       (let [data (generate-string {:user "userone@example.com"
@@ -136,8 +138,11 @@
                                  :headers {:auth_token util/user-one-token}
                                  :body data))
             response (:response request)]
-        (should-not= 201 (:status response))
-        (should= 400 (:status response))))
+        (should= 400 (:status response))
+        (let [response-json (parse-string (:body response) true)]
+          (should (contains? response-json :errors))
+          (should (vector? (:errors response-json)))
+          (should= ["tags is required"] (:errors response-json)))))
 
   (it "should not create a snippet if user is missing"
       (let [data (generate-string {:content "c"
@@ -149,10 +154,8 @@
                                  :headers {:auth_token util/user-one-token}
                                  :body data))
             response (:response request)]
-        (should-not= 201 (:status response))
-        (should= 400 (:status response))))
-
-
-
-
-  )
+        (should= 400 (:status response))
+        (let [response-json (parse-string (:body response) true)]
+          (should (contains? response-json :errors))
+          (should (vector? (:errors response-json)))
+          (should= ["user is required"] (:errors response-json))))))
