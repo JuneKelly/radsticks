@@ -193,7 +193,40 @@
           (should-not= "content one" (:content response-json))
           (should= "content two" (:content response-json))
           (should-not== ["one", "two"] (:tags response-json))
-          (should== ["two", "three"] (:tags response-json))))))
+          (should== ["two", "three"] (:tags response-json)))))
+
+  (it "should not allow a user to update a snippet they do not own"
+      (let [snippet-id (snippet/create! "usertwo@example.com"
+                                        "content"
+                                        ["one" "two"])
+            snippet (snippet/get-by-id snippet-id)
+            data (generate-string (assoc snippet :content "content two"
+                                         :tags ["two" "three"]))
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :put
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should= 401 (:status response))
+        (should= "Not authorized." (:body response))))
+
+  (it "should not allow a updating a snippet without an auth token"
+      (let [snippet-id (snippet/create! "userone@example.com"
+                                        "content"
+                                        ["one" "two"])
+            snippet (snippet/get-by-id snippet-id)
+            data (generate-string (assoc snippet :content "content two"
+                                         :tags ["two" "three"]))
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :put
+                                 :body data))
+            response (:response request)]
+        (should= 401 (:status response))
+        (should= "Not authorized." (:body response)))))
 
 
 (run-specs)
