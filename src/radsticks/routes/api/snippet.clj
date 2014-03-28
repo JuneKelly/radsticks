@@ -11,7 +11,7 @@
             [radsticks.util :refer [ensure-json]]))
 
 
-(defn is-snippet-owner-authenticated?
+(defn snippet-owner-authenticated?
   "Checks the request context to see if the currently
    authenticated user is the owner of the snippet
    resource. returns boolean"
@@ -26,7 +26,7 @@
 (defn can-access-snippet? [context]
   (let [method (get-in context [:request :request-method])]
     (if (contains? #{:get :put :delete} method)
-      (is-snippet-owner-authenticated? context)
+      (snippet-owner-authenticated? context)
       (is-authenticated? context))))
 
 
