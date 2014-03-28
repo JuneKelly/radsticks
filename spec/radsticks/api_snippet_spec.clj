@@ -159,3 +159,38 @@
           (should (contains? response-json :errors))
           (should (vector? (:errors response-json)))
           (should= ["user is required"] (:errors response-json))))))
+
+
+(describe "updating snippets"
+  (before (do (util/reset-db!)
+              (util/populate-users!)))
+
+  (it "should allow a user to update a snippet of theirs"
+      (let [snippet-id (snippet/create! "userone@example.com"
+                                        "content one"
+                                        ["one" "two"])
+            snippet (snippet/get-by-id snippet-id)
+            data (generate-string (assoc snippet :content "content two"
+                                         :tags ["two" "three"]))
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :put
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)
+            _ (println response)
+            ]
+        (should= 200 (:status response))
+
+
+        ))
+
+
+
+)
+
+
+
+
+(run-specs)

@@ -16,6 +16,7 @@
   (POST "/api/user/:id" [id] (user-update id))
   (GET "/api/user/:id" [id] (user-read id))
   (POST "/api/snippet" [] snippet)
+  (PUT "/api/snippet/:id" [id] (snippet id))
   (GET "/api/snippet/:id" [id] (snippet id)))
 
 

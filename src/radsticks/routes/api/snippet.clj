@@ -53,7 +53,7 @@
 
 
 (defn put-malformed? [context]
-  (comment "todo"))
+  false)
 
 
 (defresource snippet [id]
@@ -108,7 +108,21 @@
 
   :put!
   (fn [context]
+    (println "PUT")
     (comment "todo"))
+
+  :respond-with-entity?
+  true
+
+  :new?
+  (fn [context]
+    (let [method (get-in context [:request :request-method])]
+      (cond (= method :post)
+            true
+            (= method :put)
+            false
+            :else
+            false)))
 
   :delete!
   (fn [context]
