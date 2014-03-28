@@ -178,19 +178,22 @@
                                  :request-method :put
                                  :headers {:auth_token util/user-one-token}
                                  :body data))
-            response (:response request)
-            _ (println response)
-            ]
+            response (:response request)]
         (should= 200 (:status response))
-
-
-        ))
-
-
-
-)
-
-
+        (should= "application/json;charset=UTF-8"
+                 (get-in response [:headers "Content-Type"]))
+        (let [response-json (parse-string (:body response) true)]
+          (should-contain :user_id response-json)
+          (should-contain :id response-json)
+          (should-contain :content response-json)
+          (should-contain :created response-json)
+          (should-contain :updated response-json)
+          (should-contain :tags response-json)
+          (should= snippet-id (:id response-json))
+          (should-not= "content one" (:content response-json))
+          (should= "content two" (:content response-json))
+          (should-not== ["one", "two"] (:tags response-json))
+          (should== ["two", "three"] (:tags response-json))))))
 
 
 (run-specs)

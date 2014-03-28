@@ -25,6 +25,11 @@
       nil)))
 
 
+(defn update! [snippet-id content tags]
+  (let [updated (to-sql-time (util/datetime))]
+    (-update-snippet! db-spec content tags updated snippet-id)))
+
+
 (defn exists? [snippet-id]
   (let [result (first (-snippet-exists? db-spec snippet-id))]
     (:exists result)))

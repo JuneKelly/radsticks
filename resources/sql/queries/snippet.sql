@@ -10,6 +10,14 @@ VALUES (
 );
 
 
+-- name: -update-snippet!
+UPDATE snippet
+SET content = :content,
+    tags = ARRAY[ :tags ],
+    updated = :updated
+WHERE id = :id
+
+
 --name: -snippet-exists?
 SELECT exists(
   SELECT 1 from snippet

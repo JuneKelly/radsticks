@@ -108,8 +108,10 @@
 
   :put!
   (fn [context]
-    (println "PUT")
-    (comment "todo"))
+    (let [params (get-in context [:request :body-params])]
+      (do (snippet/update! (:id params)
+                           (:content params)
+                           (:tags params)))))
 
   :respond-with-entity?
   true
