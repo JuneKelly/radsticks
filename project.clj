@@ -1,4 +1,4 @@
-(defproject radsticks "0.1.0"
+(defproject radsticks "0.1.1"
   :description
   "A toy app to demonstrate token based auth with clojure and angularjs"
 
