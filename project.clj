@@ -21,6 +21,7 @@
                  [yesql "0.4.0"]
                  [org.clojure/java.jdbc "0.3.3"]
                  [postgresql/postgresql "9.1-901-1.jdbc4"]
+                 [com.novemberain/validateur "2.0.0-beta3"]
                  [migratus "0.7.0"]
                  [environ "0.4.0"]]
 

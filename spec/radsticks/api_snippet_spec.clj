@@ -125,8 +125,8 @@
         (should= 400 (:status response))
         (let [response-json (parse-string (:body response) true)]
           (should (contains? response-json :errors))
-          (should (vector? (:errors response-json)))
-          (should= ["content is required"] (:errors response-json)))))
+          (should (map? (:errors response-json)))
+          (should= {:content ["can't be blank"]} (:errors response-json)))))
 
   (it "should not create a snippet if tags are missing"
       (let [data (generate-string {:user "userone@example.com"
@@ -141,8 +141,8 @@
         (should= 400 (:status response))
         (let [response-json (parse-string (:body response) true)]
           (should (contains? response-json :errors))
-          (should (vector? (:errors response-json)))
-          (should= ["tags is required"] (:errors response-json)))))
+          (should (map? (:errors response-json)))
+          (should= {:tags ["can't be blank"]} (:errors response-json)))))
 
   (it "should not create a snippet if user is missing"
       (let [data (generate-string {:content "c"
@@ -157,8 +157,8 @@
         (should= 400 (:status response))
         (let [response-json (parse-string (:body response) true)]
           (should (contains? response-json :errors))
-          (should (vector? (:errors response-json)))
-          (should= ["user is required"] (:errors response-json))))))
+          (should (map? (:errors response-json)))
+          (should= {:user ["can't be blank"]} (:errors response-json))))))
 
 
 (describe "updating snippets"
@@ -244,8 +244,8 @@
         (should= 400 (:status response))
         (let [response-json (parse-string (:body response) true)]
           (should (contains? response-json :errors))
-          (should (vector? (:errors response-json)))
-          (should= ["content is required"] (:errors response-json))))))
+          (should (map? (:errors response-json)))
+          (should= {:content ["can't be blank"]} (:errors response-json))))))
 
 
 (run-specs)
