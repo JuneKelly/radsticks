@@ -226,7 +226,26 @@
                                  :body data))
             response (:response request)]
         (should= 401 (:status response))
-        (should= "Not authorized." (:body response)))))
+        (should= "Not authorized." (:body response))))
+
+  (it "should not allow a updating a snippet if payload is malformed"
+      (let [snippet-id (snippet/create! "userone@example.com"
+                                        "content"
+                                        ["one" "two"])
+            snippet (snippet/get-by-id snippet-id)
+            data (generate-string (dissoc snippet :content))
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :put
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should= 400 (:status response))
+        (let [response-json (parse-string (:body response) true)]
+          (should (contains? response-json :errors))
+          (should (vector? (:errors response-json)))
+          (should= ["content is required"] (:errors response-json))))))
 
 
 (run-specs)

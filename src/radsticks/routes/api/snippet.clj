@@ -53,7 +53,29 @@
 
 
 (defn put-malformed? [context]
-  false)
+  (let [snippet (get-in context [:request :body-params])
+        id (:id snippet)
+        user-id (:user_id snippet)
+        content (:content snippet)
+        tags (:tags snippet)
+        updated (:updated snippet)
+        created (:created snippet)]
+    (v/rule (v/has-value? id)
+            [:id "id is required"])
+    (v/rule (v/has-value? user-id)
+            [:user_id "user_id is required"])
+    (v/rule (v/has-value? content)
+            [:content "content is required"])
+    (v/rule (v/has-value? tags)
+            [:tags "tags is required"])
+    (v/rule (v/has-value? updated)
+            [:updated "updated is required"])
+    (v/rule (v/has-value? created)
+            [:created "created is required"])
+    (let [errors (v/get-errors)]
+      (if (empty? errors)
+        false
+        [true, (ensure-json {:errors errors})]))))
 
 
 (defresource snippet [id]
