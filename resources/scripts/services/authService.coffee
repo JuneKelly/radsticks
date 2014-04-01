@@ -68,7 +68,7 @@ angular.module('radsticksApp')
 
     loggedIn = () ->
       token = Storage.getToken()
-      if token == '' or token == null or token == "null"
+      if token == '' or token == null or token == "null" or token == undefined
         false
       else
         true
