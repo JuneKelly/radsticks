@@ -111,7 +111,9 @@
                            (:tags params)))))
 
   :respond-with-entity?
-  true
+  (fn [context]
+    (let [method (get-in context [:request :request-method])]
+      (not (= :delete method))))
 
   :new?
   (fn [context]
@@ -125,7 +127,9 @@
 
   :delete!
   (fn [context]
-    (comment "todo"))
+    (let [snippet-id (get-in context [:request :route-params :id])]
+      (do
+        (snippet/delete! snippet-id))))
 
   :handle-ok
   (fn [context]

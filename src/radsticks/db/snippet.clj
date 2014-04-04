@@ -48,3 +48,7 @@
     (let [snippet (get-by-id id)]
       (:user_id snippet))
     nil))
+
+
+(defn delete! [id]
+  (-delete-snippet! db-spec id))

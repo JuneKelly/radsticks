@@ -32,3 +32,8 @@ WHERE id = :id
 -- name: -get-user-snippets
 SELECT * from snippet
 WHERE user_id = :email
+
+
+-- name: -delete-snippet!
+DELETE FROM snippet
+WHERE id = :id

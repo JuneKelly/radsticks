@@ -248,4 +248,29 @@
           (should= {:content ["can't be blank"]} (:errors response-json))))))
 
 
+(describe "deleting snippets"
+
+  (before (do (util/reset-db!)
+              (util/populate-users!)))
+
+  (it "should delete a snippet when requested by owner"
+      (let [snippet-id (snippet/create! "userone@example.com"
+                                        "content one"
+                                        ["one" "two"])
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :delete
+                                 :headers {:auth_token util/user-one-token}))
+            response (:response request)]
+        (should= 204 (:status response))
+        (should-not (snippet/exists? snippet-id))))
+
+  (it "should not delete a snippet not owned by user"
+      (comment "todo"))
+
+  (it "should not delete a snippet if the auth_header is not present"
+      (comment "todo")))
+
+
 (run-specs)
