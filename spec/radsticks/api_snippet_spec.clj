@@ -267,10 +267,29 @@
         (should-not (snippet/exists? snippet-id))))
 
   (it "should not delete a snippet not owned by user"
-      (comment "todo"))
+      (let [snippet-id (snippet/create! "usertwo@example.com"
+                                        "content one"
+                                        ["one" "two"])
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :delete
+                                 :headers {:auth_token util/user-one-token}))
+            response (:response request)]
+        (should= 401 (:status response))
+        (should (snippet/exists? snippet-id))))
 
   (it "should not delete a snippet if the auth_header is not present"
-      (comment "todo")))
+      (let [snippet-id (snippet/create! "userone@example.com"
+                                        "content one"
+                                        ["one" "two"])
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :delete))
+            response (:response request)]
+        (should= 401 (:status response))
+        (should (snippet/exists? snippet-id)))))
 
 
 (run-specs)
