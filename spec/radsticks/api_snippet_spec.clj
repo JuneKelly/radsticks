@@ -245,7 +245,81 @@
         (let [response-json (parse-string (:body response) true)]
           (should (contains? response-json :errors))
           (should (map? (:errors response-json)))
-          (should= {:content ["can't be blank"]} (:errors response-json))))))
+          (should= {:content ["can't be blank"]} (:errors response-json)))))
+
+  (it "should not allow a user to update a snippet if updated is changed"
+      (let [snippet-id (snippet/create! "userone@example.com"
+                                        "content"
+                                        ["one" "two"])
+            snippet (snippet/get-by-id snippet-id)
+            data (generate-string (assoc snippet :content "content two"
+                                         :tags ["two" "three"]
+                                         :updated "1970-04-06T15:59:02Z"))
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :put
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should= 409 (:status response))
+        (should= "Conflict." (:body response))))
+
+  (it "should not allow a user to update a snippet if created is changed"
+      (let [snippet-id (snippet/create! "userone@example.com"
+                                        "content"
+                                        ["one" "two"])
+            snippet (snippet/get-by-id snippet-id)
+            data (generate-string (assoc snippet :content "content two"
+                                         :tags ["two" "three"]
+                                         :created "1970-04-06T15:59:02Z"))
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :put
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should= 409 (:status response))
+        (should= "Conflict." (:body response))))
+
+  (it "should not allow a user to update a snippet if id is changed"
+      (let [snippet-id (snippet/create! "userone@example.com"
+                                        "content"
+                                        ["one" "two"])
+            snippet (snippet/get-by-id snippet-id)
+            data (generate-string (assoc snippet :content "content two"
+                                         :tags ["two" "three"]
+                                         :id "ASDF"))
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :put
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should= 409 (:status response))
+        (should= "Conflict." (:body response))))
+
+  (it "should not allow a user to update a snippet if user_id is changed"
+      (let [snippet-id (snippet/create! "userone@example.com"
+                                        "content"
+                                        ["one" "two"])
+            snippet (snippet/get-by-id snippet-id)
+            data (generate-string (assoc snippet :content "content two"
+                                         :tags ["two" "three"]
+                                         :user_id "user_two@example.com"))
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request (str "/api/snippet/" snippet-id)
+                                 :request-method :put
+                                 :headers {:auth_token util/user-one-token}
+                                 :body data))
+            response (:response request)]
+        (should= 409 (:status response))
+        (should= "Conflict." (:body response))))
+
+  )
 
 
 (describe "deleting snippets"

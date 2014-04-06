@@ -38,9 +38,11 @@
 ;; We need to use a transaction so we can convert :tags to a vec
 ;; before the connection is closed
 (defn get-by-id [snippet-id]
-  (jdbc/with-db-transaction [conn db-spec]
-    (let [row (first (-get-snippet conn snippet-id))]
-      (update-in row [:tags] (fn [ts] (vec (.getArray ts)))))))
+  (if (exists? snippet-id)
+    (jdbc/with-db-transaction [conn db-spec]
+      (let [row (first (-get-snippet conn snippet-id))]
+        (update-in row [:tags] (fn [ts] (vec (.getArray ts))))))
+    nil))
 
 
 (defn get-snippet-owner [id]
