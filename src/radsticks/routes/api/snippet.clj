@@ -4,13 +4,15 @@
             [radsticks.db.user :as user]
             [radsticks.db.log :as log]
             [radsticks.db.snippet :as snippet]
-            [noir.validation :as v]
+            [clj-time.core :as time]
+            [clj-time.coerce :refer [from-sql-time to-string]]
             [cheshire.core :as json]
             [radsticks.routes.api.core :refer [get-current-user
                                                is-authenticated?]]
             [radsticks.validation :refer [get-snippet-errors
                                           get-snippet-creation-errors]]
-            [radsticks.util :refer [ensure-json]]))
+            [radsticks.util :refer [ensure-json
+                                    json-coerce]]))
 
 
 (defn snippet-owner-authenticated?
@@ -93,7 +95,13 @@
 
   :conflict?
   (fn [context]
-    (comment "todo, with the put action"))
+    (let [params (json-coerce (get-in context [:request :body-params]))
+          snippet-id (:id params)
+          existing (json-coerce (snippet/get-by-id snippet-id))]
+      (or (not= (:updated params) (:updated existing))
+          (not= (:created params) (:created existing))
+          (not= (:user_id params) (:user_id existing))
+          (not= (:id params) (:id existing)))))
 
   :post!
   (fn [context]

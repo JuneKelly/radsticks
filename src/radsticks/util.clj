@@ -2,6 +2,7 @@
   (:require [noir.io :as io]
             [clj-time.core :as time]
             [crypto.random :refer [hex]]
+            [cheshire.core :as json]
             [markdown.core :as md]))
 
 
@@ -40,3 +41,12 @@
    ensuring that the response media-type will be json"
   (merge m rep-map))
 
+
+(defn json-coerce
+  "convert data to json string and back again,
+   useful for ensuring datetime fields have been converted
+   to strings before attempting comparisons."
+  [data]
+  (-> data
+      (json/generate-string)
+      (json/parse-string true)))
