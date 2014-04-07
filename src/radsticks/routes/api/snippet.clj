@@ -28,10 +28,18 @@
 
 
 (defn can-access-snippet? [context]
-  (let [method (get-in context [:request :request-method])]
-    (if (contains? #{:get :put :delete} method)
-      (snippet-owner-authenticated? context)
-      (is-authenticated? context))))
+  (let [method (get-in context [:request :request-method])
+        snippet-id (get-in context [:request :route-params :id])]
+    (cond
+
+     (and (= :get method) (nil? snippet-id))
+     (is-authenticated? context)
+
+     (contains? #{:get :put :delete} method)
+     (snippet-owner-authenticated? context)
+
+     :else
+     (is-authenticated? context))))
 
 
 (defn snippet-as-json [snippet-id]
@@ -66,14 +74,20 @@
   (fn [context]
     (let [snippet-id (get-in context [:request :route-params :id])
           method (get-in context [:request :request-method])]
-      (if (contains? #{:get :put :delete} method)
-        (snippet/exists? snippet-id)
-        true)))
+      (cond
+       (= :get method)
+       true
+       (contains? #{:put :delete} method)
+       (snippet/exists? snippet-id)
+       :else
+       true)))
 
   :exists?
   (fn [context]
     (let [snippet-id (get-in context [:request :route-params :id])]
-      (snippet/exists? snippet-id)))
+      (if (nil? snippet-id)
+        true  ;; no snippet-id specified, requesting list
+        (snippet/exists? snippet-id))))
 
   :can-put-to-missing?
   false
@@ -142,7 +156,10 @@
   :handle-ok
   (fn [context]
     (let [snippet-id (get-in context [:request :route-params :id])]
-      (snippet-as-json snippet-id)))
+      (if (nil? snippet-id)
+        (-> (snippet/get-by-user-id (get-current-user context))
+            (json/generate-string))
+        (snippet-as-json snippet-id))))
 
   :handle-created
   (fn [context]

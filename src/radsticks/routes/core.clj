@@ -18,7 +18,8 @@
   (POST "/api/snippet" [] snippet)
   (PUT "/api/snippet/:id" [id] (snippet id))
   (DELETE "/api/snippet/:id" [id] (snippet id))
-  (GET "/api/snippet/:id" [id] (snippet id)))
+  (GET "/api/snippet/:id" [id] (snippet id))
+  (GET "/api/snippet" [] snippet))
 
 
 (defroutes home-routes

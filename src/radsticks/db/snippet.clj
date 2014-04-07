@@ -54,11 +54,9 @@
   ([user-id]
      (get-by-user-id user-id 20))
   ([user-id limit]
-     (if (user/exists? user-id)
-       (jdbc/with-db-transaction [conn db-spec]
-         (let [rows (-get-user-snippets conn user-id limit)]
-           (map extract-tags rows)))
-       nil)))
+     (jdbc/with-db-transaction [conn db-spec]
+       (let [rows (-get-user-snippets conn user-id limit)]
+         (vec (map extract-tags rows))))))
 
 
 (defn get-snippet-owner [id]

@@ -32,8 +32,8 @@ WHERE id = :id
 -- name: -get-user-snippets
 SELECT * from snippet
 WHERE user_id = :email
-LIMIT :limit
 ORDER BY updated DESC
+LIMIT :limit
 
 
 -- name: -delete-snippet!

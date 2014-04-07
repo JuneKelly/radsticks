@@ -40,6 +40,29 @@
           (should= "content is good" (:content snippet-data))
           (should (string? (:id snippet-data))))))
 
+    (it "should allow an authenticated user to read a list of snippets"
+      (let [user-email "userone@example.com"
+            _ (doseq [num (range 1 4)]
+                (snippet/create! user-email
+                                 (str "content " num)
+                                 ["one" "two"]))
+            request (-> (session app)
+                        (request "/api/snippet"
+                                 :request-method :get
+                                 :headers {:auth_token
+                                           util/user-one-token}))
+            response (:response request)]
+        (should= 200 (:status response))
+        (let [data (parse-string (:body response) true)]
+          (should (seq? data))
+          (should= 3 (-> (map :id data)
+                         (set)
+                         (count))) ;; should have 3 different ids
+          (doseq [snippet data]
+            (should-contain :id snippet)
+            (should-contain :user_id snippet)
+            (should= "userone@example.com" (:user_id snippet))))))
+
     (it "should not allow an unauthenticated user to read a snippet"
       (let [user-email "userone@example.com"
             snippet-id (snippet/create! user-email
