@@ -63,6 +63,35 @@
             (should-contain :user_id snippet)
             (should= "userone@example.com" (:user_id snippet))))))
 
+    (it "should not allow an unauthenticated user to read a list of snippets"
+      (let [user-email "userone@example.com"
+            _ (doseq [num (range 1 4)]
+                (snippet/create! user-email
+                                 (str "content " num)
+                                 ["one" "two"]))
+            request (-> (session app)
+                        (request "/api/snippet"
+                                 :request-method :get))
+            response (:response request)]
+        (should= 401 (:status response))
+        (should= "Not authorized." (:body response))))
+
+    (it "should return no snippets if the user does not have any"
+      (let [user-email "usertwo@example.com"
+            _ (doseq [num (range 1 4)]
+                (snippet/create! user-email
+                                 (str "content " num)
+                                 ["one" "two"]))
+            request (-> (session app)
+                        (request "/api/snippet"
+                                 :request-method :get
+                                 :headers {:auth_token
+                                           util/user-one-token}))
+            response (:response request)]
+        (should= 200 (:status response))
+        (let [data (parse-string (:body response) true)]
+          (should (empty? data)))))
+
     (it "should not allow an unauthenticated user to read a snippet"
       (let [user-email "userone@example.com"
             snippet-id (snippet/create! user-email
