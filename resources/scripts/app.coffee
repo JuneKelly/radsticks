@@ -44,6 +44,13 @@ angular.module('radsticksApp', [
           'container@':
             templateUrl: 'static/views/profile.html'
             controller: 'ProfileCtrl'
+      .state 'app.dashboard',
+        url: '/dashboard'
+        views:
+          'container@':
+            templateUrl: 'static/views/dashboard.html'
+            controller: 'DashboardCtrl'
+
 
     $urlRouterProvider
       .otherwise('/')
