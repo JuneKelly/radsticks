@@ -33,6 +33,7 @@ WHERE id = :id
 SELECT * from snippet
 WHERE user_id = :email
 LIMIT :limit
+ORDER BY updated DESC
 
 
 -- name: -delete-snippet!
