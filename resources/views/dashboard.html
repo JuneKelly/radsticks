@@ -1,5 +1,33 @@
-<div class="row">
-  <div>
-    <h1>Dashboard</h1>
+<div id="dashboard">
+  <div class="row" id="dashboard-header">
+    <div>
+      <h1>Dashboard</h1>
+    </div>
+  </div>
+  <div class="row" id="snippet-section">
+    <div class="col-md-12">
+      <div ng-repeat="item in snippets"
+           class="well well-sm">
+        <div class="snippet-content">
+          <p>
+            {{item.content}}
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-md-6" class="snippet-tags">
+            <span ng-repeat="tag in item.tags"
+                  class="label label-default">
+              {{tag}}
+            </span>
+          </div>
+          <div class="col-md-6" class="snippet-details">
+            <span>Created: </span>
+            <span>
+              {{item.created | date:'medium'}}
+            </span>
+          </div>
+        <div>
+      </div>
+    </div>
   </div>
 </div>
