@@ -4,6 +4,26 @@
       <h1>Dashboard</h1>
     </div>
   </div>
+
+  <div class="row" id="new-snippet">
+    <div class="col-md-12">
+      <form name="newSnippet"
+            novalidate>
+        <div class="form-group">
+          <input class="form-control"
+                 type="text"
+                 ng-model="content">
+          </input>
+          <button class="btn btn-primary pull-right"
+                  ng-click="addSnippet()">
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br>
+
   <div class="row" id="snippet-section">
     <div class="col-md-12">
       <div ng-repeat="item in snippets"
@@ -30,4 +50,5 @@
       </div>
     </div>
   </div>
+
 </div>
