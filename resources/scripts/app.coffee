@@ -5,7 +5,8 @@ angular.module('radsticksApp', [
   'ngResource',
   'ngSanitize',
   'ngAnimate',
-  'ui.router'
+  'ui.router',
+  'ui.bootstrap'
 ])
   .config ($stateProvider, $urlRouterProvider) ->
     $stateProvider

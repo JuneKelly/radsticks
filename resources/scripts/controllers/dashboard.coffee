@@ -1,6 +1,6 @@
 angular.module('radsticksApp')
   .controller 'DashboardCtrl',
-    ($scope, Auth, Notifications, Snippet) ->
+    ($scope, Auth, Notifications, Snippet, $modal) ->
       $scope.Auth = Auth
       $scope.Notifications = Notifications
 
@@ -14,5 +14,26 @@ angular.module('radsticksApp')
             console.log snippetData
             $scope.snippets = snippetData
 
+      $scope.showModal = () ->
+        modal = $modal.open(
+          templateUrl: 'static/views/new_snippet.html'
+          controller: NewSnippetCtrl
+        )
+
+        modal.result.then (newSnippet) ->
+          console.log "LOL"
+
       # load
       $scope.loadSnippets()
+
+
+NewSnippetCtrl = ($scope, $modalInstance) ->
+  $scope.snippet =
+    content: ""
+    tags: []
+
+  $scope.ok = () ->
+    $modalInstance.close($scope.snippet)
+
+  $scope.cancel = () ->
+    $modalInstance.dismiss('cancel')
