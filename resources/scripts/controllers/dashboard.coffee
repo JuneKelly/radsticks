@@ -11,7 +11,6 @@ angular.module('radsticksApp')
       $scope.loadSnippets = () ->
         Snippet.list()
           .then (snippetData) ->
-            console.log snippetData
             $scope.snippets = snippetData
 
       $scope.showModal = () ->
@@ -21,7 +20,7 @@ angular.module('radsticksApp')
         )
 
         modal.result.then (newSnippet) ->
-          console.log "LOL"
+          console.log newSnippet
 
       # load
       $scope.loadSnippets()
@@ -30,10 +29,13 @@ angular.module('radsticksApp')
 NewSnippetCtrl = ($scope, $modalInstance) ->
   $scope.snippet =
     content: ""
-    tags: []
+    tags: ""
 
   $scope.ok = () ->
-    $modalInstance.close($scope.snippet)
+    result =
+      content: $scope.snippet.content
+      tags: $scope.snippet.tags.replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
+    $modalInstance.close(result)
 
   $scope.cancel = () ->
     $modalInstance.dismiss('cancel')
