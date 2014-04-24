@@ -20,7 +20,7 @@ angular.module('radsticksApp')
         )
 
         modal.result.then (newSnippet) ->
-          console.log newSnippet
+          console.log newSnippet  #TODO post this data to server
 
       # load
       $scope.loadSnippets()
