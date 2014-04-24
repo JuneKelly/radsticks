@@ -95,7 +95,9 @@ module.exports = (grunt) ->
           BOWER+"/angular-animate/angular-animate.min.js",
           BOWER+"/jquery/jquery.min.js",
           BOWER+"/lodash/dist/lodash.min.js",
-          BOWER+"/sass-bootstrap/dist/js/bootstrap.min.js"
+          BOWER+"/sass-bootstrap/dist/js/bootstrap.min.js",
+          BOWER+"/angular-bootstrap/ui-bootstrap.min.js",
+          BOWER+"/angular-bootstrap/ui-bootstrap-tpls.min.js"
         ]
         dest: "resources/public/static/js/vendor.js"
       vendor_css:
