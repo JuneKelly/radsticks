@@ -6,7 +6,7 @@
     <div class="col-md-6">
       <button id="new-snippet"
               class="btn btn-primary pull-right"
-              ng-click="showModal()">
+              ng-click="showNewSnippetModal()">
         New Snippet
       </button>
     </div>
@@ -22,17 +22,23 @@
           </p>
         </div>
         <div class="row">
-          <div class="col-md-6" class="snippet-tags">
+          <div class="col-md-5" class="snippet-tags">
             <span ng-repeat="tag in item.tags"
                   class="label label-default tag">
               {{tag}}
             </span>
           </div>
-          <div class="col-md-6" class="snippet-details">
+          <div class="col-md-5" class="snippet-details">
             <span>Created: </span>
             <span>
               {{item.created | date:'medium'}}
             </span>
+          </div>
+          <div class="col-md-2" class="snippet-actions">
+            <button class="btn btn-sm btn-warning"
+                    ng-click="showEditSnippetModal($index)">
+              Edit
+            </button>
           </div>
         <div>
       </div>

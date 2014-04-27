@@ -1,0 +1,37 @@
+<div id="edit-snippet-modal">
+  <div class="modal-header">
+    <h3>Edit Snippet</h3>
+  </div>
+  <div class="modal-body">
+
+    <form name="editSnippet"
+          class="form-horizontal"
+          role="form"
+          novalidate>
+      <!-- content -->
+      <div class="form-group">
+        <textarea id="snippet-content"
+                  class="form-control"
+                  ng-model="snippet.content"
+                  rows="4"></textarea>
+      </div>
+      <!-- tags -->
+      <div class="form-group">
+        <label for="snippet-tags"
+               class="col-md-4 control-label">
+          Tags
+        </label>
+        <div class="col-md-8">
+          <input id="snippet-tags"
+                 class="form-control"
+                 ng-model="snippet.tags"
+                 type="text">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Save</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</div>

@@ -13,7 +13,7 @@ angular.module('radsticksApp')
           .then (snippetData) ->
             $scope.snippets = snippetData
 
-      $scope.showModal = () ->
+      $scope.showNewSnippetModal = () ->
         modal = $modal.open(
           templateUrl: 'static/views/new_snippet.html'
           controller: NewSnippetCtrl
@@ -23,6 +23,18 @@ angular.module('radsticksApp')
           Snippet.create(newSnippet).then (result) ->
             $scope.snippets.unshift(result)
 
+      $scope.showEditSnippetModal = (index) ->
+        modal = $modal.open(
+          templateUrl: 'static/views/edit_snippet.html'
+          controller: EditSnippetCtrl
+          resolve:
+            snippet: () ->
+              $scope.snippets[index]
+        )
+
+        modal.result.then (updatedSnippet) ->
+          console.log "UPDATE"
+
       # load
       $scope.loadSnippets()
 
@@ -31,6 +43,20 @@ NewSnippetCtrl = ($scope, $modalInstance) ->
   $scope.snippet =
     content: ""
     tags: ""
+
+  $scope.ok = () ->
+    result =
+      content: $scope.snippet.content
+      tags: $scope.snippet.tags.replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
+    $modalInstance.close(result)
+
+  $scope.cancel = () ->
+    $modalInstance.dismiss('cancel')
+
+
+EditSnippetCtrl = ($scope, $modalInstance, snippet) ->
+
+  $scope.snippet = snippet
 
   $scope.ok = () ->
     result =
