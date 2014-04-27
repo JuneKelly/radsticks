@@ -43,7 +43,7 @@ angular.module('radsticksApp')
               # move to top of list
               index = $scope.snippets.indexOf(updatedSnippet)
               $scope.snippets.splice(index, 1)
-              $scope.snippets.unshift(updatedSnippet)
+              $scope.snippets.unshift(result)
 
       $scope.deleteSnippet = (index) ->
         if confirm('Delete this snippet?')
