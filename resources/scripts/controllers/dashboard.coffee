@@ -32,7 +32,7 @@ angular.module('radsticksApp')
           templateUrl: 'static/views/edit_snippet.html'
           controller: EditSnippetCtrl
           resolve:
-            snippet: () ->
+            snippetData: () ->
               $scope.snippets[index]
         )
 
@@ -63,17 +63,25 @@ NewSnippetCtrl = ($scope, $modalInstance) ->
     $modalInstance.dismiss('cancel')
 
 
-EditSnippetCtrl = ($scope, $modalInstance, snippet) ->
+EditSnippetCtrl = ($scope, $modalInstance, snippetData) ->
 
   # TODO : transform to the view model and back again,
   # rather than direct binding
-  $scope.snippet = snippet
+  $scope.snippet =
+    content: snippetData.content
+    tags: snippetData.tags
 
   $scope.ok = () ->
-    result = $scope.snippet
-    if typeof result.tags == "string"
-      result.tags = result.tags.
-        replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
+    result = snippetData
+    if typeof $scope.snippet.tags == "string"
+      console.log "REPLACE"
+      result.tags = $scope.snippet
+        .tags
+        .replace(/^\s*|\s*$/g,'')
+        .split(/\s*,\s*/)
+    else
+      console.log "NOPE"
+      result.tags = $scope.snippet.tags
 
     $modalInstance.close(result)
 
