@@ -6,13 +6,16 @@ angular.module('radsticksApp')
 
       Auth.mustBeLoggedIn()
 
+      # State
       $scope.snippets = []
 
+      # Loading snippets
       $scope.loadSnippets = () ->
         Snippet.list()
           .then (snippetData) ->
             $scope.snippets = snippetData
 
+      # Creating new snippets
       $scope.showNewSnippetModal = () ->
         modal = $modal.open(
           templateUrl: 'static/views/new_snippet.html'
@@ -23,6 +26,7 @@ angular.module('radsticksApp')
           Snippet.create(newSnippet).then (result) ->
             $scope.snippets.unshift(result)
 
+      # Editing Snippets
       $scope.showEditSnippetModal = (index) ->
         modal = $modal.open(
           templateUrl: 'static/views/edit_snippet.html'
@@ -33,13 +37,13 @@ angular.module('radsticksApp')
         )
 
         modal.result.then (updatedSnippet) ->
-          console.log updatedSnippet
+          console.log updatedSnippet  # TODO
 
       $scope.deleteSnippet = (index) ->
         if confirm('Delete this snippet?')
           console.log 'DELETE'  # TODO
 
-      # load
+      # load page
       $scope.loadSnippets()
 
 
