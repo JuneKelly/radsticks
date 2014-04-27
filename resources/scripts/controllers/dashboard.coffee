@@ -65,6 +65,8 @@ NewSnippetCtrl = ($scope, $modalInstance) ->
 
 EditSnippetCtrl = ($scope, $modalInstance, snippet) ->
 
+  # TODO : transform to the view model and back again,
+  # rather than direct binding
   $scope.snippet = snippet
 
   $scope.ok = () ->
