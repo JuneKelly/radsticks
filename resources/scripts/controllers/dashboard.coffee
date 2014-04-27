@@ -47,7 +47,7 @@ NewSnippetCtrl = ($scope, $modalInstance) ->
   $scope.ok = () ->
     result =
       content: $scope.snippet.content
-      tags: $scope.snippet.tags.replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
+      tags: unpackTags($scope.snippet.tags)
     $modalInstance.close(result)
 
   $scope.cancel = () ->
@@ -61,8 +61,13 @@ EditSnippetCtrl = ($scope, $modalInstance, snippet) ->
   $scope.ok = () ->
     result =
       content: $scope.snippet.content
-      tags: $scope.snippet.tags.replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
+      tags: unpackTags($scope.snippet.tags)
     $modalInstance.close(result)
 
   $scope.cancel = () ->
     $modalInstance.dismiss('cancel')
+
+
+# helpers
+unpackTags = (tagString) ->
+  tagString.replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
