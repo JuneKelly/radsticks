@@ -44,7 +44,14 @@ angular.module('radsticksApp')
 
       $scope.deleteSnippet = (index) ->
         if confirm('Delete this snippet?')
-          console.log 'DELETE'  # TODO
+          snippetData = $scope.snippets[index]
+          Snippet.destroy(snippetData.id)
+            .then (result) ->
+              if result
+                Notifications.success('Snippet deleted')
+                $scope.snippets.splice(index, 1)
+              else
+                Notifications.error('Something went wrong')
 
       # load page
       $scope.loadSnippets()

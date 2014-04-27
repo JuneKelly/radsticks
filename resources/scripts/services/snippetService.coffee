@@ -52,7 +52,20 @@ angular.module('radsticksApp')
       return deferred.promise
 
     destroy = (snippetId) ->
-      console.log 'Destroy ' + snippetId
+      deferred = $q.defer()
+
+      $http(
+        method: 'DELETE'
+        url: 'api/snippet/' + snippetId
+        headers: { 'auth_token': Storage.getToken() }
+      )
+        .success (payload, status, headers, config) ->
+          deferred.resolve(true)
+        .error (payload, status, headers, config) ->
+          Notifications.error('Snippet delete failed: ' + status)
+          deferred.resolve(false)
+
+      return deferred.promise
 
     return {
       list: list
