@@ -33,7 +33,7 @@ angular.module('radsticksApp')
         )
 
         modal.result.then (updatedSnippet) ->
-          console.log "UPDATE"  # TODO
+          console.log updatedSnippet
 
       $scope.deleteSnippet = (index) ->
         if confirm('Delete this snippet?')
@@ -43,6 +43,7 @@ angular.module('radsticksApp')
       $scope.loadSnippets()
 
 
+# modal controllers
 NewSnippetCtrl = ($scope, $modalInstance) ->
   $scope.snippet =
     content: ""
@@ -51,7 +52,7 @@ NewSnippetCtrl = ($scope, $modalInstance) ->
   $scope.ok = () ->
     result =
       content: $scope.snippet.content
-      tags: unpackTags($scope.snippet.tags)
+      tags: $scope.snippet.tags.replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
     $modalInstance.close(result)
 
   $scope.cancel = () ->
@@ -63,15 +64,14 @@ EditSnippetCtrl = ($scope, $modalInstance, snippet) ->
   $scope.snippet = snippet
 
   $scope.ok = () ->
-    result =
-      content: $scope.snippet.content
-      tags: unpackTags($scope.snippet.tags)
+    result = $scope.snippet
+    if typeof result.tags == "string"
+      result.tags = result.tags.
+        replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
+
     $modalInstance.close(result)
 
   $scope.cancel = () ->
     $modalInstance.dismiss('cancel')
 
 
-# helpers
-unpackTags = (tagString) ->
-  tagString.replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
