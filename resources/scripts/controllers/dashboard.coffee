@@ -33,7 +33,11 @@ angular.module('radsticksApp')
         )
 
         modal.result.then (updatedSnippet) ->
-          console.log "UPDATE"
+          console.log "UPDATE"  # TODO
+
+      $scope.deleteSnippet = (index) ->
+        if confirm('Delete this snippet?')
+          console.log 'DELETE'  # TODO
 
       # load
       $scope.loadSnippets()
