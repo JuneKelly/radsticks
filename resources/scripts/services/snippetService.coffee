@@ -39,7 +39,7 @@ angular.module('radsticksApp')
       deferred = $q.defer()
 
       $http(
-        method: 'POST'
+        method: 'PUT'
         url: 'api/snippet/' + snippetData['id']
         headers: { 'auth_token': Storage.getToken() }
         data: snippetData
@@ -47,7 +47,7 @@ angular.module('radsticksApp')
         .success (payload, status, headers, config) ->
           deferred.resolve(payload)
         .error (payload, status, headers, config) ->
-          Notifications.error('Snippet creation failed: ' + status)
+          Notifications.error('Snippet update failed: ' + status)
 
       return deferred.promise
 

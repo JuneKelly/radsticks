@@ -38,6 +38,9 @@ angular.module('radsticksApp')
 
         modal.result.then (updatedSnippet) ->
           console.log updatedSnippet  # TODO
+          Snippet.update(updatedSnippet)
+            .then (result) ->
+              Notifications.success('Snippet updated')
 
       $scope.deleteSnippet = (index) ->
         if confirm('Delete this snippet?')
@@ -49,6 +52,7 @@ angular.module('radsticksApp')
 
 # modal controllers
 NewSnippetCtrl = ($scope, $modalInstance) ->
+
   $scope.snippet =
     content: ""
     tags: ""
@@ -65,8 +69,6 @@ NewSnippetCtrl = ($scope, $modalInstance) ->
 
 EditSnippetCtrl = ($scope, $modalInstance, snippetData) ->
 
-  # TODO : transform to the view model and back again,
-  # rather than direct binding
   $scope.snippet =
     content: snippetData.content
     tags: snippetData.tags
@@ -74,14 +76,13 @@ EditSnippetCtrl = ($scope, $modalInstance, snippetData) ->
   $scope.ok = () ->
     result = snippetData
     if typeof $scope.snippet.tags == "string"
-      console.log "REPLACE"
       result.tags = $scope.snippet
         .tags
         .replace(/^\s*|\s*$/g,'')
         .split(/\s*,\s*/)
     else
-      console.log "NOPE"
       result.tags = $scope.snippet.tags
+    result.content = $scope.snippet.content
 
     $modalInstance.close(result)
 
