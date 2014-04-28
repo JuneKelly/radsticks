@@ -81,20 +81,19 @@ NewSnippetCtrl = ($scope, $modalInstance) ->
 
 EditSnippetCtrl = ($scope, $modalInstance, snippetData) ->
 
+  t = []
+  for s in snippetData.tags
+    t.push({text: s})
+
   $scope.snippet =
     content: snippetData.content
-    tags: snippetData.tags
+    tags: t
 
   $scope.ok = () ->
+    tags = (tag.text for tag in $scope.snippet.tags)
     result = snippetData
-    if typeof $scope.snippet.tags == "string"
-      result.tags = $scope.snippet
-        .tags
-        .replace(/^\s*|\s*$/g,'')
-        .split(/\s*,\s*/)
-    else
-      result.tags = $scope.snippet.tags
     result.content = $scope.snippet.content
+    result.tags = tags
 
     $modalInstance.close(result)
 
