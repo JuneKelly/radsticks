@@ -97,12 +97,14 @@ module.exports = (grunt) ->
           BOWER+"/lodash/dist/lodash.min.js",
           BOWER+"/sass-bootstrap/dist/js/bootstrap.min.js",
           BOWER+"/angular-bootstrap/ui-bootstrap.min.js",
-          BOWER+"/angular-bootstrap/ui-bootstrap-tpls.min.js"
+          BOWER+"/angular-bootstrap/ui-bootstrap-tpls.min.js",
+          BOWER+"/ng-tags-input/ng-tags-input.min.js"
         ]
         dest: "resources/public/static/js/vendor.js"
       vendor_css:
         src: [
-          "resources/bower_components/sass-bootstrap/dist/css/bootstrap.min.css"
+          BOWER+"/sass-bootstrap/dist/css/bootstrap.min.css",
+          BOWER+"/ng-tags-input/ng-tags-input.min.css"
         ]
         dest: "resources/public/static/css/vendor.css"
 

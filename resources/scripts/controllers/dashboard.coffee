@@ -65,12 +65,14 @@ NewSnippetCtrl = ($scope, $modalInstance) ->
 
   $scope.snippet =
     content: ""
-    tags: ""
+    tags: []
 
   $scope.ok = () ->
+    tags = (tag.text for tag in $scope.snippet.tags)
     result =
       content: $scope.snippet.content
-      tags: $scope.snippet.tags.replace(/^\s*|\s*$/g,'').split(/\s*,\s*/)
+      tags: tags
+    console.log result
     $modalInstance.close(result)
 
   $scope.cancel = () ->

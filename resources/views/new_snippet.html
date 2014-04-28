@@ -22,10 +22,11 @@
           Tags
         </label>
         <div class="col-md-8">
-          <input id="snippet-tags"
-                 class="form-control"
-                 ng-model="snippet.tags"
-                 type="text">
+          <tags-input
+             class=""
+             ng-model="snippet.tags"
+             min-length="1">
+          </tags-input>
         </div>
       </div>
     </form>

@@ -6,7 +6,8 @@ angular.module('radsticksApp', [
   'ngSanitize',
   'ngAnimate',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngTagsInput'
 ])
   .config ($stateProvider, $urlRouterProvider) ->
     $stateProvider
