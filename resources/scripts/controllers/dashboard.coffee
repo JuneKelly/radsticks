@@ -94,8 +94,9 @@ EditSnippetCtrl = ($scope, $modalInstance, snippetData) ->
     $modalInstance.dismiss('cancel')
 
 
-toTagsView = (a) ->
-  ({text: s} for s in a)
+# helpers
+toTagsView = (ar) ->
+  ({text: str} for str in ar)
 
-fromTagsView = (a) ->
-    (tag.text for tag in a)
+fromTagsView = (ar) ->
+    (tag.text for tag in ar)
