@@ -63,16 +63,14 @@ angular.module('radsticksApp')
 # modal controllers
 NewSnippetCtrl = ($scope, $modalInstance) ->
 
-  $scope.snippet =
+  $scope.snippetView =
     content: ""
     tags: []
 
   $scope.ok = () ->
-    tags = (tag.text for tag in $scope.snippet.tags)
     result =
-      content: $scope.snippet.content
-      tags: tags
-    console.log result
+      content: $scope.snippetView.content
+      tags: fromTagsView($scope.snippetView.tags)
     $modalInstance.close(result)
 
   $scope.cancel = () ->
@@ -81,19 +79,14 @@ NewSnippetCtrl = ($scope, $modalInstance) ->
 
 EditSnippetCtrl = ($scope, $modalInstance, snippetData) ->
 
-  t = []
-  for s in snippetData.tags
-    t.push({text: s})
-
-  $scope.snippet =
+  $scope.snippetView =
     content: snippetData.content
-    tags: t
+    tags: toTagsView(snippetData.tags)
 
   $scope.ok = () ->
-    tags = (tag.text for tag in $scope.snippet.tags)
     result = snippetData
-    result.content = $scope.snippet.content
-    result.tags = tags
+    result.content = $scope.snippetView.content
+    result.tags = fromTagsView($scope.snippetView.tags)
 
     $modalInstance.close(result)
 
@@ -101,3 +94,8 @@ EditSnippetCtrl = ($scope, $modalInstance, snippetData) ->
     $modalInstance.dismiss('cancel')
 
 
+toTagsView = (a) ->
+  ({text: s} for s in a)
+
+fromTagsView = (a) ->
+    (tag.text for tag in a)
