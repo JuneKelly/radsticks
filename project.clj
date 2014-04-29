@@ -59,8 +59,7 @@
                     :subprotocol "postgresql"
                     :subname "//localhost/radsticks"
                     :user ~(System/getenv "DB_USER")
-                    :password ~(System/getenv "DB_PASSWORD")}}
-    }
+                    :password ~(System/getenv "DB_PASSWORD")}}}
 
    :testing
    {:dependencies [[ring-mock "0.1.5"]
