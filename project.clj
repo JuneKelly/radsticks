@@ -5,31 +5,31 @@
   :url "http://github.com/ShaneKilkelly/radsticks"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [lib-noir "0.8.1"]
+                 [lib-noir "0.8.2"]
                  [compojure "1.1.6"]
                  [ring-server "0.3.1"]
-                 [selmer "0.6.3"]
+                 [selmer "0.6.6"]
                  [com.taoensso/timbre "3.1.6"]
                  [com.postspectacular/rotor "0.1.0"]
                  [com.taoensso/tower "2.0.2"]
-                 [markdown-clj "0.9.41"]
+                 [markdown-clj "0.9.43"]
                  [liberator "0.11.0"]
-                 [clj-time "0.6.0"]
-                 [clj-jwt "0.0.4"]
+                 [clj-time "0.7.0"]
+                 [clj-jwt "0.0.6"]
                  [crypto-random "1.2.0"]
                  [com.novemberain/monger "1.7.0"]
                  [yesql "0.4.0"]
                  [org.clojure/java.jdbc "0.3.3"]
                  [postgresql/postgresql "9.1-901-1.jdbc4"]
-                 [com.novemberain/validateur "2.0.0-beta3"]
+                 [com.novemberain/validateur "2.1.0"]
                  [migratus "0.7.0"]
-                 [environ "0.4.0"]]
+                 [environ "0.5.0"]]
 
   :aot :all
   :repl-options {:init-ns radsticks.repl}
 
   :plugins [[lein-ring "0.8.7"]
-            [lein-environ "0.4.0"]
+            [lein-environ "0.5.0"]
             [migratus-lein "0.1.0"]
             [speclj "2.8.0"]]
 
