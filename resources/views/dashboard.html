@@ -17,8 +17,7 @@
       <div ng-repeat="item in snippets"
            class="well well-sm">
         <div class="snippet-content">
-          <p>
-            {{item.content}}
+          <p ng-bind-html="item.content | linky:'_blank'">
           </p>
         </div>
         <div class="row">
