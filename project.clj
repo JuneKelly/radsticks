@@ -42,7 +42,11 @@
    {:ring {:open-browser? false
                        :stacktraces?  false
                        :auto-reload?  false}
-    :env {:selmer-dev false}}
+    :env {:selmer-dev false
+          :db-uri ""
+          :db-user ""
+          :db-password ""
+          :secret ""}}
 
    :dev
    {:dependencies [[ring-mock "0.1.5"]
