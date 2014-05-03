@@ -9,8 +9,8 @@
             [cheshire.core :as json]
             [radsticks.routes.api.core :refer [get-current-user
                                                is-authenticated?]]
-            [radsticks.validation :refer [get-snippet-errors
-                                          get-snippet-creation-errors]]
+            [radsticks.validation :refer [snippet-errors
+                                          snippet-creation-errors]]
             [radsticks.util :refer [ensure-json
                                     json-coerce]]))
 
@@ -49,7 +49,7 @@
 
 (defn post-malformed? [context]
   (let [data (get-in context [:request :body-params])
-        errors (get-snippet-creation-errors data)]
+        errors (snippet-creation-errors data)]
       (if (empty? errors)
         false
         [true, (ensure-json {:errors errors})])))
@@ -57,7 +57,7 @@
 
 (defn put-malformed? [context]
   (let [snippet (get-in context [:request :body-params])
-        errors (get-snippet-errors snippet)]
+        errors (snippet-errors snippet)]
     (if (empty? errors)
       false
       [true, (ensure-json {:errors errors})])))

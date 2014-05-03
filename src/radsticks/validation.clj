@@ -2,7 +2,7 @@
   (:require [validateur.validation :refer :all]))
 
 
-(defn get-snippet-errors [data]
+(defn snippet-errors [data]
   (let [validate (validation-set
                   (presence-of :id)
                   (presence-of :user_id)
@@ -13,7 +13,7 @@
     (validate data)))
 
 
-(defn get-snippet-creation-errors [data]
+(defn snippet-creation-errors [data]
   (let [validate (validation-set
                   (presence-of :user)
                   (presence-of :content)
