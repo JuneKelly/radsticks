@@ -1,9 +1,9 @@
 # radsticks
 
-A toy app for exploring token based auth with Clojure and AngularJS
+A snippet-saving app in Clojure, PostgreSQL AngularJS.
 
 
-# Dependencies
+# Dependencies (INCOMPLETE)
 
 To get started:
 
