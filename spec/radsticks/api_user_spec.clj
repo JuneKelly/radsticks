@@ -214,6 +214,24 @@
         (should-contain :errors response-json)
         (should== {:name ["can't be blank"]} (response-json :errors))))
 
+  (it "should be an error if email is omitted"
+      (let [request-body
+            "{\"lol\": \"userone@example.com\",
+              \"name\": \"OTHER NAME\"}"
+            request (-> (session app)
+                        (content-type "application/json")
+                        (request "/api/user/userone@example.com"
+                                 :request-method :post
+                                 :body request-body
+                                 :headers {:auth_token
+                                           util/good-token}))
+            response (request :response)
+            response-json (parse-string (response :body) true)]
+        (should= 400 (response :status))
+        (should-be map? response-json)
+        (should-contain :errors response-json)
+        (should== {:email ["can't be blank"]} (response-json :errors))))
+
   (it "should update profile to new values with good auth token"
       (let [old-profile (user/get-profile "userone@example.com")
             request-body

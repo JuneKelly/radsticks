@@ -38,5 +38,6 @@
 
 (defn user-update-errors [data]
   (let [validate (validation-set
-                  (presence-of :name))]
+                  (presence-of :name)
+                  (presence-of :email))]
     (validate data)))
