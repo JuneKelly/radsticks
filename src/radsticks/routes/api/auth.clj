@@ -4,23 +4,8 @@
             [noir.validation :as v]
             [radsticks.auth :as auth]
             [radsticks.db.log :as log]
+            [radsticks.validation :refer [auth-errors]]
             [radsticks.util :refer [ensure-json rep-map]]))
-
-
-(defn get-auth-errors
-  "Validate that data submitted to auth endpoint is correct."
-  [params]
-  (let [email (params :email)
-        password (params :password)]
-    (v/rule (v/has-value? email)
-            [:email "email is required"])
-    (v/rule (v/has-value? password)
-            [:password "password is required"])
-    (v/rule (string? email)
-            [:email "email must be a string"])
-    (v/rule (string? password)
-            [:password "password must be a string"])
-    (v/get-errors)))
 
 
 (defresource authentication
@@ -30,7 +15,7 @@
   :malformed?
   (fn [context]
     (let [params (get-in context  [:request :params])
-          errors (get-auth-errors params)]
+          errors (auth-errors params)]
       (if (empty? errors)
         false
         [true (ensure-json {:errors errors})])))

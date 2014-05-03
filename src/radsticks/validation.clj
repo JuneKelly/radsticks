@@ -39,5 +39,18 @@
 (defn user-update-errors [data]
   (let [validate (validation-set
                   (presence-of :name)
+                  (validate-with-predicate :name
+                                           #(string? (:name %)))
                   (presence-of :email))]
+    (validate data)))
+
+
+(defn auth-errors [data]
+  (let [validate (validation-set
+                  (presence-of :email)
+                  (validate-with-predicate :email
+                                           #(string? (:email %)))
+                  (presence-of :password)
+                  (validate-with-predicate :password
+                                           #(string? (:password %))))]
     (validate data)))

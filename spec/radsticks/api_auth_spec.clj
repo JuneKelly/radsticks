@@ -82,7 +82,9 @@
       (should (= (:status response) 400))
       (should (not (contains? response-json :token)))
       (should (contains? response-json :errors))
-      (should (vector? (response-json :errors)))))
+      (should (map? (response-json :errors)))
+      (should== {:email ["is invalid" "can't be blank"]}
+                (:errors response-json))))
 
   (it "should fail when password is not submitted"
     (let [request-body
@@ -101,7 +103,9 @@
       (should (= (:status response) 400))
       (should (not (contains? response-json :token)))
       (should (contains? response-json :errors))
-      (should (vector? (response-json :errors)))))
+      (should (map? (response-json :errors)))
+      (should== {:password ["is invalid" "can't be blank"]}
+                (:errors response-json))))
 
   (it "should fail when the supplied email is not a string"
     (let [request-body
@@ -120,7 +124,9 @@
       (should (= (:status response) 400))
       (should (not (contains? response-json :token)))
       (should (contains? response-json :errors))
-      (should (vector? (response-json :errors)))))
+      (should (map? (response-json :errors)))
+      (should== {:email ["is invalid"]}
+                (:errors response-json))))
 
   (it "should fail when password is not a string"
     (let [request-body
@@ -139,7 +145,9 @@
       (should (= (:status response) 400))
       (should (not (contains? response-json :token)))
       (should (contains? response-json :errors))
-      (should (vector? (response-json :errors))))))
+      (should (map? (response-json :errors)))
+      (should== {:password ["is invalid"]}
+                (:errors response-json)))))
 
 
 (run-specs)
