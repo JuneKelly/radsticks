@@ -6,6 +6,8 @@
             [noir.validation :as v]
             [cheshire.core :as json]
             [radsticks.routes.api.core :refer [get-current-user]]
+            [radsticks.validation :refer [user-creation-errors
+                                          user-update-errors]]
             [radsticks.util :refer [ensure-json]]))
 
 
@@ -14,45 +16,6 @@
   [context]
   (let [params (get-in context [:request :params])]
     (user/exists? (params :email))))
-
-
-(defn get-user-create-errors
-  "Validate parameters for user creation.
-   Fails if wither email, name or password are missing,
-   or if the email is not a valid format."
-  [email password name]
-  (v/rule (v/has-value? email)
-          [:email "email is required"])
-
-  (v/rule (v/is-email? email)
-          [:email "email should be a valid email address"])
-
-  (v/rule (v/has-value? password)
-          [:password "password is required"])
-
-  (v/rule (v/has-value? name)
-          [:name "name is required"])
-
-  (v/get-errors))
-
-
-(defn user-create-errors [params]
-  (let [email (params :email)
-        password (:password params)
-        name (:name params)]
-    (get-user-create-errors email password name)))
-
-
-(defn get-user-update-errors [name]
-  (v/rule (v/has-value? name)
-          [:name "name is required"])
-
-  (v/get-errors))
-
-
-(defn user-update-errors [params]
-  (let [name (:name params )]
-    (get-user-update-errors name)))
 
 
 (defn can-access-user?
@@ -141,7 +104,7 @@
     (let [params (get-in context [:request :params])
           method (get-in context [:request :request-method])]
       (if (= method :post)
-        (let [errors (user-create-errors params)]
+        (let [errors (user-creation-errors params)]
           (if (empty? errors)
             false
             [true (ensure-json {:errors errors})]))

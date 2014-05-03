@@ -70,7 +70,7 @@
                  (get (:headers response) "Content-Type")))
       (should (= (:status response) 400))
       (should (contains? response-json :errors))
-      (should (vector? (response-json :errors)))))
+      (should (map? (response-json :errors)))))
 
   (it "should fail when email is missing"
     (let [request-body
@@ -87,7 +87,7 @@
                  (get (:headers response) "Content-Type")))
       (should (= (:status response) 400))
       (should (contains? response-json :errors))
-      (should (vector? (response-json :errors)))))
+      (should (map? (response-json :errors)))))
 
   (it "should fail when password is missing"
     (let [request-body
@@ -104,7 +104,7 @@
                  (get (:headers response) "Content-Type")))
       (should (= (:status response) 400))
       (should (contains? response-json :errors))
-      (should (vector? (response-json :errors)))))
+      (should (map? (response-json :errors)))))
 
   (it "should fail when name is missing"
     (let [request-body
@@ -121,7 +121,7 @@
                  (get (:headers response) "Content-Type")))
       (should (= (:status response) 400))
       (should (contains? response-json :errors))
-      (should (vector? (response-json :errors))))))
+      (should (map? (response-json :errors))))))
 
 
 (describe
@@ -212,7 +212,7 @@
         (should= 400 (response :status))
         (should-be map? response-json)
         (should-contain :errors response-json)
-        (should== ["name is required"] (response-json :errors))))
+        (should== {:name ["can't be blank"]} (response-json :errors))))
 
   (it "should update profile to new values with good auth token"
       (let [old-profile (user/get-profile "userone@example.com")

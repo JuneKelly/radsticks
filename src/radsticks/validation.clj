@@ -25,7 +25,7 @@
   #"(?i)[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]")
 
 
-(defn get-user-creation-errors [data]
+(defn user-creation-errors [data]
   (let [validate (validation-set
                   (presence-of :email)
                   (format-of :email
@@ -36,7 +36,7 @@
     (validate data)))
 
 
-(defn get-user-update-errors [data]
+(defn user-update-errors [data]
   (let [validate (validation-set
                   (presence-of :name))]
     (validate data)))
