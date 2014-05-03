@@ -56,6 +56,6 @@
   :handle-created
   (fn [context]
     (do
-      (log/info {:event "authenticated"
+      (log/info {:event "user:authenticated"
                  :user (get-in context [:payload :email])})
       (context :payload))))

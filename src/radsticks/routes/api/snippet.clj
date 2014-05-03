@@ -123,14 +123,22 @@
           snippet-id (snippet/create! (:user params)
                                       (:content params)
                                       (:tags params))]
-      {:snippet-id snippet-id}))
+      (do
+        (log/info {:event "snippet:create"
+                   :user (:user params)
+                   :snippet-id snippet-id})
+        {:snippet-id snippet-id})))
 
   :put!
   (fn [context]
     (let [params (get-in context [:request :body-params])]
-      (do (snippet/update! (:id params)
-                           (:content params)
-                           (:tags params)))))
+      (do
+        (log/info {:event "snippet:update"
+                   :user (get-current-user context)
+                   :snippet-id (:id params)})
+        (snippet/update! (:id params)
+                         (:content params)
+                         (:tags params)))))
 
   :respond-with-entity?
   (fn [context]
@@ -151,6 +159,9 @@
   (fn [context]
     (let [snippet-id (get-in context [:request :route-params :id])]
       (do
+        (log/info {:event "snippet:delete"
+                   :user (get-current-user context)
+                   :snippet-id snippet-id})
         (snippet/delete! snippet-id))))
 
   :handle-ok

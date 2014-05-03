@@ -77,7 +77,10 @@
   (fn [context]
     (let [user-email (get-in context [:request :route-params :id])
           user-profile (user/get-profile user-email)]
-      (json/generate-string user-profile))))
+      (do
+        (log/info {:event "user:access"
+                   :user user-email})
+        (json/generate-string user-profile)))))
 
 
 (defresource user-update [id]
@@ -112,7 +115,10 @@
           name (:name params)
           password (:password params)
           new-profile (user/update! email params)]
-      {:user-profile new-profile}))
+      (do
+        (log/info {:event "user:update"
+                   :user email})
+        {:user-profile new-profile})))
 
   :new? ;; updates are never new resources
   false
@@ -167,6 +173,6 @@
   :handle-created
   (fn [context]
     (do
-      (log/info {:event "registration"
+      (log/info {:event "user:registration"
                  :user (get-in context [:user-profile :email])})
       (json/generate-string {:userProfile (:user-profile context)}))))
