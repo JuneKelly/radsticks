@@ -3,7 +3,7 @@
 A snippet-saving app in Clojure, PostgreSQL AngularJS.
 
 
-# Dependencies (INCOMPLETE)
+# Dependencies
 
 To run radsticks, you will need to have a PostgreSQL 9.3 instance available.
 
