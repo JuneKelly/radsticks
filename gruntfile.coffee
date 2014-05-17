@@ -1,4 +1,5 @@
 # Grunt tasks
+moment = require('moment')
 
 BOWER = 'resources/bower_components'
 
@@ -153,3 +154,22 @@ module.exports = (grunt) ->
   grunt.registerTask "test:frontend", [
     "protractor:manual"
   ]
+
+  grunt.registerTask "migrate:new", (migrationName) ->
+    migrationsPath = 'resources/sql/migrations/'
+    timestamp = moment().format("YYYYMMDDhhmmss")
+    baseFileName = timestamp + '-' + migrationName
+    upFile = baseFileName + '.up.sql'
+    downFile = baseFileName + '.down.sql'
+
+    console.log ""
+    console.log "Writing files " + upFile + ","
+    console.log "              " + downFile
+
+    grunt.file.write(migrationsPath + upFile,
+      "-- " + upFile
+    )
+    grunt.file.write(migrationsPath + downFile,
+      "-- " + downFile
+    )
+
