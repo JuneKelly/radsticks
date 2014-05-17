@@ -42,6 +42,23 @@ To start the radsticks server:
   with coffeescript compilation and live-reloading.
 
 
+# Migrations
+
+This project uses the [migratus](https://github.com/pjstadig/migratus)
+library to handle database migrations. To create a new set of migrations,
+use the `migrate:new` grunt task:
+```
+$ grunt migrate:new:add-some-table
+```
+This will create timestamped files in `resources/sql/migrations`,
+ending in `add-some-table.up.sql` and `add-some-table.down.sql`
+
+To run migrations for the local dev environment, do the following:
+```
+$ lein with-profile dev migratus migrate
+```
+
+
 # Testing
 
 To install the dependences required for angular protractor tests,
@@ -52,3 +69,4 @@ Run the full test suite with : ```grunt test:all```
 Run only the frontend tests with: ```grunt test:frontend```
 
 And only the backend api tests with: ```grunt test:backend```
+
