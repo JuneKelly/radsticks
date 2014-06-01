@@ -6,6 +6,19 @@ A snippet-saving app in Clojure, PostgreSQL AngularJS.
 # Dependencies
 
 To run radsticks, you will need to have a PostgreSQL 9.3 instance available.
+Create the `radsticks` database like so:
+```
+CREATE DATABASE radsticks
+  WITH OWNER = {{USERNAME}}
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'C'
+       LC_CTYPE = 'C'
+       CONNECTION LIMIT = -1
+       TEMPLATE template0;
+```
+
+
 
 System Dependencies:
 
@@ -38,6 +51,8 @@ To start the radsticks server:
 - Either edit the project.clj file and fill in the environment settings for
   the 'dev' environment, or export the appropriate values for
   `DB_USER`, `DB_PASSWORD` and `DB_URI` in your shell.
+- run `lein with-profile dev migratus migrate` to set up
+  the `radsticks` database tables.
 - run ```grunt server``` to fire up the development server,
   with coffeescript compilation and live-reloading.
 

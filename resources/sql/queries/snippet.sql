@@ -1,7 +1,7 @@
 -- name: -create-snippet<!
 INSERT INTO snippet (id, user_id, content, tags, created, updated)
 VALUES (
-  random_slug(),
+  :id,
   :email,
   :content,
   ARRAY[ :tags ],

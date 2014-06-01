@@ -13,16 +13,18 @@
 
 
 (defn create! [user-email, content, tags]
-  (let [created (to-sql-time (util/datetime))
+  (let [id (util/generate-id)
+        created (to-sql-time (util/datetime))
         updated (to-sql-time (util/datetime))
         result (-create-snippet<! db-spec
+                                  id
                                   user-email
                                   content
                                   tags
                                   created
                                   updated)]
     (if (not (nil? result))
-      (:id result)
+      id
       nil)))
 
 

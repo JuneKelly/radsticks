@@ -1,7 +1,7 @@
 (ns radsticks.util
   (:require [noir.io :as io]
             [clj-time.core :as time]
-            [crypto.random :refer [hex]]
+            [crypto.random :refer [hex url-part]]
             [cheshire.core :as json]
             [markdown.core :as md]))
 
@@ -27,9 +27,15 @@
 
 
 (defn slug
-  "Generate a 32 character string"
+  "Generate a 16 character string"
   []
-  (hex 16))
+  (hex 8))
+
+
+(defn generate-id
+  "Generate a random 12 character string"
+  []
+  (url-part 9))
 
 
 (def rep-map
