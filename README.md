@@ -1,14 +1,14 @@
-# radsticks
+# jetcan-server
 
 A snippet-saving app in Clojure, PostgreSQL AngularJS.
 
 
 # Dependencies
 
-To run radsticks, you will need to have a PostgreSQL 9.3 instance available.
-Create the `radsticks` database like so:
+To run jetcan-server, you will need to have a PostgreSQL 9.3 instance available.
+Create the `jetcan` database like so:
 ```
-CREATE DATABASE radsticks
+CREATE DATABASE jetcan
   WITH OWNER = {{USERNAME}}
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
@@ -30,12 +30,12 @@ System Dependencies:
 
 # Environments
 
-radsticks uses leiningen profiles and the lein-environ plugin to manage
+jetcan uses leiningen profiles and the lein-environ plugin to manage
 different run-time environments. The three important environments
 are `dev`, `testing` and `production`. Variables which differ by environment
 can either be set in the appropriate section of project.clj, or set as shell
 environment variables before starting the server:
-- `DB_URI` : the uri of the postgres database, ex: `//localhost/my_radsticks`
+- `DB_URI` : the uri of the postgres database, ex: `//localhost/my_jetcan`
 - `DB_USER`: username to use to connect to the database
 - `DB_PASSWORD`: password to use to connect to the database
 - `SECRET`: a string to use as the secret when generating secure web tokens,
@@ -44,7 +44,7 @@ environment variables before starting the server:
 
 # Getting started
 
-To start the radsticks server:
+To start the jetcan server:
 
 - run ```npm install``` to install the required node packages
 - run ```bower install``` to install front-end libraries
@@ -52,7 +52,7 @@ To start the radsticks server:
   the 'dev' environment, or export the appropriate values for
   `DB_USER`, `DB_PASSWORD` and `DB_URI` in your shell.
 - run `lein with-profile dev migratus migrate` to set up
-  the `radsticks` database tables.
+  the `jetcan` database tables.
 - run ```grunt server``` to fire up the development server,
   with coffeescript compilation and live-reloading.
 
@@ -76,12 +76,8 @@ $ lein with-profile dev migratus migrate
 
 # Testing
 
-To install the dependences required for angular protractor tests,
-run: ```./node_modules/protractor/bin/webdriver-manager update```
+First, set up a `jetcan_test` database,
+and run `lein with-profile testing migratus migrate` to set up the tables.
 
-Run the full test suite with : ```grunt test:all```
-
-Run only the frontend tests with: ```grunt test:frontend```
-
-And only the backend api tests with: ```grunt test:backend```
+Then, to run the backend tests: `grunt test:backend`
 
