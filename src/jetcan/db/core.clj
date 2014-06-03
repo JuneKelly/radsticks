@@ -1,5 +1,5 @@
-(ns radsticks.db.core
-  (:require [radsticks.util :as util]
+(ns jetcan.db.core
+  (:require [jetcan.util :as util]
             [noir.util.crypt :as crypt]
             [yesql.core :refer [defqueries]]
             [cheshire.core :refer [generate-string]]

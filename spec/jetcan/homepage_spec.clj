@@ -1,9 +1,9 @@
-(ns radsticks.api-spec
-  (:require [radsticks.test-utils :as util]
+(ns jetcan.api-spec
+  (:require [jetcan.test-utils :as util]
             [speclj.core :refer :all]
             [peridot.core :refer :all]
-            [radsticks.handler :refer :all]
-            [radsticks.db.user :as user]
+            [jetcan.handler :refer :all]
+            [jetcan.db.user :as user]
             [cheshire.core :refer [generate-string
                                    parse-string]]))
 

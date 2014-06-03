@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('radsticksApp', [
+angular.module('jetcanApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

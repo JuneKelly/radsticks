@@ -1,6 +1,6 @@
-(ns radsticks.db.log
-  (:require [radsticks.util :as util]
-            [radsticks.db.core :refer [db-spec]]
+(ns jetcan.db.log
+  (:require [jetcan.util :as util]
+            [jetcan.db.core :refer [db-spec]]
             [yesql.core :refer [defqueries]]
             [cheshire.core :refer [generate-string]]
             [clj-time.coerce :refer [to-sql-time]]))

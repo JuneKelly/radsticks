@@ -1,19 +1,19 @@
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .service 'Storage', () ->
 
     store = localStorage
 
     getUserEmail = () ->
-      store['radsticks_user']
+      store['jetcan_user']
 
     setUserEmail = (email) ->
-      store['radsticks_user'] = email
+      store['jetcan_user'] = email
 
     getToken = () ->
-      store['radsticks_token']
+      store['jetcan_token']
 
     setToken = (token) ->
-      store['radsticks_token'] = token
+      store['jetcan_token'] = token
 
     return {
       getUserEmail: getUserEmail

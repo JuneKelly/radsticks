@@ -1,4 +1,4 @@
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .service 'Auth', ($http, Notifications, Util, $state, Storage) ->
 
     reset = () ->

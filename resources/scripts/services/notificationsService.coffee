@@ -1,4 +1,4 @@
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .service 'Notifications', ($timeout) ->
     data =
       successMessage: ''

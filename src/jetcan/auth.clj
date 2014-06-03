@@ -1,5 +1,5 @@
-(ns radsticks.auth
-  (require [radsticks.db.user :as user]
+(ns jetcan.auth
+  (require [jetcan.db.user :as user]
            [environ.core  :refer [env]]
            [noir.util.crypt :as crypt]
            [clj-jwt.core  :refer :all]

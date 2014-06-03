@@ -1,5 +1,5 @@
-(ns radsticks.repl
-  (:use radsticks.handler
+(ns jetcan.repl
+  (:use jetcan.handler
         ring.server.standalone
         [ring.middleware file-info file]))
 

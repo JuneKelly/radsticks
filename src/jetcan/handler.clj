@@ -1,6 +1,6 @@
-(ns radsticks.handler
+(ns jetcan.handler
   (:require [compojure.core :refer [defroutes]]
-            [radsticks.routes.core  :refer [api-routes home-routes]]
+            [jetcan.routes.core  :refer [api-routes home-routes]]
             [noir.util.middleware :as middleware]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
@@ -30,17 +30,17 @@
 
   (timbre/set-config!
     [:shared-appender-config :rotor]
-    {:path "radsticks.log" :max-size (* 512 1024) :backlog 10})
+    {:path "jetcan.log" :max-size (* 512 1024) :backlog 10})
 
   (if (env :selmer-dev) (parser/cache-off!))
-  (timbre/info "radsticks started successfully"))
+  (timbre/info "jetcan started successfully"))
 
 
 (defn destroy
   "destroy will be called when your application
    shuts down, put any clean up code here"
   []
-  (timbre/info "radsticks is shutting down..."))
+  (timbre/info "jetcan is shutting down..."))
 
 
 (defn template-error-page [handler]

@@ -1,5 +1,5 @@
 'use strict'
 
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .controller 'MainCtrl', ($scope, Auth) ->
     $scope.Auth = Auth

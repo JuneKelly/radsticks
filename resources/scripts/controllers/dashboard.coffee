@@ -1,4 +1,4 @@
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .controller 'DashboardCtrl',
     ($scope, Auth, Notifications, Snippet, $modal) ->
       $scope.Auth = Auth

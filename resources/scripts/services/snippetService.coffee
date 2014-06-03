@@ -1,4 +1,4 @@
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .service 'Snippet', ($http, Notifications, Auth, Storage, $q) ->
 
     list = () ->

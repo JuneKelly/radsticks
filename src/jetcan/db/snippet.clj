@@ -1,7 +1,7 @@
-(ns radsticks.db.snippet
-  (:require [radsticks.util :as util]
-            [radsticks.db.core :refer [db-spec]]
-            [radsticks.db.user :as user]
+(ns jetcan.db.snippet
+  (:require [jetcan.util :as util]
+            [jetcan.db.core :refer [db-spec]]
+            [jetcan.db.user :as user]
             [yesql.core :refer [defqueries]]
             [clj-time.coerce :refer [to-sql-time]]
             [clojure.java.jdbc :as jdbc]))
@@ -16,13 +16,13 @@
   (let [id (util/generate-id)
         created (to-sql-time (util/datetime))
         updated (to-sql-time (util/datetime))
-        result (-create-snippet<! db-spec
-                                  id
-                                  user-email
-                                  content
-                                  tags
-                                  created
-                                  updated)]
+        result (-create-snippet! db-spec
+                                 id
+                                 user-email
+                                 content
+                                 tags
+                                 created
+                                 updated)]
     (if (not (nil? result))
       id
       nil)))

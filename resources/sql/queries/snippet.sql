@@ -1,4 +1,4 @@
--- name: -create-snippet<!
+-- name: -create-snippet!
 INSERT INTO snippet (id, user_id, content, tags, created, updated)
 VALUES (
   :id,

@@ -1,7 +1,7 @@
-(ns radsticks.routes.api.core
+(ns jetcan.routes.api.core
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [radsticks.auth :as auth]))
+            [jetcan.auth :as auth]))
 
 
 (defn get-current-user

@@ -1,7 +1,7 @@
-(ns radsticks.db.user
-  (:require [radsticks.util :as util]
+(ns jetcan.db.user
+  (:require [jetcan.util :as util]
             [noir.util.crypt :as crypt]
-            [radsticks.db.core :refer [db-spec]]
+            [jetcan.db.core :refer [db-spec]]
             [yesql.core :refer [defqueries]]
             [clj-time.coerce :refer [to-sql-time]]))
 

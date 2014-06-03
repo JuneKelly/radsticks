@@ -1,4 +1,4 @@
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .service 'User', ($http, Notifications, Auth, Storage, $q) ->
 
     get = (email) ->

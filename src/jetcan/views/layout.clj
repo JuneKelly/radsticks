@@ -1,10 +1,10 @@
-(ns radsticks.views.layout
+(ns jetcan.views.layout
   (:require [selmer.parser :as parser]
             [clojure.string :as s]
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]))
 
-(def template-path "radsticks/views/templates/")
+(def template-path "jetcan/views/templates/")
 
 (deftype RenderableTemplate [template params]
   Renderable

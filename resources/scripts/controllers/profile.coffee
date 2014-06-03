@@ -1,4 +1,4 @@
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .controller 'ProfileCtrl',
     ($scope, Auth, Notifications, User, $stateParams) ->
       $scope.Auth = Auth

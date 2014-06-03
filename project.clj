@@ -1,8 +1,8 @@
-(defproject radsticks "0.1.1"
+(defproject jetcan "0.1.1"
   :description
   "A toy app to demonstrate token based auth with clojure and angularjs"
 
-  :url "http://github.com/ShaneKilkelly/radsticks"
+  :url "http://github.com/ShaneKilkelly/jetcan"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [lib-noir "0.8.2"]
@@ -26,16 +26,16 @@
                  [environ "0.5.0"]]
 
   :aot :all
-  :repl-options {:init-ns radsticks.repl}
+  :repl-options {:init-ns jetcan.repl}
 
   :plugins [[lein-ring "0.8.7"]
             [lein-environ "0.5.0"]
             [migratus-lein "0.1.0"]
             [speclj "2.8.0"]]
 
-  :ring {:handler radsticks.handler/app
-         :init    radsticks.handler/init
-         :destroy radsticks.handler/destroy}
+  :ring {:handler jetcan.handler/app
+         :init    jetcan.handler/init
+         :destroy jetcan.handler/destroy}
 
   :profiles
   {:production
@@ -53,7 +53,7 @@
                    [peridot "0.2.2"]
                    [ring/ring-devel "1.2.2"]]
     :env {:selmer-dev true
-          :db-uri "//localhost/radsticks"
+          :db-uri "//localhost/jetcan"
           :db-user ""
           :db-password ""
           :secret "aterriblesecret"}
@@ -61,7 +61,7 @@
                :migration-dir "sql/migrations"
                :db {:classname "org.postgresql.Driver"
                     :subprotocol "postgresql"
-                    :subname "//localhost/radsticks"
+                    :subname "//localhost/jetcan"
                     :user ~(System/getenv "DB_USER")
                     :password ~(System/getenv "DB_PASSWORD")}}}
 
@@ -72,7 +72,7 @@
                    [ring/ring-devel "1.2.2"]]
     :ring {:port 3001}
     :env {:selmer-dev true
-          :db-uri "//localhost/radsticks_test"
+          :db-uri "//localhost/jetcan_test"
           :db-user ""
           :db-password ""
           :secret "aterriblesecret"}
@@ -80,7 +80,7 @@
                :migration-dir "sql/migrations"
                :db {:classname "org.postgresql.Driver"
                     :subprotocol "postgresql"
-                    :subname "//localhost/radsticks_test"
+                    :subname "//localhost/jetcan_test"
                     :user ~(System/getenv "DB_USER")
                     :password ~(System/getenv "DB_PASSWORD")}}}}
 

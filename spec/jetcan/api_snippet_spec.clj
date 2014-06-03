@@ -1,10 +1,10 @@
-(ns radsticks.api-snippet-spec
-  (:require [radsticks.test-utils :as util]
-            [radsticks.auth :as auth]
+(ns jetcan.api-snippet-spec
+  (:require [jetcan.test-utils :as util]
+            [jetcan.auth :as auth]
             [speclj.core :refer :all]
             [peridot.core :refer :all]
-            [radsticks.handler :refer :all]
-            [radsticks.db.snippet :as snippet]
+            [jetcan.handler :refer :all]
+            [jetcan.db.snippet :as snippet]
             [cheshire.core :refer [generate-string
                                    parse-string]]))
 

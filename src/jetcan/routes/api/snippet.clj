@@ -1,17 +1,17 @@
-(ns radsticks.routes.api.snippet
+(ns jetcan.routes.api.snippet
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [radsticks.db.user :as user]
-            [radsticks.db.log :as log]
-            [radsticks.db.snippet :as snippet]
+            [jetcan.db.user :as user]
+            [jetcan.db.log :as log]
+            [jetcan.db.snippet :as snippet]
             [clj-time.core :as time]
             [clj-time.coerce :refer [from-sql-time to-string]]
             [cheshire.core :as json]
-            [radsticks.routes.api.core :refer [get-current-user
+            [jetcan.routes.api.core :refer [get-current-user
                                                is-authenticated?]]
-            [radsticks.validation :refer [snippet-errors
+            [jetcan.validation :refer [snippet-errors
                                           snippet-creation-errors]]
-            [radsticks.util :refer [ensure-json
+            [jetcan.util :refer [ensure-json
                                     json-coerce]]))
 
 

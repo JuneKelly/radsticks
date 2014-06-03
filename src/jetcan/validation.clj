@@ -1,4 +1,4 @@
-(ns radsticks.validation
+(ns jetcan.validation
   (:require [validateur.validation :refer :all]))
 
 

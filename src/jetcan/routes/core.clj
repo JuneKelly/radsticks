@@ -1,11 +1,11 @@
-(ns radsticks.routes.core
+(ns jetcan.routes.core
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [radsticks.auth :as auth]
-            [radsticks.routes.home :refer [home-page]]
-            [radsticks.routes.api.snippet :refer [snippet]]
-            [radsticks.routes.api.auth :refer [authentication]]
-            [radsticks.routes.api.user :refer [user-create
+            [jetcan.auth :as auth]
+            [jetcan.routes.home :refer [home-page]]
+            [jetcan.routes.api.snippet :refer [snippet]]
+            [jetcan.routes.api.auth :refer [authentication]]
+            [jetcan.routes.api.user :refer [user-create
                                                user-read
                                                user-update]]))
 

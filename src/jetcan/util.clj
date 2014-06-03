@@ -1,4 +1,4 @@
-(ns radsticks.util
+(ns jetcan.util
   (:require [noir.io :as io]
             [clj-time.core :as time]
             [crypto.random :refer [hex url-part]]

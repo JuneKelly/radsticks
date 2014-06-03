@@ -1,14 +1,14 @@
-(ns radsticks.routes.api.user
+(ns jetcan.routes.api.user
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [radsticks.db.user :as user]
-            [radsticks.db.log :as log]
+            [jetcan.db.user :as user]
+            [jetcan.db.log :as log]
             [noir.validation :as v]
             [cheshire.core :as json]
-            [radsticks.routes.api.core :refer [get-current-user]]
-            [radsticks.validation :refer [user-creation-errors
+            [jetcan.routes.api.core :refer [get-current-user]]
+            [jetcan.validation :refer [user-creation-errors
                                           user-update-errors]]
-            [radsticks.util :refer [ensure-json]]))
+            [jetcan.util :refer [ensure-json]]))
 
 
 (defn user-resource-exists?

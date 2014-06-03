@@ -1,11 +1,11 @@
-(ns radsticks.routes.api.auth
+(ns jetcan.routes.api.auth
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
             [noir.validation :as v]
-            [radsticks.auth :as auth]
-            [radsticks.db.log :as log]
-            [radsticks.validation :refer [auth-errors]]
-            [radsticks.util :refer [ensure-json rep-map]]))
+            [jetcan.auth :as auth]
+            [jetcan.db.log :as log]
+            [jetcan.validation :refer [auth-errors]]
+            [jetcan.util :refer [ensure-json rep-map]]))
 
 
 (defresource authentication

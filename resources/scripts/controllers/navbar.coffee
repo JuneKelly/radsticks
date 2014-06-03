@@ -1,4 +1,4 @@
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .controller 'NavbarCtrl', ($scope, Auth) ->
     $scope.Auth = Auth
     $scope.aboutText = 'About'

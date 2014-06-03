@@ -1,4 +1,4 @@
-angular.module('radsticksApp')
+angular.module('jetcanApp')
   .controller 'RegistrationCtrl', ($scope, Auth, Notifications) ->
     $scope.Auth = Auth
 
