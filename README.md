@@ -2,6 +2,8 @@
 
 A snippet-saving app in Clojure, PostgreSQL AngularJS.
 
+# This project has moved to [jetcan-server](https://github.com/ShaneKilkelly/jetcan-server)
+
 
 # Dependencies
 
