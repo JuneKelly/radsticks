@@ -1,9 +1,9 @@
-(ns jetcan.api-auth-spec
-  (:require [jetcan.test-utils :as util]
+(ns jetcan-server.api-auth-spec
+  (:require [jetcan-server.test-utils :as util]
             [speclj.core :refer :all]
             [peridot.core :refer :all]
-            [jetcan.handler :refer :all]
-            [jetcan.db.user :as user]
+            [jetcan-server.handler :refer :all]
+            [jetcan-server.db.user :as user]
             [cheshire.core :refer [generate-string
                                    parse-string]]))
 

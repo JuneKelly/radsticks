@@ -1,14 +1,14 @@
-(ns jetcan.test-utils
-  (:require [jetcan.db.core :refer [db-spec]]
-            [jetcan.db.user :as user]
-            [jetcan.auth :as auth]
-            [jetcan.db.snippet :as snippet]
+(ns jetcan-server.test-utils
+  (:require [jetcan-server.db.core :refer [db-spec]]
+            [jetcan-server.db.user :as user]
+            [jetcan-server.auth :as auth]
+            [jetcan-server.db.snippet :as snippet]
             [yesql.core :refer [defquery]]))
 
 
 (defn load-queries []
   (do
-    (defquery -teardown-db! "jetcan/reset_data.sql")))
+    (defquery -teardown-db! "jetcan_server/reset_data.sql")))
 (load-queries)
 
 

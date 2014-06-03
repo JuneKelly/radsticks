@@ -1,8 +1,8 @@
-(defproject jetcan "0.1.1"
+(defproject jetcan-server "0.1.1"
   :description
   "A toy app to demonstrate token based auth with clojure and angularjs"
 
-  :url "http://github.com/ShaneKilkelly/jetcan"
+  :url "http://github.com/ShaneKilkelly/jetcan-server"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [lib-noir "0.8.2"]
@@ -26,16 +26,16 @@
                  [environ "0.5.0"]]
 
   :aot :all
-  :repl-options {:init-ns jetcan.repl}
+  :repl-options {:init-ns jetcan-server.repl}
 
   :plugins [[lein-ring "0.8.7"]
             [lein-environ "0.5.0"]
             [migratus-lein "0.1.0"]
             [speclj "2.8.0"]]
 
-  :ring {:handler jetcan.handler/app
-         :init    jetcan.handler/init
-         :destroy jetcan.handler/destroy}
+  :ring {:handler jetcan-server.handler/app
+         :init    jetcan-server.handler/init
+         :destroy jetcan-server.handler/destroy}
 
   :profiles
   {:production

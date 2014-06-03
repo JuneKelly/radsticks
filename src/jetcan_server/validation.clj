@@ -1,4 +1,4 @@
-(ns jetcan.validation
+(ns jetcan-server.validation
   (:require [validateur.validation :refer :all]))
 
 

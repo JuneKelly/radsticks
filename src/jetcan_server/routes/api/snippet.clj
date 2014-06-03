@@ -1,17 +1,17 @@
-(ns jetcan.routes.api.snippet
+(ns jetcan-server.routes.api.snippet
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [jetcan.db.user :as user]
-            [jetcan.db.log :as log]
-            [jetcan.db.snippet :as snippet]
+            [jetcan-server.db.user :as user]
+            [jetcan-server.db.log :as log]
+            [jetcan-server.db.snippet :as snippet]
             [clj-time.core :as time]
             [clj-time.coerce :refer [from-sql-time to-string]]
             [cheshire.core :as json]
-            [jetcan.routes.api.core :refer [get-current-user
+            [jetcan-server.routes.api.core :refer [get-current-user
                                                is-authenticated?]]
-            [jetcan.validation :refer [snippet-errors
+            [jetcan-server.validation :refer [snippet-errors
                                           snippet-creation-errors]]
-            [jetcan.util :refer [ensure-json
+            [jetcan-server.util :refer [ensure-json
                                     json-coerce]]))
 
 

@@ -1,7 +1,7 @@
-(ns jetcan.routes.api.core
+(ns jetcan-server.routes.api.core
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [jetcan.auth :as auth]))
+            [jetcan-server.auth :as auth]))
 
 
 (defn get-current-user

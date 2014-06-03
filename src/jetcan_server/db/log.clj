@@ -1,6 +1,6 @@
-(ns jetcan.db.log
-  (:require [jetcan.util :as util]
-            [jetcan.db.core :refer [db-spec]]
+(ns jetcan-server.db.log
+  (:require [jetcan-server.util :as util]
+            [jetcan-server.db.core :refer [db-spec]]
             [yesql.core :refer [defqueries]]
             [cheshire.core :refer [generate-string]]
             [clj-time.coerce :refer [to-sql-time]]))

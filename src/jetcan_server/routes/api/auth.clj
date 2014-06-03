@@ -1,11 +1,11 @@
-(ns jetcan.routes.api.auth
+(ns jetcan-server.routes.api.auth
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
             [noir.validation :as v]
-            [jetcan.auth :as auth]
-            [jetcan.db.log :as log]
-            [jetcan.validation :refer [auth-errors]]
-            [jetcan.util :refer [ensure-json rep-map]]))
+            [jetcan-server.auth :as auth]
+            [jetcan-server.db.log :as log]
+            [jetcan-server.validation :refer [auth-errors]]
+            [jetcan-server.util :refer [ensure-json rep-map]]))
 
 
 (defresource authentication

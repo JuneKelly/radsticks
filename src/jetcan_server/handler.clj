@@ -1,6 +1,6 @@
-(ns jetcan.handler
+(ns jetcan-server.handler
   (:require [compojure.core :refer [defroutes]]
-            [jetcan.routes.core  :refer [api-routes home-routes]]
+            [jetcan-server.routes.core  :refer [api-routes home-routes]]
             [noir.util.middleware :as middleware]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
@@ -30,17 +30,17 @@
 
   (timbre/set-config!
     [:shared-appender-config :rotor]
-    {:path "jetcan.log" :max-size (* 512 1024) :backlog 10})
+    {:path "jetcan-server.log" :max-size (* 512 1024) :backlog 10})
 
   (if (env :selmer-dev) (parser/cache-off!))
-  (timbre/info "jetcan started successfully"))
+  (timbre/info "jetcan-server started successfully"))
 
 
 (defn destroy
   "destroy will be called when your application
    shuts down, put any clean up code here"
   []
-  (timbre/info "jetcan is shutting down..."))
+  (timbre/info "jetcan-server is shutting down..."))
 
 
 (defn template-error-page [handler]

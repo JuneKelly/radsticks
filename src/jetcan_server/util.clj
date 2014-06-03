@@ -1,4 +1,4 @@
-(ns jetcan.util
+(ns jetcan-server.util
   (:require [noir.io :as io]
             [clj-time.core :as time]
             [crypto.random :refer [hex url-part]]

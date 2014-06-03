@@ -1,7 +1,7 @@
-(ns jetcan.db.snippet
-  (:require [jetcan.util :as util]
-            [jetcan.db.core :refer [db-spec]]
-            [jetcan.db.user :as user]
+(ns jetcan-server.db.snippet
+  (:require [jetcan-server.util :as util]
+            [jetcan-server.db.core :refer [db-spec]]
+            [jetcan-server.db.user :as user]
             [yesql.core :refer [defqueries]]
             [clj-time.coerce :refer [to-sql-time]]
             [clojure.java.jdbc :as jdbc]))

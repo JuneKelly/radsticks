@@ -1,10 +1,10 @@
-(ns jetcan.api-snippet-spec
-  (:require [jetcan.test-utils :as util]
-            [jetcan.auth :as auth]
+(ns jetcan-server.api-snippet-spec
+  (:require [jetcan-server.test-utils :as util]
+            [jetcan-server.auth :as auth]
             [speclj.core :refer :all]
             [peridot.core :refer :all]
-            [jetcan.handler :refer :all]
-            [jetcan.db.snippet :as snippet]
+            [jetcan-server.handler :refer :all]
+            [jetcan-server.db.snippet :as snippet]
             [cheshire.core :refer [generate-string
                                    parse-string]]))
 

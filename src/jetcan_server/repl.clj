@@ -1,5 +1,5 @@
-(ns jetcan.repl
-  (:use jetcan.handler
+(ns jetcan-server.repl
+  (:use jetcan-server.handler
         ring.server.standalone
         [ring.middleware file-info file]))
 

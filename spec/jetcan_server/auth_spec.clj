@@ -1,6 +1,6 @@
-(ns jetcan.auth-spec
-  (:require [jetcan.auth :as auth]
-            [jetcan.test-utils :as util]
+(ns jetcan-server.auth-spec
+  (:require [jetcan-server.auth :as auth]
+            [jetcan-server.test-utils :as util]
             [speclj.core :refer :all]
             [clj-time.core :as ti]
             [clj-time.coerce :as tc]))

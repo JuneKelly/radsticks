@@ -1,11 +1,11 @@
-(ns jetcan.routes.core
+(ns jetcan-server.routes.core
   (:use compojure.core)
   (:require [liberator.core :refer [defresource]]
-            [jetcan.auth :as auth]
-            [jetcan.routes.home :refer [home-page]]
-            [jetcan.routes.api.snippet :refer [snippet]]
-            [jetcan.routes.api.auth :refer [authentication]]
-            [jetcan.routes.api.user :refer [user-create
+            [jetcan-server.auth :as auth]
+            [jetcan-server.routes.home :refer [home-page]]
+            [jetcan-server.routes.api.snippet :refer [snippet]]
+            [jetcan-server.routes.api.auth :refer [authentication]]
+            [jetcan-server.routes.api.user :refer [user-create
                                                user-read
                                                user-update]]))
 

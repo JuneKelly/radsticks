@@ -1,5 +1,5 @@
-(ns jetcan.db.core
-  (:require [jetcan.util :as util]
+(ns jetcan-server.db.core
+  (:require [jetcan-server.util :as util]
             [noir.util.crypt :as crypt]
             [yesql.core :refer [defqueries]]
             [cheshire.core :refer [generate-string]]

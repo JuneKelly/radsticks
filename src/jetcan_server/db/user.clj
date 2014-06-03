@@ -1,7 +1,7 @@
-(ns jetcan.db.user
-  (:require [jetcan.util :as util]
+(ns jetcan-server.db.user
+  (:require [jetcan-server.util :as util]
             [noir.util.crypt :as crypt]
-            [jetcan.db.core :refer [db-spec]]
+            [jetcan-server.db.core :refer [db-spec]]
             [yesql.core :refer [defqueries]]
             [clj-time.coerce :refer [to-sql-time]]))
 

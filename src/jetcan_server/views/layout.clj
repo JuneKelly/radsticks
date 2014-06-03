@@ -1,10 +1,10 @@
-(ns jetcan.views.layout
+(ns jetcan-server.views.layout
   (:require [selmer.parser :as parser]
             [clojure.string :as s]
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]))
 
-(def template-path "jetcan/views/templates/")
+(def template-path "jetcan_server/views/templates/")
 
 (deftype RenderableTemplate [template params]
   Renderable

@@ -1,5 +1,5 @@
-(ns jetcan.auth
-  (require [jetcan.db.user :as user]
+(ns jetcan-server.auth
+  (require [jetcan-server.db.user :as user]
            [environ.core  :refer [env]]
            [noir.util.crypt :as crypt]
            [clj-jwt.core  :refer :all]
